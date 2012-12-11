@@ -78,3 +78,4 @@ Run `clever -h` to see a full list of commands.
 ## Feedback
 
 Questions, feature requests, or feedback of any kind is always welcome! We're available at [support@getclever.com](mailto:support@getclever.com).
+
