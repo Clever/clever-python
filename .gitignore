@@ -1,1 +1,4 @@
 *~
+*.pyc
+clever.egg-info
+dist
