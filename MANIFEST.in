@@ -1,0 +1,1 @@
+include *.txt VERSION clever/data/ca-certificates.crt

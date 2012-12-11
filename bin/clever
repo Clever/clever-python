@@ -1,0 +1,211 @@
+#!/usr/bin/env python
+import logging
+import optparse
+import os
+import re
+import subprocess
+import sys
+import base64
+
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
+import clever
+
+logger = logging.getLogger('')
+logger.addHandler(logging.StreamHandler(sys.stderr))
+logger.setLevel(logging.INFO)
+
+class APIResourceClient(object):
+  def __init__(self, id=None):
+    self.id = id
+
+  def to_dict(self, params):
+    dict = {}
+    for k, v in params:
+      dict[k] = v
+    return dict
+
+  def logged_curl(self, method, url, params):
+    dict_params = self.to_dict(params)
+    self.log_request(method, url, params, dict_params)
+    rbody, rcode, _ = clever.APIRequestor().request_raw(method, url, dict_params)
+    self.log_result(rbody, rcode)
+    return rbody, rcode
+
+  def log_request(self, method, url, ordered_params, dict_params):
+    if method.lower() == 'get':
+      requestor = clever.APIRequestor()
+      if dict_params:
+        url = '%s?%s' % (url, clever.APIRequestor().encode(dict_params))
+      ordered_params = []
+    elif not ordered_params:
+      ordered_params = '  -X %s' % (method.upper(), )
+
+    logger.info('Running the equivalent of:')
+    logger.info('--')
+    if len(ordered_params):
+      term = ' \\'
+    else:
+      term = ''
+    curl = ['curl %s%s -H "Authorization: Basic %s"%s' % (clever.api_base, url, base64.b64encode(clever.api_key), term)]
+    if isinstance(ordered_params, list):
+      for i, (k, v) in enumerate(ordered_params):
+        if i == len(ordered_params) - 1:
+          term = ''
+        else:
+          term = ' \\'
+        curl.append('  -d %s=%s%s' % (k, v, term))
+    else:
+      curl.append(ordered_params)
+    logger.info('\n'.join(curl))
+    logger.info('--')
+
+  def log_result(self, rbody, rcode):
+    logger.info('Result (HTTP status code %d):' % (rcode, ))
+    logger.info('--')
+    logger.info(rbody.rstrip())
+    logger.info('--')
+
+  def class_url(self):
+    return self.client_for.class_url()
+
+  def instance_url(self):
+    if not self.id:
+      raise ValueError('ID required.  (HINT: provide the script a -i ID)')
+    return self.client_for(self.id).instance_url()
+
+  def retrieve(self, params):
+    url = self.instance_url()
+    self.logged_curl('get', url, [])
+
+class ListableAPIResourceClient(APIResourceClient):
+  def all(self, params):
+    url = self.class_url()
+    self.logged_curl('get', url, params)
+
+class CreateableAPIResourceClient(APIResourceClient):
+  def create(self, params):
+    url = self.class_url()
+    self.logged_curl('post', url, params)
+
+class UpdateableAPIResourceClient(APIResourceClient):
+  def update(self, params):
+    url = self.instance_url()
+    self.logged_curl('put', url, params)
+
+class DeletableAPIResourceClient(APIResourceClient):
+  def delete(self, params):
+    url = self.instance_url()
+    self.logged_curl('delete', url, params)
+
+# API objects
+class DistrictClient(ListableAPIResourceClient):
+  client_for = clever.District
+
+class SchoolClient(ListableAPIResourceClient):
+  client_for = clever.School
+
+class SectionClient(ListableAPIResourceClient):
+  client_for = clever.Section
+
+class StudentClient(ListableAPIResourceClient):
+  client_for = clever.Student
+
+class TeacherClient(ListableAPIResourceClient):
+  client_for = clever.Teacher
+
+class EventClient(ListableAPIResourceClient):
+  client_for = clever.Event
+
+def main():
+  klasses = {
+    'district' : DistrictClient,
+    'school' : SchoolClient,
+    'section' : SectionClient,
+    'student' : StudentClient,
+    'teacher' : TeacherClient,
+    'event' : EventClient
+  }
+  klasses_plural = { '{0}s'.format(key) : value for key, value in klasses.iteritems() }
+  klasses = dict(klasses.items() + klasses_plural.items())
+  parser = optparse.OptionParser("""%prog [options] class method [key=value|key ...]
+
+Valid methods:
+
+district
+  all
+  retrieve
+
+school
+  all
+  retrieve
+
+section
+  all
+  retrieve
+
+student
+  all
+  retrieve
+
+teacher
+  all
+  retrieve
+
+event
+  all
+  retrieve""")
+  parser.add_option('-v', '--verbosity', help='Verbosity of debugging output.',
+                    dest='verbosity', action='count', default=0)
+  parser.add_option('-k', '--api-key', help="API key.  Defaults to value of environment variable CLEVER_API_KEY", dest='api_key')
+  parser.add_option('-b', '--api-base', help='API base URL', dest='api_base')
+  parser.add_option('-i', '--id', help="Object ID", dest='id')
+  opts, args = parser.parse_args()
+  if opts.verbosity == 1:
+    logger.setLevel(logging.INFO)
+  elif opts.verbosity >= 2:
+    logger.setLevel(logging.DEBUG)
+  if len(args) < 2:
+    parser.print_help()
+    return 1
+
+  klass_name = args[0]
+  method_name = args[1]
+
+  clever.api_key = opts.api_key or os.environ.get('CLEVER_API_KEY')
+  if not clever.api_key:
+    parser.error('No API key provided (use -k option or set the CLEVER_API_KEY environment variable')
+    return 1
+
+  if opts.api_base:
+    clever.api_base = opts.api_base
+
+  params = []
+  for arg in args[2:]:
+    try:
+      key = arg[:arg.index('=')]
+      value = arg[arg.index('=') + 1:]
+    except ValueError:
+      key = arg
+      value = None
+    if not value:
+      value = raw_input('%s= ' % (key, ))
+    params.append([key, value])
+
+  try:
+    klass = klasses[klass_name]
+  except KeyError:
+    parser.error('Invalid class %s' % (klass_name, ))
+    return 1
+  else:
+    dispatch = klass(opts.id)
+
+  try:
+    method = getattr(dispatch, method_name)
+  except AttributeError:
+    parser.error('Invalid method %s of %s' % (method_name, klass_name))
+    return 1
+
+  return method(params)
+
+if __name__ == '__main__':
+  sys.exit(main())
