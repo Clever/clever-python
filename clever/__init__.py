@@ -48,7 +48,7 @@ if not _httplib:
     # Probably some new-fangled version, so it should support verify
     pass
   else:
-    if minor < 8 or (minor == 8 and patch < 8):
+    if major == 0 and (minor < 8 or (minor == 8 and patch < 8)):
       print >>sys.stderr, 'Warning: the Clever library requires that your Python "requests" library has a version no older than 0.8.8, but your "requests" library has version %s. Clever will fall back to an alternate HTTP library, so everything should work, though we recommend upgrading your "requests" library. If you have any questions, please contact support@getclever.com. (HINT: running "pip install -U requests" should upgrade your requests library to the latest version.)' % (version, )
       _httplib = None
 
