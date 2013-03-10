@@ -418,6 +418,14 @@ class APIRequestor(object):
 class CleverObject(object):
   _permanent_attributes = set(['api_key'])
 
+  # Adding these to enable pickling
+  # http://docs.python.org/2/library/pickle.html#pickling-and-unpickling-normal-class-instances
+  def __getstate__(self): 
+    return self.__dict__
+
+  def __setstate__(self, d):
+    self.__dict__.update(d)
+
   def __init__(self, id=None, api_key=None):
     self.__dict__['_values'] = set()
     self.__dict__['_unsaved_values'] = set()
