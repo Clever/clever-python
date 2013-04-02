@@ -228,7 +228,7 @@ class APIRequestor(object):
       rbody, rcode = self.urllib2_request(meth, abs_url, headers, params)
     else:
       raise CleverError("Clever Python library bug discovered: invalid httplib %s.  Please report to support@getclever.com" % (_httplib, ))
-    logger.info('API request to %s returned (response code, response body) of (%d, %r)' % (abs_url, rcode, rbody))
+    logger.debug('API request to %s returned (response code, response body) of (%d, %r)' % (abs_url, rcode, rbody))
     return rbody, rcode, my_api_key
 
   def interpret_response(self, rbody, rcode):
