@@ -110,7 +110,7 @@ def convert_to_clever_object(klass, resp, api_key):
       return [convert_to_clever_object(klass, i, api_key) for i in resp['data']]
     elif isinstance(resp['data'], dict):
       return klass.construct_from(resp['data'].copy(), api_key)
-  elif isinstance(resp, basestring) or isinstance(resp, list) or isinstance(resp, dict):
+  elif isinstance(resp, basestring) or isinstance(resp, list) or isinstance(resp, dict) or isinstance(resp, bool):
     return resp
   else:
     raise Exception('DONT KNOW WHAT TO DO WITH {0}'.format(resp))
