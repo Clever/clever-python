@@ -129,7 +129,7 @@ def put(d, keys, item):
 ## Network transport
 class APIRequestor(object):
   def __init__(self, key=None):
-    self.api_key = key
+    self._api_key = key
 
   @classmethod
   def api_url(cls, path=''):
@@ -191,7 +191,7 @@ class APIRequestor(object):
     """
     Mechanism for issuing an API call
     """
-    my_api_key = self.api_key or api_key
+    my_api_key = self._api_key or api_key
     if my_api_key is None:
       raise AuthenticationError('No API key provided. (HINT: set your API key using "clever.api_key = <API-KEY>"). You can generate API keys from the Clever web interface.  See https://getclever.com/api for details, or email support@getclever.com if you have any questions.')
 
@@ -416,7 +416,7 @@ class APIRequestor(object):
 
 
 class CleverObject(object):
-  _permanent_attributes = set(['api_key'])
+  _permanent_attributes = set(['_api_key'])
 
   # Adding these to enable pickling
   # http://docs.python.org/2/library/pickle.html#pickling-and-unpickling-normal-class-instances
@@ -430,7 +430,7 @@ class CleverObject(object):
     self.__dict__['_values'] = set()
     self.__dict__['_unsaved_values'] = set()
     self.__dict__['_transient_values'] = set()
-    self.__dict__['api_key'] = api_key
+    self.__dict__['_api_key'] = api_key
 
     if id:
       self.id = id
@@ -503,7 +503,7 @@ class CleverObject(object):
     return instance
 
   def refresh_from(self, values, api_key, partial=False):
-    self.api_key = api_key
+    self._api_key = api_key
 
     # Wipe old state before setting new.  This is useful for e.g. updating a
     # customer, where there is no persistent card parameter.  Mark those values
@@ -578,7 +578,7 @@ class APIResource(CleverObject):
     return instance
 
   def refresh(self):
-    requestor = APIRequestor(self.api_key)
+    requestor = APIRequestor(self._api_key)
     url = self.instance_url()
     response, api_key = requestor.request('get', url)
     self.refresh_from(response['data'], api_key)
@@ -624,7 +624,7 @@ class CreatableAPIResource(APIResource):
 class UpdateableAPIResource(APIResource):
   def save(self):
     if self._unsaved_values:
-      requestor = APIRequestor(self.api_key)
+      requestor = APIRequestor(self._api_key)
       params = {}
       for k in self._unsaved_values:
         params[k] = getattr(self, k)
@@ -637,7 +637,7 @@ class UpdateableAPIResource(APIResource):
 
 class DeletableAPIResource(APIResource):
   def delete(self, **params):
-    requestor = APIRequestor(self.api_key)
+    requestor = APIRequestor(self._api_key)
     url = self.instance_url()
     response, api_key = requestor.request('delete', url, params)
     self.refresh_from(response['data'], api_key)
