@@ -117,7 +117,6 @@ def convert_to_clever_object(klass, resp, api_key):
 
 # makes it easier to update a nested key in a dict
 def put(d, keys, item):
-  print 'put', keys, item, d
   if "." in keys:
     key, rest = keys.split(".", 1)
     if key not in d:
@@ -249,7 +248,6 @@ class APIRequestor(object):
     elif meth == 'post' or meth == 'put':
       data = self.jsonencode(params)
       headers['Content-Type'] = 'application/json'
-      print data
     else:
       raise APIConnectionError('Unrecognized HTTP method %r.  This may indicate a bug in the Clever bindings.  Please contact support@getclever.com for assistance.' % (meth, ))
 
@@ -388,8 +386,10 @@ class APIRequestor(object):
       req = urllib2.Request(abs_url, None, headers)
     elif meth == 'post' or meth == 'put':
       body = self.jsonencode(params)
-      req = urllib2.Request(abs_url, body, headers)
       headers['Content-Type'] = 'application/json'
+      req = urllib2.Request(abs_url, body, headers)
+      if meth == 'put':
+        req.get_method = lambda: 'PUT'
     elif meth == 'delete':
       req = urllib2.Request(abs_url, None, headers)
       req.get_method = lambda: 'DELETE'
