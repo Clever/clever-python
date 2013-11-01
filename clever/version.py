@@ -1,1 +1,2 @@
-VERSION = '0.0.5'
+version_file = open('VERSION')
+VERSION = version_file.readline().strip()
