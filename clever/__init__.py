@@ -215,7 +215,7 @@ class APIRequestor(object):
     headers = {
       'X-Clever-Client-User-Agent' : json.dumps(ua),
       'User-Agent' : 'Clever/v1.1 PythonBindings/%s' % (VERSION, ),
-      'Authorization' : 'Basic %s' % (base64.b64encode(my_api_key), )
+      'Authorization' : 'Basic %s:' % (base64.b64encode(my_api_key), )
       }
     if _httplib == 'requests':
       rbody, rcode = self.requests_request(meth, abs_url, headers, params)
