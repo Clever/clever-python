@@ -28,7 +28,9 @@ To get started, add the following to your Python script:
 
 ```python
     import clever
-    clever.api_key = 'YOUR_API_KEY'
+    clever.set_api_key('YOUR_API_KEY')
+    # or if you're using token auth
+    # clever.set_token('OAUTH_TOKEN')
 ```
 
 The `clever` module exposes classes corresponding to resources:

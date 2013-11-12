@@ -78,9 +78,25 @@ logger = logging.getLogger('clever')
 
 ## Configuration variables
 
-api_key = None
+global_auth = dict()
 api_base = 'https://api.getclever.com'
 verify_ssl_certs = True
+
+def set_token(token):
+  global global_auth
+  global_auth = {'token': token}
+
+def get_token():
+  global global_auth
+  return global_auth.get('token', None)
+
+def set_api_key(api_key):
+  global global_auth
+  global_auth = {'api_key': api_key}
+
+def get_api_key():
+  global global_auth
+  return global_auth.get('api_key', None)
 
 ## Exceptions
 class CleverError(Exception):
@@ -103,13 +119,13 @@ class InvalidRequestError(CleverError):
 class AuthenticationError(CleverError):
   pass
 
-def convert_to_clever_object(klass, resp, api_key):
+def convert_to_clever_object(klass, resp, auth):
   # TODO: to support includes we'll have to infer klass from resp['uri']
   if isinstance(resp, dict) and resp.get('data', None):
     if isinstance(resp['data'], list):
-      return [convert_to_clever_object(klass, i, api_key) for i in resp['data']]
+      return [convert_to_clever_object(klass, i, auth) for i in resp['data']]
     elif isinstance(resp['data'], dict):
-      return klass.construct_from(resp['data'].copy(), api_key)
+      return klass.construct_from(resp['data'].copy(), auth)
   elif isinstance(resp, basestring) or isinstance(resp, list) or isinstance(resp, dict) or isinstance(resp, bool):
     return resp
   else:
@@ -127,8 +143,8 @@ def put(d, keys, item):
 
 ## Network transport
 class APIRequestor(object):
-  def __init__(self, key=None):
-    self._api_key = key
+  def __init__(self, auth=None):
+    self._auth = auth
 
   @classmethod
   def api_url(cls, path=''):
@@ -169,9 +185,9 @@ class APIRequestor(object):
     return json.dumps(d)
 
   def request(self, meth, url, params={}):
-    rbody, rcode, my_api_key = self.request_raw(meth, url, params)
+    rbody, rcode, my_auth = self.request_raw(meth, url, params)
     resp = self.interpret_response(rbody, rcode)
-    return resp, my_api_key
+    return resp, my_auth
 
   def handle_api_error(self, rbody, rcode, resp):
     try:
@@ -190,9 +206,11 @@ class APIRequestor(object):
     """
     Mechanism for issuing an API call
     """
-    my_api_key = self._api_key or api_key
-    if my_api_key is None:
-      raise AuthenticationError('No API key provided. (HINT: set your API key using "clever.api_key = <API-KEY>"). You can generate API keys from the Clever web interface.  See https://getclever.com/api for details, or email support@getclever.com if you have any questions.')
+    my_auth = self._auth or global_auth
+    if my_auth is None:
+      raise AuthenticationError('No authentication method provided. (HINT: "clever.api_key = <API-KEY>" is deprecated. Set your API key using "clever.set_api_key(<API-KEY>)" or "clever.set_token(<OAUTH-TOKEN>)". You can generate API keys from the Clever web interface.  See https://getclever.com/developers/docs for details, or email support@getclever.com if you have any questions.')
+    if my_auth.get('token') is None and my_auth.get('api_key') is None:
+      raise AuthenticationError('Must provide either api_key or token auth. {}'.format(my_auth))
 
     abs_url = self.api_url(url)
     params = params.copy()
@@ -214,9 +232,12 @@ class APIRequestor(object):
 
     headers = {
       'X-Clever-Client-User-Agent' : json.dumps(ua),
-      'User-Agent' : 'Clever/v1.1 PythonBindings/%s' % (VERSION, ),
-      'Authorization' : 'Basic %s:' % (base64.b64encode(my_api_key), )
-      }
+      'User-Agent' : 'Clever/v1.1 PythonBindings/%s' % (VERSION, )
+    }
+    if my_auth.get('api_key', None) != None:
+      headers['Authorization'] = 'Basic {}'.format(base64.b64encode(my_auth['api_key'] + ':'))
+    elif my_auth.get('token', None) != None:
+      headers['Authorization'] = 'Bearer {}'.format(my_auth['token'])
     if _httplib == 'requests':
       rbody, rcode = self.requests_request(meth, abs_url, headers, params)
     elif _httplib == 'pycurl':
@@ -228,7 +249,7 @@ class APIRequestor(object):
     else:
       raise CleverError("Clever Python library bug discovered: invalid httplib %s.  Please report to support@getclever.com" % (_httplib, ))
     logger.debug('API request to %s returned (response code, response body) of (%d, %r)' % (abs_url, rcode, rbody))
-    return rbody, rcode, my_api_key
+    return rbody, rcode, my_auth
 
   def interpret_response(self, rbody, rcode):
     try:
@@ -416,7 +437,7 @@ class APIRequestor(object):
 
 
 class CleverObject(object):
-  _permanent_attributes = set(['_api_key'])
+  _permanent_attributes = set(['_auth'])
 
   # Adding these to enable pickling
   # http://docs.python.org/2/library/pickle.html#pickling-and-unpickling-normal-class-instances
@@ -426,11 +447,11 @@ class CleverObject(object):
   def __setstate__(self, d):
     self.__dict__.update(d)
 
-  def __init__(self, id=None, api_key=None):
+  def __init__(self, id=None, auth=None):
     self.__dict__['_values'] = set()
     self.__dict__['_unsaved_values'] = set()
     self.__dict__['_transient_values'] = set()
-    self.__dict__['_api_key'] = api_key
+    self.__dict__['_auth'] = auth
 
     if id:
       self.id = id
@@ -497,13 +518,13 @@ class CleverObject(object):
     return self._values.keys()
 
   @classmethod
-  def construct_from(cls, values, api_key):
-    instance = cls(values.get('id'), api_key)
-    instance.refresh_from(values, api_key)
+  def construct_from(cls, values, auth):
+    instance = cls(values.get('id'), auth)
+    instance.refresh_from(values, auth)
     return instance
 
-  def refresh_from(self, values, api_key, partial=False):
-    self._api_key = api_key
+  def refresh_from(self, values, auth, partial=False):
+    self._auth = auth
 
     # Wipe old state before setting new.  This is useful for e.g. updating a
     # customer, where there is no persistent card parameter.  Mark those values
@@ -528,7 +549,7 @@ class CleverObject(object):
     for k, v in values.iteritems():
       if k in self._permanent_attributes:
         continue
-      self.__dict__[k] = convert_to_clever_object(self, v, api_key)
+      self.__dict__[k] = convert_to_clever_object(self, v, auth)
       self._values.add(k)
       self._transient_values.discard(k)
       self._unsaved_values.discard(k)
@@ -572,16 +593,16 @@ class APIResource(CleverObject):
     return [self.get('id')]
 
   @classmethod
-  def retrieve(cls, id, api_key=None):
-    instance = cls(id, api_key)
+  def retrieve(cls, id, auth=None):
+    instance = cls(id, auth)
     instance.refresh()
     return instance
 
   def refresh(self):
-    requestor = APIRequestor(self._api_key)
+    requestor = APIRequestor(self._auth)
     url = self.instance_url()
-    response, api_key = requestor.request('get', url)
-    self.refresh_from(response['data'], api_key)
+    response, auth = requestor.request('get', url)
+    self.refresh_from(response['data'], auth)
     return self
 
   @classmethod
@@ -607,40 +628,40 @@ class APIResource(CleverObject):
 # Classes of API operations
 class ListableAPIResource(APIResource):
   @classmethod
-  def all(cls, api_key=None, **params):
-    requestor = APIRequestor(api_key)
+  def all(cls, auth=None, **params):
+    requestor = APIRequestor(auth)
     url = cls.class_url()
-    response, api_key = requestor.request('get', url, params)
-    return convert_to_clever_object(cls, response, api_key)
+    response, auth = requestor.request('get', url, params)
+    return convert_to_clever_object(cls, response, auth)
 
 class CreatableAPIResource(APIResource):
   @classmethod
-  def create(cls, api_key=None, **params):
-    requestor = APIRequestor(api_key)
+  def create(cls, auth=None, **params):
+    requestor = APIRequestor(auth)
     url = cls.class_url()
-    response, api_key = requestor.request('post', url, params)
-    return convert_to_clever_object(self, response, api_key)
+    response, auth = requestor.request('post', url, params)
+    return convert_to_clever_object(self, response, auth)
 
 class UpdateableAPIResource(APIResource):
   def save(self):
     if self._unsaved_values:
-      requestor = APIRequestor(self._api_key)
+      requestor = APIRequestor(self._auth)
       params = {}
       for k in self._unsaved_values:
         params[k] = getattr(self, k)
       url = self.instance_url()
-      response, api_key = requestor.request('put', url, params)
-      self.refresh_from(response['data'], api_key)
+      response, auth = requestor.request('put', url, params)
+      self.refresh_from(response['data'], auth)
     else:
       logger.debug("Trying to save already saved object %r" % (self, ))
     return self
 
 class DeletableAPIResource(APIResource):
   def delete(self, **params):
-    requestor = APIRequestor(self._api_key)
+    requestor = APIRequestor(self._auth)
     url = self.instance_url()
-    response, api_key = requestor.request('delete', url, params)
-    self.refresh_from(response['data'], api_key)
+    response, auth = requestor.request('delete', url, params)
+    self.refresh_from(response['data'], auth)
     return self
 
 # API objects
