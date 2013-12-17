@@ -245,7 +245,7 @@ class APIRequestor(object):
       if params:
           abs_url = '%s?%s' % (abs_url, self.urlencode(params))
       data = None
-    elif meth == 'post' or meth == 'put':
+    elif meth in ['post', 'put', 'patch']:
       data = self.jsonencode(params)
       headers['Content-Type'] = 'application/json'
     else:
@@ -294,7 +294,7 @@ class APIRequestor(object):
       # TODO: maybe be a bit less manual here
       if params:
         abs_url = '%s?%s' % (abs_url, self.urlencode(params))
-    elif meth == 'post' or meth == 'put':
+    elif meth in ['post', 'put', 'patch']:
       curl.setopt(pycurl.POST, 1)
       curl.setopt(pycurl.POSTFIELDS, self.jsonencode(params))
       headers['Content-Type'] = 'application/json'
@@ -342,7 +342,7 @@ class APIRequestor(object):
     args = {}
     if meth == 'get':
       abs_url = '%s?%s' % (abs_url, self.urlencode(params))
-    elif meth == 'post' or meth == 'put':
+    elif meth in ['post', 'put', 'patch']:
       args['payload'] = self.jsonencode(params)
       headers['Content-Type'] = 'application/json'
     elif meth == 'delete':
@@ -384,12 +384,14 @@ class APIRequestor(object):
     if meth == 'get':
       abs_url = '%s?%s' % (abs_url, self.urlencode(params))
       req = urllib2.Request(abs_url, None, headers)
-    elif meth == 'post' or meth == 'put':
+    elif meth in ['post', 'put', 'patch']:
       body = self.jsonencode(params)
       headers['Content-Type'] = 'application/json'
       req = urllib2.Request(abs_url, body, headers)
       if meth == 'put':
         req.get_method = lambda: 'PUT'
+      if meth == 'patch'
+        req.get_method = lambda: 'PATCH'
     elif meth == 'delete':
       req = urllib2.Request(abs_url, None, headers)
       req.get_method = lambda: 'DELETE'
@@ -629,7 +631,7 @@ class UpdateableAPIResource(APIResource):
       for k in self._unsaved_values:
         params[k] = getattr(self, k)
       url = self.instance_url()
-      response, api_key = requestor.request('put', url, params)
+      response, api_key = requestor.request('patch', url, params)
       self.refresh_from(response['data'], api_key)
     else:
       logger.debug("Trying to save already saved object %r" % (self, ))
