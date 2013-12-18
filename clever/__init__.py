@@ -14,7 +14,6 @@ import time
 import datetime
 import types
 import base64
-import ipdb
 
 # Use cStringIO if ita's available.  Otherwise, StringIO is fine.
 try:
