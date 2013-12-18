@@ -14,6 +14,7 @@ import time
 import datetime
 import types
 import base64
+import ipdb
 
 # Use cStringIO if ita's available.  Otherwise, StringIO is fine.
 try:
@@ -390,7 +391,7 @@ class APIRequestor(object):
       req = urllib2.Request(abs_url, body, headers)
       if meth == 'put':
         req.get_method = lambda: 'PUT'
-      if meth == 'patch'
+      if meth == 'patch':
         req.get_method = lambda: 'PATCH'
     elif meth == 'delete':
       req = urllib2.Request(abs_url, None, headers)
@@ -422,7 +423,7 @@ class CleverObject(object):
 
   # Adding these to enable pickling
   # http://docs.python.org/2/library/pickle.html#pickling-and-unpickling-normal-class-instances
-  def __getstate__(self): 
+  def __getstate__(self):
     return self.__dict__
 
   def __setstate__(self, d):
