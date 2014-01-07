@@ -65,10 +65,10 @@ The library comes with a basic command-line interface:
     $ clever districts all
     Running the equivalent of:
     --
-    curl https://api.getclever.com/v1.1/districts -H "Authorization: Basic REVNT19LRVk="
+    curl https://api.clever.com/v1.1/districts -H "Authorization: Basic REVNT19LRVk="
     --
-    Starting new HTTPS connection (1): api.getclever.com
-    API request to https://api.getclever.com/v1.1/districts returned (response code, response body)     of (200, '{"data":[{"data":{"name":"Demo District","id":"4fd43cc56d11340000000005"},"uri":"/v1.1/districts/4fd43cc56d11340000000005"}],"links":[{"rel":"self","uri":"/v1.1/districts"}]}')
+    Starting new HTTPS connection (1): api.clever.com
+    API request to https://api.clever.com/v1.1/districts returned (response code, response body)     of (200, '{"data":[{"data":{"name":"Demo District","id":"4fd43cc56d11340000000005"},"uri":"/v1.1/districts/4fd43cc56d11340000000005"}],"links":[{"rel":"self","uri":"/v1.1/districts"}]}')
     Result (HTTP status code 200):
     --
     {"data":[{"data":{"name":"Demo District","id":"4fd43cc56d11340000000005"},"uri":"/v1.1/districts/4fd43cc56d11340000000005"}],"links":[{"rel":"self","uri":"/v1.1/districts"}]}
@@ -79,5 +79,5 @@ Run `clever -h` to see a full list of commands.
 
 ## Feedback
 
-Questions, feature requests, or feedback of any kind is always welcome! We're available at [tech-support@getclever.com](mailto:tech-support@getclever.com).
+Questions, feature requests, or feedback of any kind is always welcome! We're available at [tech-support@clever.com](mailto:tech-support@clever.com).
 

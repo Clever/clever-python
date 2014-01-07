@@ -11,7 +11,7 @@ json = importer.import_json()
 class CleverTestCase(unittest.TestCase):
   def setUp(self):
     super(CleverTestCase, self).setUp()
-    clever.api_base = os.environ.get('CLEVER_API_BASE', 'https://api.getclever.com')
+    clever.api_base = os.environ.get('CLEVER_API_BASE', 'https://api.clever.com')
     clever.api_key = 'DEMO_KEY'
 
 class FunctionalTests(CleverTestCase):
