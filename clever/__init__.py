@@ -619,7 +619,7 @@ class CreatableAPIResource(APIResource):
     requestor = APIRequestor(api_key)
     url = cls.class_url()
     response, api_key = requestor.request('post', url, params)
-    return convert_to_clever_object(self, response, api_key)
+    return convert_to_clever_object(cls, response, api_key)
 
 class UpdateableAPIResource(APIResource):
   def save(self):
