@@ -90,7 +90,7 @@ class CreateableAPIResourceClient(APIResourceClient):
 class UpdateableAPIResourceClient(APIResourceClient):
   def update(self, params):
     url = self.instance_url()
-    self.logged_curl('put', url, params)
+    self.logged_curl('patch', url, params)
 
 class DeletableAPIResourceClient(APIResourceClient):
   def delete(self, params):

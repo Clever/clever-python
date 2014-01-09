@@ -164,7 +164,7 @@ class APIRequestor(object):
   @classmethod
   def jsonencode(cls, d):
     """
-    Internal: encode a dict for a post/put body
+    Internal: encode a dict for a post/patch body
     """
     return json.dumps(d)
 
@@ -245,7 +245,7 @@ class APIRequestor(object):
       if params:
           abs_url = '%s?%s' % (abs_url, self.urlencode(params))
       data = None
-    elif meth == 'post' or meth == 'put':
+    elif meth in ['post', 'patch']:
       data = self.jsonencode(params)
       headers['Content-Type'] = 'application/json'
     else:
@@ -294,7 +294,7 @@ class APIRequestor(object):
       # TODO: maybe be a bit less manual here
       if params:
         abs_url = '%s?%s' % (abs_url, self.urlencode(params))
-    elif meth == 'post' or meth == 'put':
+    elif meth in ['post', 'patch']:
       curl.setopt(pycurl.POST, 1)
       curl.setopt(pycurl.POSTFIELDS, self.jsonencode(params))
       headers['Content-Type'] = 'application/json'
@@ -342,7 +342,7 @@ class APIRequestor(object):
     args = {}
     if meth == 'get':
       abs_url = '%s?%s' % (abs_url, self.urlencode(params))
-    elif meth == 'post' or meth == 'put':
+    elif meth in ['post', 'patch']:
       args['payload'] = self.jsonencode(params)
       headers['Content-Type'] = 'application/json'
     elif meth == 'delete':
@@ -384,12 +384,12 @@ class APIRequestor(object):
     if meth == 'get':
       abs_url = '%s?%s' % (abs_url, self.urlencode(params))
       req = urllib2.Request(abs_url, None, headers)
-    elif meth == 'post' or meth == 'put':
+    elif meth in ['post', 'patch']:
       body = self.jsonencode(params)
       headers['Content-Type'] = 'application/json'
       req = urllib2.Request(abs_url, body, headers)
-      if meth == 'put':
-        req.get_method = lambda: 'PUT'
+      if meth == 'patch':
+        req.get_method = lambda: 'PATCH'
     elif meth == 'delete':
       req = urllib2.Request(abs_url, None, headers)
       req.get_method = lambda: 'DELETE'
@@ -420,7 +420,7 @@ class CleverObject(object):
 
   # Adding these to enable pickling
   # http://docs.python.org/2/library/pickle.html#pickling-and-unpickling-normal-class-instances
-  def __getstate__(self): 
+  def __getstate__(self):
     return self.__dict__
 
   def __setstate__(self, d):
@@ -436,10 +436,10 @@ class CleverObject(object):
       self.id = id
 
   def __setattr__(self, k, v):
-    # if in dot notation, insert into _unsaved_values the key in dot notation. this will cause it to be properly PUT.
+    # if in dot notation, insert into _unsaved_values the key in dot notation. this will cause it to be properly PATCHed.
     # remove these values when resetting state in refresh_from()
     # also make correct update to _values and __dict__ dicts so that state is correct
-    # the end effect is that we can PUT things in dot notation for selective updating of a system object
+    # the end effect is that we can PATCH things in dot notation for selective updating of a system object
     if '.' in k:
       put(self.__dict__, k, v)
       self._values.add(k.split('.', 1)[0])
@@ -619,7 +619,7 @@ class CreatableAPIResource(APIResource):
     requestor = APIRequestor(api_key)
     url = cls.class_url()
     response, api_key = requestor.request('post', url, params)
-    return convert_to_clever_object(self, response, api_key)
+    return convert_to_clever_object(cls, response, api_key)
 
 class UpdateableAPIResource(APIResource):
   def save(self):
@@ -629,7 +629,7 @@ class UpdateableAPIResource(APIResource):
       for k in self._unsaved_values:
         params[k] = getattr(self, k)
       url = self.instance_url()
-      response, api_key = requestor.request('put', url, params)
+      response, api_key = requestor.request('patch', url, params)
       self.refresh_from(response['data'], api_key)
     else:
       logger.debug("Trying to save already saved object %r" % (self, ))
