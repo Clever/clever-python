@@ -1,5 +1,5 @@
 # Clever Python bindings
-# API docs at https://getclever.com/developers/docs
+# API docs at https://clever.com/developers/docs
 # Author: Rafael Garcia
 # Borrows heavily from the Python bindings for the Stripe API
 
@@ -49,7 +49,7 @@ if not _httplib:
     pass
   else:
     if major == 0 and (minor < 8 or (minor == 8 and patch < 8)):
-      print >>sys.stderr, 'Warning: the Clever library requires that your Python "requests" library has a version no older than 0.8.8, but your "requests" library has version %s. Clever will fall back to an alternate HTTP library, so everything should work, though we recommend upgrading your "requests" library. If you have any questions, please contact support@getclever.com. (HINT: running "pip install -U requests" should upgrade your requests library to the latest version.)' % (version, )
+      print >>sys.stderr, 'Warning: the Clever library requires that your Python "requests" library has a version no older than 0.8.8, but your "requests" library has version %s. Clever will fall back to an alternate HTTP library, so everything should work, though we recommend upgrading your "requests" library. If you have any questions, please contact support@clever.com. (HINT: running "pip install -U requests" should upgrade your requests library to the latest version.)' % (version, )
       _httplib = None
 
 if not _httplib:
@@ -68,7 +68,7 @@ if not _httplib:
     pass
 
 if not _httplib:
-  raise ImportError("Clever requires one of pycurl, Google App Engine's urlfetch, or urllib2.  If you are on a platform where none of these libraries are available, please let us know at support@getclever.com.")
+  raise ImportError("Clever requires one of pycurl, Google App Engine's urlfetch, or urllib2.  If you are on a platform where none of these libraries are available, please let us know at support@clever.com.")
 
 from version import VERSION
 import importer
@@ -79,7 +79,7 @@ logger = logging.getLogger('clever')
 ## Configuration variables
 
 api_key = None
-api_base = 'https://api.getclever.com'
+api_base = 'https://api.clever.com'
 verify_ssl_certs = True
 
 ## Exceptions
@@ -192,7 +192,7 @@ class APIRequestor(object):
     """
     my_api_key = self._api_key or api_key
     if my_api_key is None:
-      raise AuthenticationError('No API key provided. (HINT: set your API key using "clever.api_key = <API-KEY>"). You can generate API keys from the Clever web interface.  See https://getclever.com/api for details, or email support@getclever.com if you have any questions.')
+      raise AuthenticationError('No API key provided. (HINT: set your API key using "clever.api_key = <API-KEY>"). You can generate API keys from the Clever web interface.  See https://clever.com/api for details, or email support@clever.com if you have any questions.')
 
     abs_url = self.api_url(url)
     params = params.copy()
@@ -226,7 +226,7 @@ class APIRequestor(object):
     elif _httplib == 'urllib2':
       rbody, rcode = self.urllib2_request(meth, abs_url, headers, params)
     else:
-      raise CleverError("Clever Python library bug discovered: invalid httplib %s.  Please report to support@getclever.com" % (_httplib, ))
+      raise CleverError("Clever Python library bug discovered: invalid httplib %s.  Please report to support@clever.com" % (_httplib, ))
     logger.debug('API request to %s returned (response code, response body) of (%d, %r)' % (abs_url, rcode, rbody))
     return rbody, rcode, my_api_key
 
@@ -249,13 +249,25 @@ class APIRequestor(object):
       data = self.jsonencode(params)
       headers['Content-Type'] = 'application/json'
     else:
-      raise APIConnectionError('Unrecognized HTTP method %r.  This may indicate a bug in the Clever bindings.  Please contact support@getclever.com for assistance.' % (meth, ))
+      raise APIConnectionError('Unrecognized HTTP method %r.  This may indicate a bug in the Clever bindings.  Please contact support@clever.com for assistance.' % (meth, ))
 
     try:
       try:
+        # Use a CA_BUNDLE containing the following chain:
+        # - TrustedRoot
+        # - DigiCert High Assurance EV - 1
+        # - Clever.com EV
+        # 
+        # This ensures that only this certificate chain is used to verify SSL certs. 
+        # Certs dervived from other ca certs will be treated as invalid.
+        # eg. https://api.twitter.com and https://api.stripe.com FAIL
+        #     https://api.clever.com and https://api.github.com PASS 
+        # 
+        # TODO: This gets us close to CERT PINNING but we need to pin the entire chain not just the CA
         result = requests.request(meth, abs_url,
                                   headers=headers, data=data, timeout=80,
-                                  verify=os.path.join(os.path.dirname(__file__), 'data/ca-certificates.crt'))
+                                  verify=os.path.join(os.path.dirname(__file__),
+                                                      'data/clever.com_ca_bundle.crt'))
       except TypeError, e:
         raise TypeError('Warning: It looks like your installed version of the "requests" library is not compatible with Clever\'s usage thereof. (HINT: The most likely cause is that your "requests" library is out of date. You can fix that by running "pip install -U requests".) The underlying error was: %s' %(e, ))
 
@@ -272,10 +284,10 @@ class APIRequestor(object):
 
   def handle_requests_error(self, e):
     if isinstance(e, requests.exceptions.RequestException):
-      msg = "Unexpected error communicating with Clever.  If this problem persists, let us know at support@getclever.com."
+      msg = "Unexpected error communicating with Clever.  If this problem persists, let us know at support@clever.com."
       err = "%s: %s" % (type(e).__name__, e.message)
     else:
-      msg = "Unexpected error communicating with Clever.  It looks like there's probably a configuration issue locally.  If this problem persists, let us know at support@getclever.com."
+      msg = "Unexpected error communicating with Clever.  It looks like there's probably a configuration issue locally.  If this problem persists, let us know at support@clever.com."
       err = "A %s was raised" % (type(e).__name__, )
       if e.message:
         err += " with error message %s" % (e.message, )
@@ -303,7 +315,7 @@ class APIRequestor(object):
       if params:
         raise APIConnectionError("Did not expect params in DELETE request")
     else:
-      raise APIConnectionError('Unrecognized HTTP method %r.  This may indicate a bug in the Clever bindings.  Please contact support@getclever.com for assistance.' % (meth, ))
+      raise APIConnectionError('Unrecognized HTTP method %r.  This may indicate a bug in the Clever bindings.  Please contact support@clever.com for assistance.' % (meth, ))
 
     # pycurl doesn't like unicode URLs
     abs_url = self._utf8(abs_url)
@@ -330,11 +342,11 @@ class APIRequestor(object):
     if e[0] in [pycurl.E_COULDNT_CONNECT,
                 pycurl.E_COULDNT_RESOLVE_HOST,
                 pycurl.E_OPERATION_TIMEOUTED]:
-      msg = "Could not connect to Clever (%s).  Please check your internet connection and try again.  If this problem persists, you should check Clever's service status at http://status.getclever.com, or let us know at support@getclever.com." % (api_base, )
+      msg = "Could not connect to Clever (%s).  Please check your internet connection and try again.  If this problem persists, you should check Clever's service status at http://status.clever.com, or let us know at support@clever.com." % (api_base, )
     elif e[0] == pycurl.E_SSL_CACERT or e[0] == pycurl.E_SSL_PEER_CERTIFICATE:
-      msg = "Could not verify Clever's SSL certificate.  Please make sure that your network is not intercepting certificates.  (Try going to %s in your browser.)  If this problem persists, let us know at support@getclever.com." % (api_base, )
+      msg = "Could not verify Clever's SSL certificate.  Please make sure that your network is not intercepting certificates.  (Try going to %s in your browser.)  If this problem persists, let us know at support@clever.com." % (api_base, )
     else:
-      msg = "Unexpected error communicating with Clever.  If this problem persists, let us know at support@getclever.com."
+      msg = "Unexpected error communicating with Clever.  If this problem persists, let us know at support@clever.com."
     msg = textwrap.fill(msg) + "\n\n(Network error: " + e[1] + ")"
     raise APIConnectionError(msg)
 
@@ -349,13 +361,13 @@ class APIRequestor(object):
       if params:
         raise APIConnectionError("Did not expect params in DELETE request")
     else:
-      raise APIConnectionError('Unrecognized HTTP method %r.  This may indicate a bug in the Clever bindings.  Please contact support@getclever.com for assistance.' % (meth, ))
+      raise APIConnectionError('Unrecognized HTTP method %r.  This may indicate a bug in the Clever bindings.  Please contact support@clever.com for assistance.' % (meth, ))
     args['url'] = abs_url
     args['method'] = meth
     args['headers'] = headers
     # Google App Engine doesn't let us specify our own cert bundle.
     # However, that's ok because the CA bundle they use recognizes
-    # api.getclever.com.
+    # api.clever.com.
     args['validate_certificate'] = verify_ssl_certs
     # GAE requests time out after 60 seconds, so make sure we leave
     # some time for the application to handle a slow Clever
@@ -369,13 +381,13 @@ class APIRequestor(object):
 
   def handle_urlfetch_error(self, e, abs_url):
     if isinstance(e, urlfetch.InvalidURLError):
-      msg = "The Clever library attempted to fetch an invalid URL (%r).  This is likely due to a bug in the Clever Python bindings.  Please let us know at support@getclever.com." % (abs_url, )
+      msg = "The Clever library attempted to fetch an invalid URL (%r).  This is likely due to a bug in the Clever Python bindings.  Please let us know at support@clever.com." % (abs_url, )
     elif isinstance(e, urlfetch.DownloadError):
       msg = "There were a problem retrieving data from Clever."
     elif isinstance(e, urlfetch.ResponseTooLargeError):
-      msg = "There was a problem receiving all of your data from Clever.  This is likely due to a bug in Clever.  Please let us know at support@getclever.com."
+      msg = "There was a problem receiving all of your data from Clever.  This is likely due to a bug in Clever.  Please let us know at support@clever.com."
     else:
-      msg = "Unexpected error communicating with Clever.  If this problem persists, let us know at support@getclever.com."
+      msg = "Unexpected error communicating with Clever.  If this problem persists, let us know at support@clever.com."
     msg = textwrap.fill(msg) + "\n\n(Network error: " + str(e) + ")"
     raise APIConnectionError(msg)
 
@@ -396,7 +408,7 @@ class APIRequestor(object):
       if params:
         raise APIConnectionError("Did not expect params in DELETE request")
     else:
-      raise APIConnectionError('Unrecognized HTTP method %r.  This may indicate a bug in the Clever bindings.  Please contact support@getclever.com for assistance.' % (meth, ))
+      raise APIConnectionError('Unrecognized HTTP method %r.  This may indicate a bug in the Clever bindings.  Please contact support@clever.com for assistance.' % (meth, ))
 
     try:
       response = urllib2.urlopen(req)
@@ -410,7 +422,7 @@ class APIRequestor(object):
     return rbody, rcode
 
   def handle_urllib2_error(self, e, abs_url):
-    msg = "Unexpected error communicating with Clever.  If this problem persists, let us know at support@getclever.coma."
+    msg = "Unexpected error communicating with Clever.  If this problem persists, let us know at support@clever.com."
     msg = textwrap.fill(msg) + "\n\n(Network error: " + str(e) + ")"
     raise APIConnectionError(msg)
 
