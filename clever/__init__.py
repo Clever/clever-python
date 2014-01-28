@@ -179,7 +179,7 @@ class APIRequestor(object):
     except (KeyError, TypeError):
       raise APIError("Invalid response object from API: %r (HTTP response code was %d)" % (rbody, rcode), rbody, rcode, resp)
 
-    if rcode in [400, 404]:
+    if rcode in [400]:
       raise InvalidRequestError(error, rbody, rcode, resp)
     elif rcode == 401:
       raise AuthenticationError(error, rbody, rcode, resp)
@@ -326,7 +326,7 @@ class APIRequestor(object):
     curl.setopt(pycurl.TIMEOUT, 80)
     curl.setopt(pycurl.HTTPHEADER, ['%s: %s' % (k, v) for k, v in headers.iteritems()])
     if verify_ssl_certs:
-      curl.setopt(pycurl.CAINFO, os.path.join(os.path.dirname(__file__), 'data/ca-certificates.crt'))
+      curl.setopt(pycurl.CAINFO, os.path.join(os.path.dirname(__file__), 'data/clever.com_ca_bundle.crt'))
     else:
       curl.setopt(pycurl.SSL_VERIFYHOST, False)
 

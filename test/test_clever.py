@@ -29,7 +29,7 @@ class FunctionalTests(CleverTestCase):
 
   def test_unicode(self):
     # Make sure unicode requests can be sent
-    self.assertRaises(clever.InvalidRequestError, clever.District.retrieve, id=u'☃')
+    self.assertRaises(clever.APIError, clever.District.retrieve, id=u'☃')
 
   def test_none_values(self):
     district = clever.District.all(sort=None)[0]
@@ -56,10 +56,10 @@ class InvalidRequestErrorTest(CleverTestCase):
   def test_nonexistent_object(self):
     try:
       clever.District.retrieve('invalid')
-    except clever.InvalidRequestError, e:
+    except clever.APIError, e:
       self.assertEqual(404, e.http_status)
+      self.assertFalse(isinstance(e.json_body, dict))  # 404 does not have a body
       self.assertTrue(isinstance(e.http_body, str))
-      self.assertTrue(isinstance(e.json_body, dict))
 
 if __name__ == '__main__':
   unittest.main()
