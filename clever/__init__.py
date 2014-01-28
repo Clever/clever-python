@@ -14,6 +14,7 @@ import time
 import datetime
 import types
 import base64
+import pkg_resources
 
 # Use cStringIO if ita's available.  Otherwise, StringIO is fine.
 try:
@@ -266,8 +267,9 @@ class APIRequestor(object):
         # TODO: This gets us close to CERT PINNING but we need to pin the entire chain not just the CA
         result = requests.request(meth, abs_url,
                                   headers=headers, data=data, timeout=80,
-                                  verify=os.path.join(os.path.dirname(__file__),
-                                                      'data/clever.com_ca_bundle.crt'))
+                                  verify=pkg_resources.resource_filename(
+                                      __name__, 
+                                      'data/clever.com_ca_bundle.crt'))
       except TypeError, e:
         raise TypeError('Warning: It looks like your installed version of the "requests" library is not compatible with Clever\'s usage thereof. (HINT: The most likely cause is that your "requests" library is out of date. You can fix that by running "pip install -U requests".) The underlying error was: %s' %(e, ))
 
@@ -326,7 +328,10 @@ class APIRequestor(object):
     curl.setopt(pycurl.TIMEOUT, 80)
     curl.setopt(pycurl.HTTPHEADER, ['%s: %s' % (k, v) for k, v in headers.iteritems()])
     if verify_ssl_certs:
-      curl.setopt(pycurl.CAINFO, os.path.join(os.path.dirname(__file__), 'data/clever.com_ca_bundle.crt'))
+      curl.setopt(pycurl.CAINFO,
+                  pkg_resources.resource_filename(
+                      __name__,
+                      'data/clever.com_ca_bundle.crt'))
     else:
       curl.setopt(pycurl.SSL_VERIFYHOST, False)
 
