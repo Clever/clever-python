@@ -77,6 +77,9 @@ json = importer.import_json()
 
 logger = logging.getLogger('clever')
 
+# Use certs chain bundle including in the package for SSL verification
+CLEVER_CERTS = pkg_resources.resource_filename(__name__, 'data/clever.com_ca_bundle.crt')
+
 ## Configuration variables
 
 api_key = None
@@ -267,9 +270,7 @@ class APIRequestor(object):
         # TODO: This gets us close to CERT PINNING but we need to pin the entire chain not just the CA
         result = requests.request(meth, abs_url,
                                   headers=headers, data=data, timeout=80,
-                                  verify=pkg_resources.resource_filename(
-                                      __name__, 
-                                      'data/clever.com_ca_bundle.crt'))
+                                  verify=CLEVER_CERTS)
       except TypeError, e:
         raise TypeError('Warning: It looks like your installed version of the "requests" library is not compatible with Clever\'s usage thereof. (HINT: The most likely cause is that your "requests" library is out of date. You can fix that by running "pip install -U requests".) The underlying error was: %s' %(e, ))
 
@@ -328,10 +329,7 @@ class APIRequestor(object):
     curl.setopt(pycurl.TIMEOUT, 80)
     curl.setopt(pycurl.HTTPHEADER, ['%s: %s' % (k, v) for k, v in headers.iteritems()])
     if verify_ssl_certs:
-      curl.setopt(pycurl.CAINFO,
-                  pkg_resources.resource_filename(
-                      __name__,
-                      'data/clever.com_ca_bundle.crt'))
+      curl.setopt(pycurl.CAINFO, CLEVER_CERTS)
     else:
       curl.setopt(pycurl.SSL_VERIFYHOST, False)
 
