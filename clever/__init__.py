@@ -261,12 +261,12 @@ class APIRequestor(object):
         # - TrustedRoot
         # - DigiCert High Assurance EV - 1
         # - Clever.com EV
-        # 
-        # This ensures that only this certificate chain is used to verify SSL certs. 
+        #
+        # This ensures that only this certificate chain is used to verify SSL certs.
         # Certs dervived from other ca certs will be treated as invalid.
         # eg. https://api.twitter.com and https://api.stripe.com FAIL
-        #     https://api.clever.com and https://api.github.com PASS 
-        # 
+        #     https://api.clever.com and https://api.github.com PASS
+        #
         # TODO: This gets us close to CERT PINNING but we need to pin the entire chain not just the CA
         result = requests.request(meth, abs_url,
                                   headers=headers, data=data, timeout=80,
@@ -625,7 +625,22 @@ class ListableAPIResource(APIResource):
   def all(cls, api_key=None, **params):
     requestor = APIRequestor(api_key)
     url = cls.class_url()
-    response, api_key = requestor.request('get', url, params)
+
+    # auto-paginate
+    current_page = 1
+    last_page = 1
+    params['limit'] = 100
+    data = []
+    while current_page <= last_page:
+      params['page'] = current_page
+      response, api_key = requestor.request('get', url, params)
+      last_page = response['paging']['total']
+      data.extend(response['data'])
+      current_page += 1
+
+    # join data found across all the requests
+    response['data'] = data
+
     return convert_to_clever_object(cls, response, api_key)
 
 class CreatableAPIResource(APIResource):
