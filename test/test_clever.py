@@ -39,6 +39,29 @@ class FunctionalTests(CleverTestCase):
     district = clever.District()
     self.assertRaises(clever.InvalidRequestError, district.refresh)
 
+class PaginationTests(unittest.TestCase):
+
+  class FakeRequestor(object):
+    def request(self, query_method, url, params):
+      response = {}
+      response['data'] = range(10)
+      response['paging'] = {}
+      response['paging']['total'] = 3
+      api_key = 'FAKE_KEY'
+
+      return response, api_key
+
+  def test_can_paginate(self):
+    paginator = clever.PaginatedAPIRequest(self.FakeRequestor(), 'get', 'http://example.com', dict())
+    pages = 0
+    object_count = 0
+    for p in paginator:
+      pages += 1
+      object_count += len(p['data'])
+
+    self.assertTrue(object_count == 30)
+    self.assertTrue(pages == 3)
+
 class AuthenticationErrorTest(CleverTestCase):
   def test_invalid_credentials(self):
     key = clever.api_key
