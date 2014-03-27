@@ -623,45 +623,21 @@ class APIResource(CleverObject):
 class ListableAPIResource(APIResource):
   @classmethod
   def all(cls, api_key=None, **params):
+    return list(cls.iter(api_key, **params))
+
+  @classmethod
+  def iter(cls, api_key=None, **params):
     requestor = APIRequestor(api_key)
     url = cls.class_url()
-    data = []
-    for response in PaginatedAPIRequest(requestor, 'get', url, params):
-      data.extend(response['data'])
-
-    response['data'] = data
-    return convert_to_clever_object(cls, response, api_key)
-
-class PaginatedAPIRequest(object):
-
-    DEFAULT_PAGE_SIZE = 1000
-
-    def __init__(self, requestor, request_type, url, params):
-      self.current = 1
-      self.last_page = 1
-      self.requestor = requestor
-      self.request_type = request_type
-      self.url = url
-      self.params = params
-
-      # Allow user limit on page size, if it falls in valid range
-      user_limit = 'limit' in params and int(params['limit']) in range(1,1001)
-      if not user_limit:
-        params['limit'] = self.DEFAULT_PAGE_SIZE
-
-    def __iter__(self):
-      return self
-
-    def next(self): # Python 3: def __next__(self)
-      if self.current > self.last_page:
-        raise StopIteration
-      else:
-        self.params['page'] = self.current
-        response, api_key = self.requestor.request(self.request_type, self.url, self.params)
-        if self.current == 1:
-          self.last_page = response['paging']['total']
-        self.current += 1
-        return response
+    params['page'] = 1
+    params['limit'] = 1000
+    done_paginating = False
+    while not done_paginating:
+      response, api_key = requestor.request('get', url, params)
+      for datum in convert_to_clever_object(cls, response, api_key):
+        yield datum
+      params['page'] += 1
+      done_paginating = len(response['data']) < params['limit']
 
 class CreatableAPIResource(APIResource):
   @classmethod
