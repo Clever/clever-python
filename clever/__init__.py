@@ -629,7 +629,7 @@ class ListableAPIResource(APIResource):
   def iter(cls, api_key=None, **params):
     for unsupported_param in ['limit', 'page']:
       if unsupported_param in params:
-        raise CleverError("ListableAPIResource does not support '{}' parameter".format(unsupported_param))
+        raise CleverError("ListableAPIResource does not support '%s' parameter" % (unsupported_param,))
 
     requestor = APIRequestor(api_key)
     url = cls.class_url()
