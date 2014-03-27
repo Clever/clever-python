@@ -27,6 +27,10 @@ class FunctionalTests(CleverTestCase):
     district = clever.District.all()[0]
     self.assertEqual(district['name'], district.name)
 
+  def test_iter(self):
+    for district in clever.District.iter():
+      self.assertTrue(district.id)
+
   def test_unsupported_params(self):
     self.assertRaises(clever.CleverError, lambda: clever.District.all(page=2))
     self.assertRaises(clever.CleverError, lambda: clever.District.all(page=2, limit=10))
