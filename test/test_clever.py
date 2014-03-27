@@ -33,7 +33,7 @@ class FunctionalTests(CleverTestCase):
 
   def test_unsupported_params(self):
     self.assertRaises(clever.CleverError, lambda: clever.District.all(page=2))
-    self.assertRaises(clever.CleverError, lambda: clever.District.all(page=2, limit=10))
+    self.assertRaises(clever.CleverError, lambda: clever.District.all(limit=10))
     self.assertRaises(clever.CleverError, lambda: clever.District.all(page=2, limit=10))
 
   def test_unicode(self):
