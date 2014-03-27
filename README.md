@@ -40,12 +40,12 @@ The `clever` module exposes classes corresponding to resources:
 * Teacher
 * Event
 
-Each exposes a class method `all` that returns a list of all data in that resource that you have access to. Keyword arguments correspond to the same query parameters supported in the HTTP API:
+Each exposes a class method `all` that returns a list of all data in that resource that you have access to. Keyword arguments correspond to the same query parameters supported in the HTTP API, except that `limit` and `page` are not supported (pagination is handled automatically).
 
 ```python
     schools = clever.School.all() # gets information about all schools you have access to
     schools = clever.School.all(where=json.dumps({'name': 'Of Hard Knocks'}))
-    schools = clever.School.all(sort='state', limit=1)
+    schools = clever.School.all(sort='state')
 ```
 
 The `retrieve` class method takes in a Clever ID, and returns a specific resource. The object (or list of objects in the case of `all`) supports accessing properties using either dot notation or dictionary notation:

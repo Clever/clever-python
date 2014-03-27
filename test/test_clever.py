@@ -27,6 +27,15 @@ class FunctionalTests(CleverTestCase):
     district = clever.District.all()[0]
     self.assertEqual(district['name'], district.name)
 
+  def test_iter(self):
+    for district in clever.District.iter():
+      self.assertTrue(district.id)
+
+  def test_unsupported_params(self):
+    self.assertRaises(clever.CleverError, lambda: clever.District.all(page=2))
+    self.assertRaises(clever.CleverError, lambda: clever.District.all(limit=10))
+    self.assertRaises(clever.CleverError, lambda: clever.District.all(page=2, limit=10))
+
   def test_unicode(self):
     # Make sure unicode requests can be sent
     self.assertRaises(clever.APIError, clever.District.retrieve, id=u'☃')
