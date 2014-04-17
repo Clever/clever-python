@@ -27,8 +27,8 @@ Or from source:
 To get started, add the following to your Python script:
 
 ```python
-    import clever
-    clever.api_key = 'YOUR_API_KEY'
+    import clever, os
+    clever.api_key = os.environ['CLEVER_API_KEY']
 ```
 
 The `clever` module exposes classes corresponding to resources:
