@@ -56,9 +56,9 @@ Each exposes a class method `all` that returns a list of all data in that resour
 If you'd like to control the rate of API queries, you can access an iterator for a resource.
 
 ```python
-    schools = clever.School.iter()
-    for i in range(0,100):
-        print schools.next()
+    students = clever.Student.iter()
+    for i in range(0,2000):
+        print students.next()
 ```
 
 The `retrieve` class method takes in a Clever ID, and returns a specific resource. The object (or list of objects in the case of `all`) supports accessing properties using either dot notation or dictionary notation:
