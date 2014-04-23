@@ -24,7 +24,12 @@ Or from source:
 
 ## Usage
 
-To get started, add the following to your Python script:
+To get started, add your Clever API key as an environment variable:
+
+```export CLEVER_API_KEY="YOUR_API_KEY"
+```
+
+And add the following to your Python script:
 
 ```python
     import clever, os
