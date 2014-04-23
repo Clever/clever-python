@@ -53,7 +53,7 @@ Each exposes a class method `all` that returns a list of all data in that resour
     schools = clever.School.all(sort='state')
 ```
 
-If you'd like to control over pagination, or to limit the number of resources returned, use the `iter` class method:
+If you'd like more control over pagination, or to limit the number of resources returned, use the `iter` class method:
 
 ```python
     students = clever.Student.iter()
