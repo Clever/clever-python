@@ -24,11 +24,17 @@ Or from source:
 
 ## Usage
 
-To get started, add the following to your Python script:
+To get started, add your Clever API key as an environment variable:
+
+```bash
+    export CLEVER_API_KEY="YOUR_API_KEY"
+```
+
+And add the following to your Python script:
 
 ```python
-    import clever
-    clever.api_key = 'YOUR_API_KEY'
+    import clever, os
+    clever.api_key = os.environ['CLEVER_API_KEY']
 ```
 
 The `clever` module exposes classes corresponding to resources:
@@ -46,6 +52,14 @@ Each exposes a class method `all` that returns a list of all data in that resour
     schools = clever.School.all() # gets information about all schools you have access to
     schools = clever.School.all(where=json.dumps({'name': 'Of Hard Knocks'}))
     schools = clever.School.all(sort='state')
+```
+
+If you'd like more control over pagination, or to limit the number of resources returned, use the `iter` class method:
+
+```python
+    students = clever.Student.iter()
+    for i in range(0,2000):
+        print students.next()
 ```
 
 The `retrieve` class method takes in a Clever ID, and returns a specific resource. The object (or list of objects in the case of `all`) supports accessing properties using either dot notation or dictionary notation:
