@@ -3,7 +3,7 @@
 # Author: Rafael Garcia
 # Borrows heavily from the Python bindings for the Stripe API
 
-## Imports
+# Imports
 import logging
 import os
 import platform
@@ -18,9 +18,9 @@ import pkg_resources
 
 # Use cStringIO if ita's available.  Otherwise, StringIO is fine.
 try:
-    import cStringIO as StringIO
+  import cStringIO as StringIO
 except ImportError:
-    import StringIO
+  import StringIO
 
 # - Requests is the preferred HTTP library
 # - Google App Engine has urlfetch
@@ -50,7 +50,8 @@ if not _httplib:
     pass
   else:
     if major == 0 and (minor < 8 or (minor == 8 and patch < 8)):
-      print >>sys.stderr, 'Warning: the Clever library requires that your Python "requests" library has a version no older than 0.8.8, but your "requests" library has version %s. Clever will fall back to an alternate HTTP library, so everything should work, though we recommend upgrading your "requests" library. If you have any questions, please contact support@clever.com. (HINT: running "pip install -U requests" should upgrade your requests library to the latest version.)' % (version, )
+      print >>sys.stderr, 'Warning: the Clever library requires that your Python "requests" library has a version no older than 0.8.8, but your "requests" library has version %s. Clever will fall back to an alternate HTTP library, so everything should work, though we recommend upgrading your "requests" library. If you have any questions, please contact support@clever.com. (HINT: running "pip install -U requests" should upgrade your requests library to the latest version.)' % (
+          version, )
       _httplib = None
 
 if not _httplib:
@@ -69,7 +70,8 @@ if not _httplib:
     pass
 
 if not _httplib:
-  raise ImportError("Clever requires one of pycurl, Google App Engine's urlfetch, or urllib2.  If you are on a platform where none of these libraries are available, please let us know at support@clever.com.")
+  raise ImportError(
+      "Clever requires one of pycurl, Google App Engine's urlfetch, or urllib2.  If you are on a platform where none of these libraries are available, please let us know at support@clever.com.")
 
 from version import VERSION
 import importer
@@ -80,46 +82,77 @@ logger = logging.getLogger('clever')
 # Use certs chain bundle including in the package for SSL verification
 CLEVER_CERTS = pkg_resources.resource_filename(__name__, 'data/clever.com_ca_bundle.crt')
 
-## Configuration variables
+# Configuration variables
 
-api_key = None
+global_auth = dict()
 api_base = 'https://api.clever.com'
 verify_ssl_certs = True
 
-## Exceptions
+
+def set_token(token):
+  global global_auth
+  global_auth = {'token': token}
+
+
+def get_token():
+  global global_auth
+  return global_auth.get('token', None)
+
+
+def set_api_key(api_key):
+  global global_auth
+  global_auth = {'api_key': api_key}
+
+
+def get_api_key():
+  global global_auth
+  return global_auth.get('api_key', None)
+
+# Exceptions
+
+
 class CleverError(Exception):
+
   def __init__(self, message=None, http_body=None, http_status=None, json_body=None):
     super(CleverError, self).__init__(message)
     self.http_body = http_body
     self.http_status = http_status
     self.json_body = json_body
 
+
 class APIError(CleverError):
   pass
+
 
 class APIConnectionError(CleverError):
   pass
 
+
 class InvalidRequestError(CleverError):
+
   def __init__(self, message, http_body=None, http_status=None, json_body=None):
     super(InvalidRequestError, self).__init__(message, http_body, http_status, json_body)
+
 
 class AuthenticationError(CleverError):
   pass
 
-def convert_to_clever_object(klass, resp, api_key):
+
+def convert_to_clever_object(klass, resp, auth):
   # TODO: to support includes we'll have to infer klass from resp['uri']
   if isinstance(resp, dict) and resp.get('data', None):
     if isinstance(resp['data'], list):
-      return [convert_to_clever_object(klass, i, api_key) for i in resp['data']]
+      return [convert_to_clever_object(klass, i, auth) for i in resp['data']]
     elif isinstance(resp['data'], dict):
-      return klass.construct_from(resp['data'].copy(), api_key)
+      return klass.construct_from(resp['data'].copy(), auth)
   elif isinstance(resp, basestring) or isinstance(resp, list) or isinstance(resp, dict) or isinstance(resp, bool):
     return resp
   else:
     raise Exception('DONT KNOW WHAT TO DO WITH {0}'.format(resp))
 
 # makes it easier to update a nested key in a dict
+
+
 def put(d, keys, item):
   if "." in keys:
     key, rest = keys.split(".", 1)
@@ -129,10 +162,13 @@ def put(d, keys, item):
   else:
     d[keys] = item
 
-## Network transport
+# Network transport
+
+
 class APIRequestor(object):
-  def __init__(self, key=None):
-    self._api_key = key
+
+  def __init__(self, auth=None):
+    self._auth = auth
 
   @classmethod
   def api_url(cls, path=''):
@@ -173,15 +209,16 @@ class APIRequestor(object):
     return json.dumps(d)
 
   def request(self, meth, url, params={}):
-    rbody, rcode, my_api_key = self.request_raw(meth, url, params)
+    rbody, rcode, my_auth = self.request_raw(meth, url, params)
     resp = self.interpret_response(rbody, rcode)
-    return resp, my_api_key
+    return resp, my_auth
 
   def handle_api_error(self, rbody, rcode, resp):
     try:
       error = resp['error']
     except (KeyError, TypeError):
-      raise APIError("Invalid response object from API: %r (HTTP response code was %d)" % (rbody, rcode), rbody, rcode, resp)
+      raise APIError("Invalid response object from API: %r (HTTP response code was %d)" %
+                     (rbody, rcode), rbody, rcode, resp)
 
     if rcode in [400]:
       raise InvalidRequestError(error, rbody, rcode, resp)
@@ -194,19 +231,22 @@ class APIRequestor(object):
     """
     Mechanism for issuing an API call
     """
-    my_api_key = self._api_key or api_key
-    if my_api_key is None:
-      raise AuthenticationError('No API key provided. (HINT: set your API key using "clever.api_key = <API-KEY>"). You can generate API keys from the Clever web interface.  See https://clever.com/api for details, or email support@clever.com if you have any questions.')
+    my_auth = self._auth or global_auth
+    if my_auth is None:
+      raise AuthenticationError(
+          'No authentication method provided. (HINT: "clever.api_key = <API-KEY>" is deprecated. Set your API key using "clever.set_api_key(<API-KEY>)" or "clever.set_token(<OAUTH-TOKEN>)". You can generate API keys from the Clever web interface.  See https://clever.com/developers/docs for details, or email support@clever.com if you have any questions.')
+    if my_auth.get('token') is None and my_auth.get('api_key') is None:
+      raise AuthenticationError('Must provide either api_key or token auth. {}'.format(my_auth))
 
     abs_url = self.api_url(url)
     params = params.copy()
     self._objects_to_ids(params)
 
     ua = {
-      'bindings_version' : VERSION,
-      'lang' : 'python',
-      'publisher' : 'clever'
-      }
+        'bindings_version': VERSION,
+        'lang': 'python',
+        'publisher': 'clever'
+    }
     for attr, func in [['lang_version', platform.python_version],
                        ['platform', platform.platform],
                        ['uname', lambda: ' '.join(platform.uname())]]:
@@ -217,10 +257,13 @@ class APIRequestor(object):
       ua[attr] = val
 
     headers = {
-      'X-Clever-Client-User-Agent' : json.dumps(ua),
-      'User-Agent' : 'Clever/v1.1 PythonBindings/%s' % (VERSION, ),
-      'Authorization' : 'Basic %s:' % (base64.b64encode(my_api_key), )
-      }
+        'X-Clever-Client-User-Agent': json.dumps(ua),
+        'User-Agent': 'Clever/v1.1 PythonBindings/%s' % (VERSION, )
+    }
+    if my_auth.get('api_key', None) != None:
+      headers['Authorization'] = 'Basic {}'.format(base64.b64encode(my_auth['api_key'] + ':'))
+    elif my_auth.get('token', None) != None:
+      headers['Authorization'] = 'Bearer {}'.format(my_auth['token'])
     if _httplib == 'requests':
       rbody, rcode = self.requests_request(meth, abs_url, headers, params)
     elif _httplib == 'pycurl':
@@ -230,15 +273,18 @@ class APIRequestor(object):
     elif _httplib == 'urllib2':
       rbody, rcode = self.urllib2_request(meth, abs_url, headers, params)
     else:
-      raise CleverError("Clever Python library bug discovered: invalid httplib %s.  Please report to support@clever.com" % (_httplib, ))
-    logger.debug('API request to %s returned (response code, response body) of (%d, %r)' % (abs_url, rcode, rbody))
-    return rbody, rcode, my_api_key
+      raise CleverError(
+          "Clever Python library bug discovered: invalid httplib %s.  Please report to support@clever.com" % (_httplib, ))
+    logger.debug('API request to %s returned (response code, response body) of (%d, %r)' %
+                 (abs_url, rcode, rbody))
+    return rbody, rcode, my_auth
 
   def interpret_response(self, rbody, rcode):
     try:
       resp = json.loads(rbody)
     except Exception:
-      raise APIError("Invalid response body from API: %s (HTTP response code was %d)" % (rbody, rcode), rbody, rcode)
+      raise APIError("Invalid response body from API: %s (HTTP response code was %d)" %
+                     (rbody, rcode), rbody, rcode)
     if not (200 <= rcode < 300):
       self.handle_api_error(rbody, rcode, resp)
     return resp
@@ -247,13 +293,14 @@ class APIRequestor(object):
     meth = meth.lower()
     if meth == 'get' or meth == 'delete':
       if params:
-          abs_url = '%s?%s' % (abs_url, self.urlencode(params))
+        abs_url = '%s?%s' % (abs_url, self.urlencode(params))
       data = None
     elif meth in ['post', 'patch']:
       data = self.jsonencode(params)
       headers['Content-Type'] = 'application/json'
     else:
-      raise APIConnectionError('Unrecognized HTTP method %r.  This may indicate a bug in the Clever bindings.  Please contact support@clever.com for assistance.' % (meth, ))
+      raise APIConnectionError(
+          'Unrecognized HTTP method %r.  This may indicate a bug in the Clever bindings.  Please contact support@clever.com for assistance.' % (meth, ))
 
     try:
       try:
@@ -267,12 +314,14 @@ class APIRequestor(object):
         # eg. https://api.twitter.com and https://api.stripe.com FAIL
         #     https://api.clever.com and https://api.github.com PASS
         #
-        # TODO: This gets us close to CERT PINNING but we need to pin the entire chain not just the CA
+        # TODO: This gets us close to CERT PINNING but we need to pin the entire
+        # chain not just the CA
         result = requests.request(meth, abs_url,
                                   headers=headers, data=data, timeout=80,
                                   verify=CLEVER_CERTS)
       except TypeError, e:
-        raise TypeError('Warning: It looks like your installed version of the "requests" library is not compatible with Clever\'s usage thereof. (HINT: The most likely cause is that your "requests" library is out of date. You can fix that by running "pip install -U requests".) The underlying error was: %s' %(e, ))
+        raise TypeError(
+            'Warning: It looks like your installed version of the "requests" library is not compatible with Clever\'s usage thereof. (HINT: The most likely cause is that your "requests" library is out of date. You can fix that by running "pip install -U requests".) The underlying error was: %s' % (e, ))
 
       # This causes the content to actually be read, which could cause
       # e.g. a socket timeout. TODO: The other fetch methods probably
@@ -318,7 +367,8 @@ class APIRequestor(object):
       if params:
         raise APIConnectionError("Did not expect params in DELETE request")
     else:
-      raise APIConnectionError('Unrecognized HTTP method %r.  This may indicate a bug in the Clever bindings.  Please contact support@clever.com for assistance.' % (meth, ))
+      raise APIConnectionError(
+          'Unrecognized HTTP method %r.  This may indicate a bug in the Clever bindings.  Please contact support@clever.com for assistance.' % (meth, ))
 
     # pycurl doesn't like unicode URLs
     abs_url = self._utf8(abs_url)
@@ -345,9 +395,11 @@ class APIRequestor(object):
     if e[0] in [pycurl.E_COULDNT_CONNECT,
                 pycurl.E_COULDNT_RESOLVE_HOST,
                 pycurl.E_OPERATION_TIMEOUTED]:
-      msg = "Could not connect to Clever (%s).  Please check your internet connection and try again.  If this problem persists, you should check Clever's service status at http://status.clever.com, or let us know at support@clever.com." % (api_base, )
+      msg = "Could not connect to Clever (%s).  Please check your internet connection and try again.  If this problem persists, you should check Clever's service status at http://status.clever.com, or let us know at support@clever.com." % (
+          api_base, )
     elif e[0] == pycurl.E_SSL_CACERT or e[0] == pycurl.E_SSL_PEER_CERTIFICATE:
-      msg = "Could not verify Clever's SSL certificate.  Please make sure that your network is not intercepting certificates.  (Try going to %s in your browser.)  If this problem persists, let us know at support@clever.com." % (api_base, )
+      msg = "Could not verify Clever's SSL certificate.  Please make sure that your network is not intercepting certificates.  (Try going to %s in your browser.)  If this problem persists, let us know at support@clever.com." % (
+          api_base, )
     else:
       msg = "Unexpected error communicating with Clever.  If this problem persists, let us know at support@clever.com."
     msg = textwrap.fill(msg) + "\n\n(Network error: " + e[1] + ")"
@@ -364,7 +416,8 @@ class APIRequestor(object):
       if params:
         raise APIConnectionError("Did not expect params in DELETE request")
     else:
-      raise APIConnectionError('Unrecognized HTTP method %r.  This may indicate a bug in the Clever bindings.  Please contact support@clever.com for assistance.' % (meth, ))
+      raise APIConnectionError(
+          'Unrecognized HTTP method %r.  This may indicate a bug in the Clever bindings.  Please contact support@clever.com for assistance.' % (meth, ))
     args['url'] = abs_url
     args['method'] = meth
     args['headers'] = headers
@@ -384,7 +437,8 @@ class APIRequestor(object):
 
   def handle_urlfetch_error(self, e, abs_url):
     if isinstance(e, urlfetch.InvalidURLError):
-      msg = "The Clever library attempted to fetch an invalid URL (%r).  This is likely due to a bug in the Clever Python bindings.  Please let us know at support@clever.com." % (abs_url, )
+      msg = "The Clever library attempted to fetch an invalid URL (%r).  This is likely due to a bug in the Clever Python bindings.  Please let us know at support@clever.com." % (
+          abs_url, )
     elif isinstance(e, urlfetch.DownloadError):
       msg = "There were a problem retrieving data from Clever."
     elif isinstance(e, urlfetch.ResponseTooLargeError):
@@ -411,7 +465,8 @@ class APIRequestor(object):
       if params:
         raise APIConnectionError("Did not expect params in DELETE request")
     else:
-      raise APIConnectionError('Unrecognized HTTP method %r.  This may indicate a bug in the Clever bindings.  Please contact support@clever.com for assistance.' % (meth, ))
+      raise APIConnectionError(
+          'Unrecognized HTTP method %r.  This may indicate a bug in the Clever bindings.  Please contact support@clever.com for assistance.' % (meth, ))
 
     try:
       response = urllib2.urlopen(req)
@@ -431,7 +486,7 @@ class APIRequestor(object):
 
 
 class CleverObject(object):
-  _permanent_attributes = set(['_api_key'])
+  _permanent_attributes = set(['_auth'])
 
   # Adding these to enable pickling
   # http://docs.python.org/2/library/pickle.html#pickling-and-unpickling-normal-class-instances
@@ -441,11 +496,11 @@ class CleverObject(object):
   def __setstate__(self, d):
     self.__dict__.update(d)
 
-  def __init__(self, id=None, api_key=None):
+  def __init__(self, id=None, auth=None):
     self.__dict__['_values'] = set()
     self.__dict__['_unsaved_values'] = set()
     self.__dict__['_transient_values'] = set()
-    self.__dict__['_api_key'] = api_key
+    self.__dict__['_auth'] = auth
 
     if id:
       self.id = id
@@ -454,7 +509,8 @@ class CleverObject(object):
     # if in dot notation, insert into _unsaved_values the key in dot notation. this will cause it to be properly PATCHed.
     # remove these values when resetting state in refresh_from()
     # also make correct update to _values and __dict__ dicts so that state is correct
-    # the end effect is that we can PATCH things in dot notation for selective updating of a system object
+    # the end effect is that we can PATCH things in dot notation for selective
+    # updating of a system object
     if '.' in k:
       put(self.__dict__, k, v)
       self._values.add(k.split('.', 1)[0])
@@ -466,7 +522,8 @@ class CleverObject(object):
         self._unsaved_values.add(k)
 
   def __getattr__(self, k, obj=None):
-    if obj == None: obj = self.__dict__
+    if obj == None:
+      obj = self.__dict__
     if '.' in k:
       key, rest = k.split('.', 1)
       return self.__getattr__(rest, obj[key])
@@ -485,7 +542,8 @@ class CleverObject(object):
     if k in self._values:
       return self.__dict__[k]
     elif k in self._transient_values:
-      raise KeyError("%r.  HINT: The %r attribute was set in the past, however.  It was then wiped when refreshing the object with the result returned by Clever's API, probably as a result of a save().  The attributes currently available on this object are: %s" % (k, k, ', '.join(self._values)))
+      raise KeyError("%r.  HINT: The %r attribute was set in the past, however.  It was then wiped when refreshing the object with the result returned by Clever's API, probably as a result of a save().  The attributes currently available on this object are: %s" % (
+          k, k, ', '.join(self._values)))
     else:
       raise KeyError(k)
 
@@ -512,13 +570,13 @@ class CleverObject(object):
     return self._values.keys()
 
   @classmethod
-  def construct_from(cls, values, api_key):
-    instance = cls(values.get('id'), api_key)
-    instance.refresh_from(values, api_key)
+  def construct_from(cls, values, auth):
+    instance = cls(values.get('id'), auth)
+    instance.refresh_from(values, auth)
     return instance
 
-  def refresh_from(self, values, api_key, partial=False):
-    self._api_key = api_key
+  def refresh_from(self, values, auth, partial=False):
+    self._auth = auth
 
     # Wipe old state before setting new.  This is useful for e.g. updating a
     # customer, where there is no persistent card parameter.  Mark those values
@@ -543,7 +601,7 @@ class CleverObject(object):
     for k, v in values.iteritems():
       if k in self._permanent_attributes:
         continue
-      self.__dict__[k] = convert_to_clever_object(self, v, api_key)
+      self.__dict__[k] = convert_to_clever_object(self, v, auth)
       self._values.add(k)
       self._transient_values.discard(k)
       self._unsaved_values.discard(k)
@@ -575,34 +633,39 @@ class CleverObject(object):
       d[k] = v
     return d
 
+
 class CleverObjectEncoder(json.JSONEncoder):
+
   def default(self, obj):
     if isinstance(obj, CleverObject):
       return obj.to_dict()
     else:
       return json.JSONEncoder.default(self, obj)
 
+
 class APIResource(CleverObject):
+
   def _ident(self):
     return [self.get('id')]
 
   @classmethod
-  def retrieve(cls, id, api_key=None):
-    instance = cls(id, api_key)
+  def retrieve(cls, id, auth=None):
+    instance = cls(id, auth)
     instance.refresh()
     return instance
 
   def refresh(self):
-    requestor = APIRequestor(self._api_key)
+    requestor = APIRequestor(self._auth)
     url = self.instance_url()
-    response, api_key = requestor.request('get', url)
-    self.refresh_from(response['data'], api_key)
+    response, auth = requestor.request('get', url)
+    self.refresh_from(response['data'], auth)
     return self
 
   @classmethod
   def class_name(cls):
     if cls == APIResource:
-      raise NotImplementedError('APIResource is an abstract class.  You should perform actions on its subclasses (Charge, Customer, etc.)')
+      raise NotImplementedError(
+          'APIResource is an abstract class.  You should perform actions on its subclasses (Charge, Customer, etc.)')
     return "%s" % urllib.quote_plus(cls.__name__.lower())
 
   @classmethod
@@ -613,81 +676,99 @@ class APIResource(CleverObject):
   def instance_url(self):
     id = self.get('id')
     if not id:
-      raise InvalidRequestError('Could not determine which URL to request: %s instance has invalid ID: %r' % (type(self).__name__, id), 'id')
+      raise InvalidRequestError(
+          'Could not determine which URL to request: %s instance has invalid ID: %r' % (type(self).__name__, id), 'id')
     id = APIRequestor._utf8(id)
     base = self.class_url()
     extn = urllib.quote_plus(id)
     return "%s/%s" % (base, extn)
 
 # Classes of API operations
+
+
 class ListableAPIResource(APIResource):
-  @classmethod
-  def all(cls, api_key=None, **params):
-    return list(cls.iter(api_key, **params))
 
   @classmethod
-  def iter(cls, api_key=None, **params):
+  def all(cls, auth=None, **params):
+    return list(cls.iter(auth, **params))
+
+  @classmethod
+  def iter(cls, auth=None, **params):
     for unsupported_param in ['limit', 'page']:
       if unsupported_param in params:
-        raise CleverError("ListableAPIResource does not support '%s' parameter" % (unsupported_param,))
+        raise CleverError("ListableAPIResource does not support '%s' parameter" %
+                          (unsupported_param,))
 
-    requestor = APIRequestor(api_key)
+    requestor = APIRequestor(auth)
     url = cls.class_url()
     params['page'] = 1
     params['limit'] = 1000
     done_paginating = False
     while not done_paginating:
-      response, api_key = requestor.request('get', url, params)
-      for datum in convert_to_clever_object(cls, response, api_key):
+      response, auth = requestor.request('get', url, params)
+      for datum in convert_to_clever_object(cls, response, auth):
         yield datum
       params['page'] += 1
       done_paginating = len(response['data']) < params['limit']
 
+
 class CreatableAPIResource(APIResource):
+
   @classmethod
-  def create(cls, api_key=None, **params):
-    requestor = APIRequestor(api_key)
+  def create(cls, auth=None, **params):
+    requestor = APIRequestor(auth)
     url = cls.class_url()
-    response, api_key = requestor.request('post', url, params)
-    return convert_to_clever_object(cls, response, api_key)
+    response, auth = requestor.request('post', url, params)
+    return convert_to_clever_object(cls, response, auth)
+
 
 class UpdateableAPIResource(APIResource):
+
   def save(self):
     if self._unsaved_values:
-      requestor = APIRequestor(self._api_key)
+      requestor = APIRequestor(self._auth)
       params = {}
       for k in self._unsaved_values:
         params[k] = getattr(self, k)
       url = self.instance_url()
-      response, api_key = requestor.request('patch', url, params)
-      self.refresh_from(response['data'], api_key)
+      response, auth = requestor.request('put', url, params)
+      self.refresh_from(response['data'], auth)
     else:
       logger.debug("Trying to save already saved object %r" % (self, ))
     return self
 
+
 class DeletableAPIResource(APIResource):
+
   def delete(self, **params):
-    requestor = APIRequestor(self._api_key)
+    requestor = APIRequestor(self._auth)
     url = self.instance_url()
-    response, api_key = requestor.request('delete', url, params)
-    self.refresh_from(response['data'], api_key)
+    response, auth = requestor.request('delete', url, params)
+    self.refresh_from(response['data'], auth)
     return self
 
 # API objects
+
+
 class District(ListableAPIResource):
   pass
+
 
 class School(ListableAPIResource):
   pass
 
+
 class Section(ListableAPIResource):
   pass
+
 
 class Student(ListableAPIResource):
   pass
 
+
 class Teacher(ListableAPIResource):
   pass
+
 
 class Event(ListableAPIResource):
   pass

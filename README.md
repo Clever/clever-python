@@ -24,17 +24,13 @@ Or from source:
 
 ## Usage
 
-To get started, add your Clever API key as an environment variable:
-
-```bash
-    export CLEVER_API_KEY="YOUR_API_KEY"
-```
-
-And add the following to your Python script:
+Get started by importing the `clever` module and setting your authentication method:
 
 ```python
-    import clever, os
-    clever.api_key = os.environ['CLEVER_API_KEY']
+    import clever
+    clever.set_token('YOUR_OAUTH_TOKEN')
+    # or if you're using API key auth
+    # clever.set_api_key('YOUR_API_KEY')
 ```
 
 The `clever` module exposes classes corresponding to resources:
@@ -94,4 +90,3 @@ Run `clever -h` to see a full list of commands.
 ## Feedback
 
 Questions, feature requests, or feedback of any kind is always welcome! We're available at [tech-support@clever.com](mailto:tech-support@clever.com).
-
