@@ -1,1 +1,7 @@
 v0.0.1, 2012-12-09 -- Initial release.
+
+v0.1.0, 2014-01-08 -- Update calls use PATCH instead of PUT.
+
+v0.2.0, 2014-01-15 -- Start using https://api.clever.com
+
+v0.2.0, 2014-01-15 -- updated MANIFEST.in for new certs

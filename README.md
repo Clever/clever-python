@@ -24,13 +24,13 @@ Or from source:
 
 ## Usage
 
-To get started, add the following to your Python script:
+Get started by importing the `clever` module and setting your authentication method:
 
 ```python
     import clever
-    clever.set_api_key('YOUR_API_KEY')
-    # or if you're using token auth
-    # clever.set_token('OAUTH_TOKEN')
+    clever.set_token('YOUR_OAUTH_TOKEN')
+    # or if you're using API key auth
+    # clever.set_api_key('YOUR_API_KEY')
 ```
 
 The `clever` module exposes classes corresponding to resources:
@@ -42,12 +42,20 @@ The `clever` module exposes classes corresponding to resources:
 * Teacher
 * Event
 
-Each exposes a class method `all` that returns a list of all data in that resource that you have access to. Keyword arguments correspond to the same query parameters supported in the HTTP API:
+Each exposes a class method `all` that returns a list of all data in that resource that you have access to. Keyword arguments correspond to the same query parameters supported in the HTTP API, except that `limit` and `page` are not supported (pagination is handled automatically).
 
 ```python
     schools = clever.School.all() # gets information about all schools you have access to
     schools = clever.School.all(where=json.dumps({'name': 'Of Hard Knocks'}))
-    schools = clever.School.all(sort='state', limit=1)
+    schools = clever.School.all(sort='state')
+```
+
+If you'd like more control over pagination, or to limit the number of resources returned, use the `iter` class method:
+
+```python
+    students = clever.Student.iter()
+    for i in range(0,2000):
+        print students.next()
 ```
 
 The `retrieve` class method takes in a Clever ID, and returns a specific resource. The object (or list of objects in the case of `all`) supports accessing properties using either dot notation or dictionary notation:
@@ -67,10 +75,10 @@ The library comes with a basic command-line interface:
     $ clever districts all
     Running the equivalent of:
     --
-    curl https://api.getclever.com/v1.1/districts -H "Authorization: Basic REVNT19LRVk="
+    curl https://api.clever.com/v1.1/districts -H "Authorization: Basic REVNT19LRVk="
     --
-    Starting new HTTPS connection (1): api.getclever.com
-    API request to https://api.getclever.com/v1.1/districts returned (response code, response body)     of (200, '{"data":[{"data":{"name":"Demo District","id":"4fd43cc56d11340000000005"},"uri":"/v1.1/districts/4fd43cc56d11340000000005"}],"links":[{"rel":"self","uri":"/v1.1/districts"}]}')
+    Starting new HTTPS connection (1): api.clever.com
+    API request to https://api.clever.com/v1.1/districts returned (response code, response body)     of (200, '{"data":[{"data":{"name":"Demo District","id":"4fd43cc56d11340000000005"},"uri":"/v1.1/districts/4fd43cc56d11340000000005"}],"links":[{"rel":"self","uri":"/v1.1/districts"}]}')
     Result (HTTP status code 200):
     --
     {"data":[{"data":{"name":"Demo District","id":"4fd43cc56d11340000000005"},"uri":"/v1.1/districts/4fd43cc56d11340000000005"}],"links":[{"rel":"self","uri":"/v1.1/districts"}]}
@@ -81,5 +89,4 @@ Run `clever -h` to see a full list of commands.
 
 ## Feedback
 
-Questions, feature requests, or feedback of any kind is always welcome! We're available at [tech-support@getclever.com](mailto:tech-support@getclever.com).
-
+Questions, feature requests, or feedback of any kind is always welcome! We're available at [tech-support@clever.com](mailto:tech-support@clever.com).
