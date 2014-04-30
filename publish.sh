@@ -7,6 +7,13 @@
 #   python setup.py register
 
 version=`cat VERSION`
+changelog=CHANGELOG.md
+grep $version $changelog >> /dev/null
+if [[ $? -ne 0 ]]; then
+  echo "Couldn't find version $version in $changelog"
+  exit
+fi
+
 read -p "Publish and tag as v$version? " -n 1 -r
 if [[ $REPLY =~ ^[Yy]$ ]]; then
   # publish to pypi
