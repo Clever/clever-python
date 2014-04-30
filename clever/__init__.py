@@ -84,16 +84,8 @@ CLEVER_CERTS = pkg_resources.resource_filename(__name__, 'data/clever.com_ca_bun
 
 # Configuration variables
 
-<< << << < variant A
 global_auth = dict()
-api_base = 'https://api.getclever.com'
->>>>>> > variant B
-api_key = None
 api_base = 'https://api.clever.com'
-# Ancestor
-api_key = None
-api_base = 'https://api.getclever.com'
-== == == = end
 verify_ssl_certs = True
 
 
