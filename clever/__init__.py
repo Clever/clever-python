@@ -731,7 +731,7 @@ class UpdateableAPIResource(APIResource):
       for k in self._unsaved_values:
         params[k] = getattr(self, k)
       url = self.instance_url()
-      response, auth = requestor.request('put', url, params)
+      response, auth = requestor.request('patch', url, params)
       self.refresh_from(response['data'], auth)
     else:
       logger.debug("Trying to save already saved object %r" % (self, ))
