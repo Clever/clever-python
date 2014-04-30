@@ -1,5 +1,5 @@
 ## 1.0.0 (2014-04-30)
- * Support for authenticating with an OAuth token. [https://github.com/Clever/clever-python/pull/4](#4)
+ * Support for authenticating with an OAuth token. [#4](https://github.com/Clever/clever-python/pull/4)
 
 ## 0.2.0 (2014-01-15)
  * Update MANIFEST.in for new certs.
