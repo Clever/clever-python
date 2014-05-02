@@ -1,3 +1,6 @@
+## 2.0.1 (2014-04-30)
+ * Bugfix: Updated a call to use PATCH instead of PUT. [#12](https://github.com/Clever/clever-python/pull/12)
+
 ## 2.0.0 (2014-04-30)
  * Support for authenticating with an OAuth token. [#4](https://github.com/Clever/clever-python/pull/4)
 
