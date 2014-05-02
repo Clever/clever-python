@@ -14,7 +14,7 @@ def functional_test(auth):
 
     def setUp(self):
       super(FunctionalTests, self).setUp()
-      clever.api_base = os.environ.get('CLEVER_API_BASE', 'https://api.getclever.com')
+      clever.api_base = os.environ.get('CLEVER_API_BASE', 'https://api.clever.com')
       if auth.get("token", None):
         clever.set_token(auth["token"])
       elif auth.get("api_key", None):
