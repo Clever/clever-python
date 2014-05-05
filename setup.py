@@ -34,7 +34,7 @@ setup(name='clever',
       author_email='support@clever.com',
       url='https://clever.com/',
       packages=['clever'],
-      package_data={'clever' : ['data/clever.com_ca_bundle.crt', '../VERSION']},
+      package_data={'clever' : ['data/clever.com_ca_bundle.crt', 'VERSION']},
       install_requires=install_requires,
       #test_suite='test',
 )

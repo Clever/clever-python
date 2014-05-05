@@ -6,7 +6,7 @@
 # To register a package (before first publish):
 #   python setup.py register
 
-version=`cat VERSION`
+version=`cat clever/VERSION`
 changelog=CHANGELOG.md
 grep $version $changelog >> /dev/null
 if [[ $? -ne 0 ]]; then

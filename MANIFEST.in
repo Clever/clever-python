@@ -1,1 +1,1 @@
-include *.txt VERSION clever/data/clever.com_ca_bundle.crt
+include *.txt clever/VERSION clever/data/clever.com_ca_bundle.crt
