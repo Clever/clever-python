@@ -1,3 +1,6 @@
+## 2.0.2 (2014-05-07)
+ * Moved VERSION file to clever dir so package is installed correctly. [#13](https://github.com/Clever/clever-python/pull/13)
+
 ## 2.0.1 (2014-04-30)
  * Bugfix: Updated a call to use PATCH instead of PUT. [#12](https://github.com/Clever/clever-python/pull/12)
 
