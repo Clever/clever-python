@@ -89,6 +89,10 @@ class FunctionalTests(CleverTestCase):
     district = clever.District()
     self.assertRaises(clever.InvalidRequestError, district.refresh)
 
+  def test_keys_and_values_methods(self):
+    clever_object = clever.CleverObject()
+    self.assertEqual(clever_object.keys(), set())
+    self.assertEqual(clever_object.values(), set())
 
 class AuthenticationErrorTest(CleverTestCase):
 
