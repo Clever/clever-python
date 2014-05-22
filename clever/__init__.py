@@ -564,10 +564,10 @@ class CleverObject(object):
     setattr(self, k, v)
 
   def keys(self):
-    return self._values.keys()
+    return self._values
 
   def values(self):
-    return self._values.keys()
+    return self._values
 
   @classmethod
   def construct_from(cls, values, auth):
