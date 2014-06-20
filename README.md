@@ -90,3 +90,13 @@ Run `clever -h` to see a full list of commands.
 ## Feedback
 
 Questions, feature requests, or feedback of any kind is always welcome! We're available at [tech-support@clever.com](mailto:tech-support@clever.com).
+
+## Development
+
+### Dependencies
+
+    pip install -r requirements.txt
+
+### Testing
+
+    python -m unittest discover test
