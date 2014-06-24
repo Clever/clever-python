@@ -149,7 +149,8 @@ if __name__ == '__main__':
           functional_test({"api_key": "DEMO_KEY"}),
           functional_test({"token": "7f76343d50b9e956138169e8cbb4630bb887b18"}),
           AuthenticationErrorTest,
-          InvalidRequestErrorTest]:
+          InvalidRequestErrorTest,
+          TooManyRequestsErrorTest]:
     suite.addTest(unittest.TestLoader().loadTestsFromTestCase(TestClass))
   unittest.TextTestRunner(verbosity=2).run(suite)
 
