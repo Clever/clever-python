@@ -219,7 +219,7 @@ class APIRequestor(object):
     return resp, my_auth
 
   def handle_api_error(self, res, resp):
-    rbody, header, rcode, error = res['body'], res['header'], res['code'], None
+    rbody, rcode = res['body'], res['code']
     try:
       error = resp['error']
     except (KeyError, TypeError):
@@ -288,7 +288,7 @@ class APIRequestor(object):
     return res, my_auth
 
   def interpret_response(self, http_res):
-    rbody, rheader, rcode= http_res['body'], http_res['header'], http_res['code']
+    rbody, rcode= http_res['body'], http_res['code']
     try:
       resp = json.loads(rbody) if rcode != 429 else {'error': 'Too Many Requests'}
     except Exception:
@@ -337,12 +337,12 @@ class APIRequestor(object):
       # are succeptible to the same and should be updated.
       content = result.content
       status_code = result.status_code
-      header = result.headers
+      headers = result.headers
     except Exception, e:
       # Would catch just requests.exceptions.RequestException, but can
       # also raise ValueError, RuntimeError, etc.
       self.handle_requests_error(e)
-    return {'body': content, 'header': header, 'code': status_code}
+    return {'body': content, 'headers': headers, 'code': status_code}
 
   def handle_requests_error(self, e):
     if isinstance(e, requests.exceptions.RequestException):
@@ -397,7 +397,7 @@ class APIRequestor(object):
       curl.perform()
     except pycurl.error, e:
       self.handle_pycurl_error(e)
-    return {'body': s.getvalue(), 'header': 'feature pending', 'code': curl.getinfo(pycurl.RESPONSE_CODE)}
+    return {'body': s.getvalue(), 'headers': 'feature pending', 'code': curl.getinfo(pycurl.RESPONSE_CODE)}
 
   def handle_pycurl_error(self, e):
     if e[0] in [pycurl.E_COULDNT_CONNECT,
@@ -441,7 +441,7 @@ class APIRequestor(object):
       result = urlfetch.fetch(**args)
     except urlfetch.Error, e:
       self.handle_urlfetch_error(e, abs_url)
-    return {'body': result.content, 'header': result.headers, 'code': result.status_code}
+    return {'body': result.content, 'headers': result.headers, 'code': result.status_code}
 
   def handle_urlfetch_error(self, e, abs_url):
     if isinstance(e, urlfetch.InvalidURLError):
@@ -486,7 +486,7 @@ class APIRequestor(object):
       rbody = e.read()
     except (urllib2.URLError, ValueError), e:
       self.handle_urllib2_error(e, abs_url)
-    return {'body': rbody, 'header': rheader, 'code': rcode}
+    return {'body': rbody, 'headers': rheader, 'code': rcode}
 
   def handle_urllib2_error(self, e, abs_url):
     msg = "Unexpected error communicating with Clever.  If this problem persists, let us know at support@clever.com."
