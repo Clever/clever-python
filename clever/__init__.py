@@ -264,14 +264,14 @@ class APIRequestor(object):
       headers['Authorization'] = 'Basic {}'.format(base64.b64encode(my_auth['api_key'] + ':'))
     elif my_auth.get('token', None) != None:
       headers['Authorization'] = 'Bearer {}'.format(my_auth['token'])
-    if _httplib == 'requests':
-      rbody, rcode = self.requests_request(meth, abs_url, headers, params)
-    elif _httplib == 'pycurl':
-      rbody, rcode = self.pycurl_request(meth, abs_url, headers, params)
-    elif _httplib == 'urlfetch':
-      rbody, rcode = self.urlfetch_request(meth, abs_url, headers, params)
-    elif _httplib == 'urllib2':
-      rbody, rcode = self.urllib2_request(meth, abs_url, headers, params)
+    make_request = {
+      'requests': self.requests_request,
+      'pycurl': self.pycurl_request,
+      'urlfetch': self.urlfetch_request,
+      'urllib2': self.urllib2_request
+    }
+    if _httplib in make_request:
+      res = make_request[_httplib](meth, abs_url, headers, params)
     else:
       raise CleverError(
           "Clever Python library bug discovered: invalid httplib %s.  Please report to support@clever.com" % (_httplib, ))
