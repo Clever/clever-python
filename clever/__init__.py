@@ -360,6 +360,7 @@ class APIRequestor(object):
 
   def pycurl_request(self, meth, abs_url, headers, params):
     s = StringIO.StringIO()
+    rheader = StringIO.StringIO()
     curl = pycurl.Curl()
 
     meth = meth.lower()
@@ -388,6 +389,7 @@ class APIRequestor(object):
     curl.setopt(pycurl.CONNECTTIMEOUT, 30)
     curl.setopt(pycurl.TIMEOUT, 80)
     curl.setopt(pycurl.HTTPHEADER, ['%s: %s' % (k, v) for k, v in headers.iteritems()])
+    curl.setopt(pycurl.HEADERFUNCTION, rheader.write)
     if verify_ssl_certs:
       curl.setopt(pycurl.CAINFO, CLEVER_CERTS)
     else:
@@ -397,7 +399,7 @@ class APIRequestor(object):
       curl.perform()
     except pycurl.error, e:
       self.handle_pycurl_error(e)
-    return {'body': s.getvalue(), 'headers': 'feature pending', 'code': curl.getinfo(pycurl.RESPONSE_CODE)}
+    return {'body': s.getvalue(), 'headers': rheader.getvalue(), 'code': curl.getinfo(pycurl.RESPONSE_CODE)}
 
   def handle_pycurl_error(self, e):
     if e[0] in [pycurl.E_COULDNT_CONNECT,
@@ -479,10 +481,11 @@ class APIRequestor(object):
     try:
       response = urllib2.urlopen(req)
       rbody = response.read()
+      rheader = response.info()
       rcode = response.code
-      rheader = 'feature pending'
     except urllib2.HTTPError, e:
       rcode = e.code
+      rheader = None
       rbody = e.read()
     except (urllib2.URLError, ValueError), e:
       self.handle_urllib2_error(e, abs_url)
