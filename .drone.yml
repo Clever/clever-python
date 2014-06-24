@@ -1,6 +1,7 @@
 image: python2.7
 script:
   - pip install -r requirements.txt
+  - pip install -r test/requirements.txt
   - python -m unittest discover test
 notify:
   email:
