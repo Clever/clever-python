@@ -134,16 +134,12 @@ def too_many_requests_content(url, request):
 
 class TooManyRequestsErrorTest(CleverTestCase):
 
-  # To do: use httmock to generate an http response object to pass into the
-  # `interpret_response` function in __init__, and assertRaises.
-
   def test_rate_limiter(self):
     with HTTMock(too_many_requests_content):
       r = requests.get('https://test.rate.limiting')
     res = {'body': r.content, 'headers': r.headers, 'code': 429}
     APIRequestor = clever.APIRequestor()
-    def my_lambda(): APIRequestor.interpret_response(res)
-    self.assertRaises(clever.TooManyRequestsError, my_lambda)
+    self.assertRaises(clever.TooManyRequestsError, lambda : APIRequestor.interpret_response(res))
 
 
 
