@@ -1,0 +1,8 @@
+image: python2.7
+script:
+  - pip install -r requirements.txt
+  - python -m unittest discover test
+notify:
+  email:
+    recipients:
+      - drone@clever.com
