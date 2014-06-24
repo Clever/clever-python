@@ -124,10 +124,12 @@ class InvalidRequestErrorTest(CleverTestCase):
       self.assertTrue(isinstance(e.http_body, str))
 
 def too_many_requests_content(url, request):
-  headers =  { 'X-Ratelimit-Bucket': 'all',    'X-Ratelimit-Bucket': 'none',
-               'X-Ratelimit-Limit' : '200',    'X-Ratelimit-Limit' : '1200',
-               'X-Ratelimit-Reset' : '135136', 'X-Ratelimit-Reset' : '31634',
-               'X-Ratelimit-Remaining' : '0',  'X-Ratelimit-Remaining' : '0' }
+  headers =  {
+    'X-Ratelimit-Bucket': 'all, none',
+    'X-Ratelimit-Limit' : '200, 1200',
+    'X-Ratelimit-Reset' : '135136, 31634',
+    'X-Ratelimit-Remaining' : '0, 0'
+  }
   return response(429, "", headers, None, 5, None)
 
 class TooManyRequestsErrorTest(CleverTestCase):
@@ -138,7 +140,7 @@ class TooManyRequestsErrorTest(CleverTestCase):
   def test_rate_limiter(self):
     with HTTMock(too_many_requests_content):
       r = requests.get('https://test.rate.limiting')
-    res = {'body': r.content, 'header': r.headers, 'code': 429}
+    res = {'body': r.content, 'headers': r.headers, 'code': 429}
     APIRequestor = clever.APIRequestor()
     def my_lambda(): APIRequestor.interpret_response(res)
     self.assertRaises(clever.TooManyRequestsError, my_lambda)
