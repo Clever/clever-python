@@ -123,6 +123,7 @@ class InvalidRequestErrorTest(CleverTestCase):
       self.assertFalse(isinstance(e.json_body, dict))  # 404 does not have a body
       self.assertTrue(isinstance(e.http_body, str))
 
+# http response content for httmock mock requests
 def too_many_requests_content(url, request):
   headers =  {
     'X-Ratelimit-Bucket': 'all, none',
