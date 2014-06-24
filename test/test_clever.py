@@ -2,11 +2,15 @@
 import os
 import sys
 import unittest
+import httmock
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 import clever
 from clever import importer
 json = importer.import_json()
+
+import requests
+from httmock import urlmatch, response, HTTMock
 
 
 def functional_test(auth):
@@ -119,6 +123,28 @@ class InvalidRequestErrorTest(CleverTestCase):
       self.assertFalse(isinstance(e.json_body, dict))  # 404 does not have a body
       self.assertTrue(isinstance(e.http_body, str))
 
+def too_many_requests_content(url, request):
+  headers =  { 'X-Ratelimit-Bucket': 'all',    'X-Ratelimit-Bucket': 'none',
+               'X-Ratelimit-Limit' : '200',    'X-Ratelimit-Limit' : '1200',
+               'X-Ratelimit-Reset' : '135136', 'X-Ratelimit-Reset' : '31634',
+               'X-Ratelimit-Remaining' : '0',  'X-Ratelimit-Remaining' : '0' }
+  return response(429, "", headers, None, 5, None)
+
+class TooManyRequestsErrorTest(CleverTestCase):
+
+  # To do: use httmock to generate an http response object to pass into the
+  # `interpret_response` function in __init__, and assertRaises.
+
+  def test_rate_limiter(self):
+    with HTTMock(too_many_requests_content):
+      r = requests.get('https://test.rate.limiting')
+    res = {'body': r.content, 'header': r.headers, 'code': 429}
+    APIRequestor = clever.APIRequestor()
+    def my_lambda(): APIRequestor.interpret_response(res)
+    self.assertRaises(clever.TooManyRequestsError, my_lambda)
+
+
+
 if __name__ == '__main__':
   suite = unittest.TestSuite()
   for TestClass in [
@@ -128,3 +154,4 @@ if __name__ == '__main__':
           InvalidRequestErrorTest]:
     suite.addTest(unittest.TestLoader().loadTestsFromTestCase(TestClass))
   unittest.TextTestRunner(verbosity=2).run(suite)
+
