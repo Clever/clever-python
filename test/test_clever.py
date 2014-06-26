@@ -138,11 +138,9 @@ class TooManyRequestsErrorTest(CleverTestCase):
   def test_rate_limiter(self):
     with HTTMock(too_many_requests_content):
       r = requests.get('https://test.rate.limiting')
-    res = {'body': r.content, 'headers': r.headers, 'code': 429}
-    APIRequestor = clever.APIRequestor()
-    self.assertRaises(clever.TooManyRequestsError, lambda : APIRequestor.interpret_response(res))
-
-
+      res = {'body': r.content, 'headers': r.headers, 'code': 429}
+      APIRequestor = clever.APIRequestor()
+      self.assertRaises(clever.TooManyRequestsError, lambda : APIRequestor.interpret_response(res))
 
 if __name__ == '__main__':
   suite = unittest.TestSuite()

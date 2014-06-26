@@ -141,7 +141,6 @@ class TooManyRequestsError(CleverError):
   def __init__(self, message, res):
     super(TooManyRequestsError, self).__init__(message, res['body'], res['code'])
     self.http_headers = res['headers']
-  pass
 
 
 def convert_to_clever_object(klass, resp, auth):
