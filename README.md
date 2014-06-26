@@ -58,7 +58,7 @@ If you'd like more control over pagination, or to limit the number of resources 
         print students.next()
 ```
 
-The `retrieve` class method takes in a Clever ID, and returns a specific resource. The object (or list of objects in the case of `all`) supports accessing properties using either dot notation or dictionary notation:
+The `retrieve` class method takes in a Clever ID and returns a specific resource. The object (or list of objects in the case of `all`) supports accessing properties using either dot notation or dictionary notation:
 
 ```python
     demo_school = clever.School.retrieve("4fee004cca2e43cf27000001")
