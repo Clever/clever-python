@@ -139,7 +139,8 @@ class AuthenticationError(CleverError):
 
 class TooManyRequestsError(CleverError):
   def __init__(self, message, res):
-    self.headers = res
+    super(TooManyRequestsError, self).__init__(message, res['body'], res['code'])
+    self.http_headers = res['headers']
   pass
 
 
@@ -219,7 +220,7 @@ class APIRequestor(object):
     return resp, my_auth
 
   def handle_api_error(self, res, resp):
-    rbody, rcode = res['body'], res['code']
+    rbody, rheaders, rcode = res['body'], res['headers'], res['code']
     try:
       error = resp['error']
     except (KeyError, TypeError):
