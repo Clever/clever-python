@@ -1,3 +1,6 @@
+## 2.0.4 (2014-07-07)
+ * Only SSL root certificates are pinned, remove site-specific cert. [#13](https://github.com/Clever/clever-python/pull/19)
+
 ## 2.0.2 (2014-05-07)
  * Moved VERSION file to clever dir so package is installed correctly. [#13](https://github.com/Clever/clever-python/pull/13)
 

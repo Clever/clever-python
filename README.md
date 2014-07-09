@@ -1,7 +1,5 @@
 # Clever Python bindings
 
-[![Build Status](https://secure.travis-ci.org/Clever/clever-python.png)](http://travis-ci.org/Clever/clever-python)
-
 ## Installation
 
 From PyPi:

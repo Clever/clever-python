@@ -316,15 +316,11 @@ class APIRequestor(object):
         # Use a CA_BUNDLE containing the following chain:
         # - TrustedRoot
         # - DigiCert High Assurance EV - 1
-        # - Clever.com EV
         #
         # This ensures that only this certificate chain is used to verify SSL certs.
         # Certs dervived from other ca certs will be treated as invalid.
         # eg. https://api.twitter.com and https://api.stripe.com FAIL
         #     https://api.clever.com and https://api.github.com PASS
-        #
-        # TODO: This gets us close to CERT PINNING but we need to pin the entire
-        # chain not just the CA
         result = requests.request(meth, abs_url,
                                   headers=headers, data=data, timeout=80,
                                   verify=CLEVER_CERTS)
