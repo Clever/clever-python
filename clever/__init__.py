@@ -137,6 +137,11 @@ class InvalidRequestError(CleverError):
 class AuthenticationError(CleverError):
   pass
 
+class TooManyRequestsError(CleverError):
+  def __init__(self, message, res):
+    super(TooManyRequestsError, self).__init__(message, res['body'], res['code'])
+    self.http_headers = res['headers']
+
 
 def convert_to_clever_object(klass, resp, auth):
   # TODO: to support includes we'll have to infer klass from resp['uri']
@@ -209,11 +214,12 @@ class APIRequestor(object):
     return json.dumps(d)
 
   def request(self, meth, url, params={}):
-    rbody, rcode, my_auth = self.request_raw(meth, url, params)
-    resp = self.interpret_response(rbody, rcode)
+    res, my_auth = self.request_raw(meth, url, params)
+    resp = self.interpret_response(res)
     return resp, my_auth
 
-  def handle_api_error(self, rbody, rcode, resp):
+  def handle_api_error(self, res, resp):
+    rbody, rheaders, rcode = res['body'], res['headers'], res['code']
     try:
       error = resp['error']
     except (KeyError, TypeError):
@@ -224,6 +230,8 @@ class APIRequestor(object):
       raise InvalidRequestError(error, rbody, rcode, resp)
     elif rcode == 401:
       raise AuthenticationError(error, rbody, rcode, resp)
+    elif rcode == 429:
+      raise TooManyRequestsError(error, res)
     else:
       raise APIError(error, rbody, rcode, resp)
 
@@ -264,29 +272,30 @@ class APIRequestor(object):
       headers['Authorization'] = 'Basic {}'.format(base64.b64encode(my_auth['api_key'] + ':'))
     elif my_auth.get('token', None) != None:
       headers['Authorization'] = 'Bearer {}'.format(my_auth['token'])
-    if _httplib == 'requests':
-      rbody, rcode = self.requests_request(meth, abs_url, headers, params)
-    elif _httplib == 'pycurl':
-      rbody, rcode = self.pycurl_request(meth, abs_url, headers, params)
-    elif _httplib == 'urlfetch':
-      rbody, rcode = self.urlfetch_request(meth, abs_url, headers, params)
-    elif _httplib == 'urllib2':
-      rbody, rcode = self.urllib2_request(meth, abs_url, headers, params)
+    make_request = {
+      'requests': self.requests_request,
+      'pycurl': self.pycurl_request,
+      'urlfetch': self.urlfetch_request,
+      'urllib2': self.urllib2_request
+    }
+    if _httplib in make_request:
+      res = make_request[_httplib](meth, abs_url, headers, params)
     else:
       raise CleverError(
           "Clever Python library bug discovered: invalid httplib %s.  Please report to support@clever.com" % (_httplib, ))
     logger.debug('API request to %s returned (response code, response body) of (%d, %r)' %
-                 (abs_url, rcode, rbody))
-    return rbody, rcode, my_auth
+                 (abs_url, res['code'], res['body']))
+    return res, my_auth
 
-  def interpret_response(self, rbody, rcode):
+  def interpret_response(self, http_res):
+    rbody, rcode= http_res['body'], http_res['code']
     try:
-      resp = json.loads(rbody)
+      resp = json.loads(rbody) if rcode != 429 else {'error': 'Too Many Requests'}
     except Exception:
       raise APIError("Invalid response body from API: %s (HTTP response code was %d)" %
                      (rbody, rcode), rbody, rcode)
     if not (200 <= rcode < 300):
-      self.handle_api_error(rbody, rcode, resp)
+      self.handle_api_error(http_res, resp)
     return resp
 
   def requests_request(self, meth, abs_url, headers, params):
@@ -324,11 +333,12 @@ class APIRequestor(object):
       # are succeptible to the same and should be updated.
       content = result.content
       status_code = result.status_code
+      headers = result.headers
     except Exception, e:
       # Would catch just requests.exceptions.RequestException, but can
       # also raise ValueError, RuntimeError, etc.
       self.handle_requests_error(e)
-    return content, status_code
+    return {'body': content, 'headers': headers, 'code': status_code}
 
   def handle_requests_error(self, e):
     if isinstance(e, requests.exceptions.RequestException):
@@ -346,6 +356,7 @@ class APIRequestor(object):
 
   def pycurl_request(self, meth, abs_url, headers, params):
     s = StringIO.StringIO()
+    rheader = StringIO.StringIO()
     curl = pycurl.Curl()
 
     meth = meth.lower()
@@ -374,6 +385,7 @@ class APIRequestor(object):
     curl.setopt(pycurl.CONNECTTIMEOUT, 30)
     curl.setopt(pycurl.TIMEOUT, 80)
     curl.setopt(pycurl.HTTPHEADER, ['%s: %s' % (k, v) for k, v in headers.iteritems()])
+    curl.setopt(pycurl.HEADERFUNCTION, rheader.write)
     if verify_ssl_certs:
       curl.setopt(pycurl.CAINFO, CLEVER_CERTS)
     else:
@@ -383,9 +395,7 @@ class APIRequestor(object):
       curl.perform()
     except pycurl.error, e:
       self.handle_pycurl_error(e)
-    rbody = s.getvalue()
-    rcode = curl.getinfo(pycurl.RESPONSE_CODE)
-    return rbody, rcode
+    return {'body': s.getvalue(), 'headers': rheader.getvalue(), 'code': curl.getinfo(pycurl.RESPONSE_CODE)}
 
   def handle_pycurl_error(self, e):
     if e[0] in [pycurl.E_COULDNT_CONNECT,
@@ -429,7 +439,7 @@ class APIRequestor(object):
       result = urlfetch.fetch(**args)
     except urlfetch.Error, e:
       self.handle_urlfetch_error(e, abs_url)
-    return result.content, result.status_code
+    return {'body': result.content, 'headers': result.headers, 'code': result.status_code}
 
   def handle_urlfetch_error(self, e, abs_url):
     if isinstance(e, urlfetch.InvalidURLError):
@@ -467,13 +477,15 @@ class APIRequestor(object):
     try:
       response = urllib2.urlopen(req)
       rbody = response.read()
+      rheader = response.info()
       rcode = response.code
     except urllib2.HTTPError, e:
       rcode = e.code
+      rheader = None
       rbody = e.read()
     except (urllib2.URLError, ValueError), e:
       self.handle_urllib2_error(e, abs_url)
-    return rbody, rcode
+    return {'body': rbody, 'headers': rheader, 'code': rcode}
 
   def handle_urllib2_error(self, e, abs_url):
     msg = "Unexpected error communicating with Clever.  If this problem persists, let us know at support@clever.com."
