@@ -10,7 +10,7 @@ from clever import importer
 json = importer.import_json()
 
 import requests
-from httmock import urlmatch, response, HTTMock
+from httmock import response, HTTMock
 
 
 def functional_test(auth):
@@ -123,7 +123,7 @@ class InvalidRequestErrorTest(CleverTestCase):
       self.assertFalse(isinstance(e.json_body, dict))  # 404 does not have a body
       self.assertTrue(isinstance(e.http_body, str))
 
-# http response content for httmock mock requests
+#generates httmock responses for TooManyRequestsErrorTest
 def too_many_requests_content(url, request):
   headers =  {
     'X-Ratelimit-Bucket': 'all, none',
