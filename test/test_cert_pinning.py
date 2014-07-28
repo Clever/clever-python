@@ -13,7 +13,6 @@ class CleverTestCase(unittest.TestCase):
     clever.set_api_key('DEMO_KEY')
 
 class CertPinning(CleverTestCase):
-  
   def test_prod_api(self):
     clever.api_base = 'https://api.clever.com'
     district = clever.District.all()[0]
@@ -25,14 +24,10 @@ class CertPinning(CleverTestCase):
     self.assertEqual(district.name, 'Demo District')
 
   def test_cert_failure(self):
-    try:
-      clever.api_base = 'https://httpbin.org'
-      self.assertRaises(clever.APIConnectionError, clever.District.all())
-    finally:
-      print 'a'
-    
+    clever.api_base = 'https://httpbin.org'
+    self.assertRaises(clever.APIConnectionError, clever.District.all)
 
 if __name__ == '__main__':
   suite = unittest.TestSuite()
   suite.addTest(unittest.TestLoader().loadTestsFromTestCase(CertPinning))
-  unittest.TextTestRunner(verbosity=3).run(suite)
+  unittest.TextTestRunner(verbosity=2).run(suite)
