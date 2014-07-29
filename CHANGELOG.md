@@ -1,5 +1,8 @@
+## 2.0.5 (2014-07-29)
+ * Added SSL certificate for staging api. [#21](https://github.com/Clever/clever-python/pull/21)
+
 ## 2.0.4 (2014-07-07)
- * Only SSL root certificates are pinned, remove site-specific cert. [#13](https://github.com/Clever/clever-python/pull/19)
+ * Only SSL root certificates are pinned, remove site-specific cert. [#19](https://github.com/Clever/clever-python/pull/19)
 
 ## 2.0.2 (2014-05-07)
  * Moved VERSION file to clever dir so package is installed correctly. [#13](https://github.com/Clever/clever-python/pull/13)
