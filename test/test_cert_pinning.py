@@ -18,11 +18,6 @@ class CertPinning(CleverTestCase):
     district = clever.District.all()[0]
     self.assertEqual(district.name, 'Demo District')
 
-  def test_staging_api(self):
-    clever.api_base = 'https://api-staging.ops.clever.com'
-    district = clever.District.all()[0]
-    self.assertEqual(district.name, 'Demo District')
-
   def test_cert_failure(self):
     clever.api_base = 'https://httpbin.org'
     self.assertRaises(clever.APIConnectionError, clever.District.all)
