@@ -1,1 +1,2 @@
+httmock>=1.2.2
 requests>=0.8.8
