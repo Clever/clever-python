@@ -694,7 +694,15 @@ class APIResource(CleverObject):
 # Classes of API operations
 
 
+def get_link(response, rel):
+  links = response.get('links', None)
+  for link in links:
+    if link.get('rel', None) == rel:
+      return link.get('uri')
+  return None
+
 class ListableAPIResource(APIResource):
+  ITER_LIMIT = 1000
 
   @classmethod
   def all(cls, auth=None, **params):
@@ -702,22 +710,22 @@ class ListableAPIResource(APIResource):
 
   @classmethod
   def iter(cls, auth=None, **params):
-    for unsupported_param in ['limit', 'page']:
+    for unsupported_param in ['limit', 'page', 'starting_after', 'ending_before']:
       if unsupported_param in params:
         raise CleverError("ListableAPIResource does not support '%s' parameter" %
                           (unsupported_param,))
 
     requestor = APIRequestor(auth)
     url = cls.class_url()
-    params['page'] = 1
-    params['limit'] = 1000
-    done_paginating = False
-    while not done_paginating:
+    params['limit'] = cls.ITER_LIMIT
+
+    while url:
       response, auth = requestor.request('get', url, params)
       for datum in convert_to_clever_object(cls, response, auth):
         yield datum
-      params['page'] += 1
-      done_paginating = len(response['data']) < params['limit']
+      url = get_link(response, 'next')
+      # params already included in url from get_link
+      params = {}
 
 
 class CreatableAPIResource(APIResource):
