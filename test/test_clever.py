@@ -76,9 +76,23 @@ class FunctionalTests(CleverTestCase):
     for district in clever.District.iter():
       self.assertTrue(district.id)
 
+  def test_iter_count(self):
+      r = requests.get('https://api.clever.com/v1.1/students?count=true',
+          headers={'Authorization': 'Bearer DEMO_TOKEN'})
+
+      req_count = json.loads(r.text)["count"]
+      iter_count = len([x for x in clever.Student.iter()])
+
+      self.assertTrue(req_count > clever.Student.ITER_LIMIT)
+      self.assertEqual(req_count, iter_count)
+
   def test_unsupported_params(self):
     self.assertRaises(clever.CleverError, lambda: clever.District.all(page=2))
     self.assertRaises(clever.CleverError, lambda: clever.District.all(limit=10))
+    self.assertRaises(clever.CleverError, lambda: clever.District.all(
+        starting_after='4fd43cc56d11340000000005'))
+    self.assertRaises(clever.CleverError, lambda: clever.District.all(
+        ending_before='4fd43cc56d11340000000005'))
     self.assertRaises(clever.CleverError, lambda: clever.District.all(page=2, limit=10))
 
   def test_unicode(self):
