@@ -1,7 +1,7 @@
 # Clever Python bindings
 
 ## Installation
-AAA
+AAABBB
 
 From PyPi:
 
