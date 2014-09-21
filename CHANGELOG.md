@@ -1,4 +1,4 @@
-## 2.1.0 (2014-)
+## 2.1.0 (2014-09-21)
  * Pagination through rel links. [#25](https://github.com/Clever/clever-python/pull/25)
 
 ## 2.0.5 (2014-07-29)
