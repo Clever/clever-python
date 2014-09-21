@@ -1,3 +1,6 @@
+## 2.1.0 (2014-)
+ * Pagination through rel links. [#25](https://github.com/Clever/clever-python/pull/25)
+
 ## 2.0.5 (2014-07-29)
  * Added SSL certificate for staging api. [#21](https://github.com/Clever/clever-python/pull/21)
 
