@@ -1,3 +1,5 @@
+This shouldn't trigger drone
+
 ## 2.0.5 (2014-07-29)
  * Added SSL certificate for staging api. [#21](https://github.com/Clever/clever-python/pull/21)
 
