@@ -27,9 +27,9 @@ class APIResourceClient(object):
   def logged_curl(self, method, url, params):
     dict_params = self.to_dict(params)
     self.log_request(method, url, params, dict_params)
-    rbody, rcode, _ = clever.APIRequestor().request_raw(method, url, dict_params)
-    self.log_result(rbody, rcode)
-    return rbody, rcode
+    res, auth = clever.APIRequestor().request_raw(method, url, dict_params)
+    self.log_result(res['body'], res['code'])
+    return res['body'], res['code']
 
   def log_request(self, method, url, ordered_params, dict_params):
     if method.lower() == 'get':
@@ -46,7 +46,9 @@ class APIResourceClient(object):
       term = ' \\'
     else:
       term = ''
-    curl = ['curl %s%s -H "Authorization: Basic %s"%s' % (clever.api_base, url, base64.b64encode(clever.api_key), term)]
+    api_key = clever.get_api_key()
+    curl = ['curl %s%s -H "Authorization: Basic %s"%s' %
+            (clever.api_base, url, base64.b64encode(api_key), term)]
     if isinstance(ordered_params, list):
       for i, (k, v) in enumerate(ordered_params):
         if i == len(ordered_params) - 1:
@@ -170,11 +172,11 @@ event
 
   klass_name = args[0]
   method_name = args[1]
-
-  clever.api_key = opts.api_key or os.environ.get('CLEVER_API_KEY')
-  if not clever.api_key:
+  api_key = opts.api_key or os.environ.get('CLEVER_API_KEY')
+  if not api_key:
     parser.error('No API key provided (use -k option or set the CLEVER_API_KEY environment variable')
     return 1
+  clever.set_api_key(api_key)
 
   if opts.api_base:
     clever.api_base = opts.api_base
