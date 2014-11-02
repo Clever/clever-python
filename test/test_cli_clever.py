@@ -15,7 +15,7 @@ class CleverCLITestCase(unittest.TestCase):
     process = subprocess.Popen(CLI_CLEVER + args, shell=True, env=env,
                                stdout=subprocess.PIPE,
                                stderr=subprocess.PIPE)
-    
+
     out, err = process.communicate()
     code = process.returncode
     return out, err, code
@@ -38,4 +38,12 @@ class CleverCLITestCase(unittest.TestCase):
     # Check for no error when key is provided via CLEVER_API_KEY
     env = {'CLEVER_API_KEY':'DEMO_KEY'}
     out, err, code = self.run_clever('district all', env)
+    self.assertEqual(code, 0)
+
+  def test_query_params(self):
+    # Check for error when query param is invalid
+    out, err, code = self.run_clever('student all -k DEMO_KEY coun=true')
+    self.assertNotEqual(code, 0)
+    # Check for success when query param is valid
+    out, err, code = self.run_clever('student all -k DEMO_KEY count=true')
     self.assertEqual(code, 0)
