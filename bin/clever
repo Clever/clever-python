@@ -2,8 +2,6 @@
 import logging
 import optparse
 import os
-import re
-import subprocess
 import sys
 import base64
 
@@ -33,9 +31,8 @@ class APIResourceClient(object):
 
   def log_request(self, method, url, ordered_params, dict_params):
     if method.lower() == 'get':
-      requestor = clever.APIRequestor()
       if dict_params:
-        url = '%s?%s' % (url, clever.APIRequestor().encode(dict_params))
+        url = '%s?%s' % (url, clever.APIRequestor().urlencode(dict_params))
       ordered_params = []
     elif not ordered_params:
       ordered_params = '  -X %s' % (method.upper(), )
