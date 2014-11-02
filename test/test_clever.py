@@ -112,6 +112,10 @@ class FunctionalTests(CleverTestCase):
     self.assertEqual(clever_object.keys(), set())
     self.assertEqual(clever_object.values(), set())
 
+  def test_empty_list_on_no_data(self):
+    district = clever.District.all(where=json.dumps({'name': 'asdf'}))
+    self.assertEqual(district, [])
+
 class AuthenticationErrorTest(CleverTestCase):
 
   def test_invalid_credentials(self):

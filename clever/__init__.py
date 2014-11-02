@@ -721,6 +721,9 @@ class ListableAPIResource(APIResource):
 
     while url:
       response, auth = requestor.request('get', url, params)
+      # Generate nothing when there is no data.
+      if len(response['data']) == 0:
+        break
       for datum in convert_to_clever_object(cls, response, auth):
         yield datum
       url = get_link(response, 'next')
