@@ -705,14 +705,40 @@ class ListableAPIResource(APIResource):
   ITER_LIMIT = 1000
 
   @classmethod
+  def count(cls, auth=None, **params):
+    """
+    Counts the number of filtered entries:
+
+    Example:
+    To get a count of all teachers:
+    clever.Teacher.count()
+
+    To get a count of all 8th graders:
+    clever.Student.count(where=json.dumps({"grade": "8"}))
+    """
+    for unsupported_param in ['limit', 'page', 'starting_after', 'ending_before']:
+        if unsupported_param in params:
+            raise CleverError("ListableAPIResource does not support '%s' parameter" %
+                          (unsupported_param,))
+
+    requestor = APIRequestor(auth)
+    url = cls.class_url()
+
+    params['count'] = "true"
+
+    response, auth = requestor.request('get', url, params)
+    return response['count']
+
+
+  @classmethod
   def all(cls, auth=None, **params):
     return list(cls.iter(auth, **params))
 
   @classmethod
   def iter(cls, auth=None, **params):
     for unsupported_param in ['limit', 'page', 'starting_after', 'ending_before']:
-      if unsupported_param in params:
-        raise CleverError("ListableAPIResource does not support '%s' parameter" %
+        if unsupported_param in params:
+            raise CleverError("ListableAPIResource does not support '%s' parameter" %
                           (unsupported_param,))
 
     requestor = APIRequestor(auth)
