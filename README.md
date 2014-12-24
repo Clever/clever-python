@@ -56,6 +56,15 @@ If you'd like more control over pagination, or to limit the number of resources 
         print students.next()
 ```
 
+The `count` class method returns a count for all or the filtered data:
+```python
+    # To get a count of all teachers:
+    clever.Teacher.count()
+
+    # To get a count of all 8th graders:
+    clever.Student.count(where=json.dumps({"grade": "8"}))
+```
+
 The `retrieve` class method takes in a Clever ID and returns a specific resource. The object (or list of objects in the case of `all`) supports accessing properties using either dot notation or dictionary notation:
 
 ```python
