@@ -710,20 +710,21 @@ class ListableAPIResource(APIResource):
 
   @classmethod
   def iter(cls, auth=None, **params):
-    for unsupported_param in ['limit', 'page', 'starting_after', 'ending_before']:
+    for unsupported_param in ['limit', 'page']:
       if unsupported_param in params:
         raise CleverError("ListableAPIResource does not support '%s' parameter" %
                           (unsupported_param,))
 
     requestor = APIRequestor(auth)
     url = cls.class_url()
-    params['limit'] = cls.ITER_LIMIT
+    params['limit'] = cls.ITER_LIMIT    
 
     while url:
       response, auth = requestor.request('get', url, params)
       for datum in convert_to_clever_object(cls, response, auth):
         yield datum
-      url = get_link(response, 'next')
+      
+      url = get_link(response, 'prev' if 'ending_before' in params else 'next')
       # params already included in url from get_link
       params = {}
 
