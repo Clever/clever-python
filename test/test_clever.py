@@ -3,6 +3,7 @@ import os
 import sys
 import unittest
 import httmock
+import itertools
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 import clever
@@ -36,9 +37,23 @@ def functional_test(auth):
       district = clever.District.all()[0]
       self.assertEqual(district['name'], district.name)
 
+    def test_starting_after(self):
+      allevents = clever.Event.all()
+      second_to_last_id = allevents[len(allevents)-2]['id']
+      events = clever.Event.iter(starting_after=second_to_last_id)
+      count = len(list(events))    
+      self.assertTrue(count==1)
+
+    def test_ending_before(self):
+      allevents = clever.Event.all()
+      second_id = allevents[1]['id']
+      events = clever.Event.iter(ending_before=second_id)
+      count = len(list(events))    
+      self.assertTrue(count==1)
+
     def test_unicode(self):
       # Make sure unicode requests can be sent
-      self.assertRaises(clever.InvalidRequestError, clever.District.retrieve, id=u'☃')
+      self.assertRaises(clever.APIError, clever.District.retrieve, id=u'☃')
 
     def test_none_values(self):
       district = clever.District.all(sort=None)[0]
@@ -76,6 +91,20 @@ class FunctionalTests(CleverTestCase):
     for district in clever.District.iter():
       self.assertTrue(district.id)
 
+  def test_starting_after(self):
+    allevents = clever.Event.all()
+    second_to_last_id = allevents[len(allevents)-2]['id']
+    events = clever.Event.iter(starting_after=second_to_last_id)
+    count = len(list(events))    
+    self.assertTrue(count==1)
+
+  def test_ending_before(self):
+    allevents = clever.Event.all()
+    second_id = allevents[1]['id']
+    events = clever.Event.iter(ending_before=second_id)
+    count = len(list(events))    
+    self.assertTrue(count==1)
+
   def test_iter_count(self):
       r = requests.get('https://api.clever.com/v1.1/students?count=true',
           headers={'Authorization': 'Bearer DEMO_TOKEN'})
@@ -89,10 +118,6 @@ class FunctionalTests(CleverTestCase):
   def test_unsupported_params(self):
     self.assertRaises(clever.CleverError, lambda: clever.District.all(page=2))
     self.assertRaises(clever.CleverError, lambda: clever.District.all(limit=10))
-    self.assertRaises(clever.CleverError, lambda: clever.District.all(
-        starting_after='4fd43cc56d11340000000005'))
-    self.assertRaises(clever.CleverError, lambda: clever.District.all(
-        ending_before='4fd43cc56d11340000000005'))
     self.assertRaises(clever.CleverError, lambda: clever.District.all(page=2, limit=10))
 
   def test_unicode(self):
@@ -160,7 +185,7 @@ if __name__ == '__main__':
   suite = unittest.TestSuite()
   for TestClass in [
           functional_test({"api_key": "DEMO_KEY"}),
-          functional_test({"token": "7f76343d50b9e956138169e8cbb4630bb887b18"}),
+          functional_test({"token": "DEMO_TOKEN"}),
           AuthenticationErrorTest,
           InvalidRequestErrorTest,
           TooManyRequestsErrorTest]:
