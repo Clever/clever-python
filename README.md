@@ -56,6 +56,14 @@ If you'd like more control over pagination, or to limit the number of resources 
         print students.next()
 ```
 
+You may also use the `starting_after` or `ending_before` parameters with the `iter` method:
+
+```python
+    students = clever.Student.iter(starting_after="530e5960049e75a9262cff1d")
+    for s in students:
+        print students.next()
+```
+
 The `retrieve` class method takes in a Clever ID and returns a specific resource. The object (or list of objects in the case of `all`) supports accessing properties using either dot notation or dictionary notation:
 
 ```python
