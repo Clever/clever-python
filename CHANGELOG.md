@@ -1,3 +1,6 @@
+## 2.1.1 (2015-02-05)
+ * Pagination using starting_after and ending_before parameters. [#33](https://github.com/Clever/clever-python/pull/33)
+
 ## 2.1.0 (2014-09-21)
  * Pagination through rel links. [#25](https://github.com/Clever/clever-python/pull/25)
 
