@@ -457,7 +457,8 @@ class APIRequestor(object):
   def urllib2_request(self, meth, abs_url, headers, params):
     args = {}
     if meth == 'get':
-      abs_url = '%s?%s' % (abs_url, self.urlencode(params))
+      if params:
+        abs_url = '%s?%s' % (abs_url, self.urlencode(params))
       req = urllib2.Request(abs_url, None, headers)
     elif meth in ['post', 'patch']:
       body = self.jsonencode(params)
