@@ -414,7 +414,8 @@ class APIRequestor(object):
   def urlfetch_request(self, meth, abs_url, headers, params):
     args = {}
     if meth == 'get':
-      abs_url = '%s?%s' % (abs_url, self.urlencode(params))
+      if params:
+        abs_url = '%s?%s' % (abs_url, self.urlencode(params))
     elif meth in ['post', 'patch']:
       args['payload'] = self.jsonencode(params)
       headers['Content-Type'] = 'application/json'
