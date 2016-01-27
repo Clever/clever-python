@@ -145,7 +145,7 @@ class TooManyRequestsError(CleverError):
 
 def convert_to_clever_object(klass, resp, auth):
   # TODO: to support includes we'll have to infer klass from resp['uri']
-  if isinstance(resp, dict) and resp.get('data', None):
+  if isinstance(resp, dict) and 'data' in resp:
     if isinstance(resp['data'], list):
       return [convert_to_clever_object(klass, i, auth) for i in resp['data']]
     elif isinstance(resp['data'], dict):
