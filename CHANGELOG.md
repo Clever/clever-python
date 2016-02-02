@@ -1,3 +1,6 @@
+## 2.2.0 (2016-02-03)
+ * Added bindings for DistrictAdmin and SchoolAdmin resources. [#37](https://github.com/Clever/clever-python/pull/37)
+
 ## 2.1.1 (2015-02-05)
  * Pagination using starting_after and ending_before parameters. [#33](https://github.com/Clever/clever-python/pull/33)
 

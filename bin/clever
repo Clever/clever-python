@@ -103,8 +103,14 @@ class DeletableAPIResourceClient(APIResourceClient):
 class DistrictClient(ListableAPIResourceClient):
   client_for = clever.District
 
+class DistrictAdminClient(ListableAPIResourceClient):
+  client_for = clever.DistrictAdmin
+
 class SchoolClient(ListableAPIResourceClient):
   client_for = clever.School
+
+class SchoolAdminClient(ListableAPIResourceClient):
+  client_for = clever.SchoolAdmin
 
 class SectionClient(ListableAPIResourceClient):
   client_for = clever.Section
@@ -121,11 +127,13 @@ class EventClient(ListableAPIResourceClient):
 def main():
   klasses = {
     'district' : DistrictClient,
+    'district_admin' : DistrictAdminClient,
     'school' : SchoolClient,
+    'school_admin': SchoolAdminClient,
     'section' : SectionClient,
     'student' : StudentClient,
     'teacher' : TeacherClient,
-    'event' : EventClient
+    'event' : EventClient,
   }
   klasses_plural = { '{0}s'.format(key) : value for key, value in klasses.iteritems() }
   klasses = dict(klasses.items() + klasses_plural.items())
@@ -137,7 +145,15 @@ district
   all
   retrieve
 
+district_admin
+  all
+  retrieve
+
 school
+  all
+  retrieve
+
+school_admin
   all
   retrieve
 

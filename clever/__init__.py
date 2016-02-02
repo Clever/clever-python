@@ -81,6 +81,7 @@ logger = logging.getLogger('clever')
 
 # Use certs chain bundle including in the package for SSL verification
 CLEVER_CERTS = pkg_resources.resource_filename(__name__, 'data/clever.com_ca_bundle.crt')
+API_VERSION = "v1.1"
 
 # Configuration variables
 
@@ -266,7 +267,7 @@ class APIRequestor(object):
 
     headers = {
         'X-Clever-Client-User-Agent': json.dumps(ua),
-        'User-Agent': 'Clever/v1.1 PythonBindings/%s' % (VERSION, )
+        'User-Agent': 'Clever/%s PythonBindings/%s' % (API_VERSION, VERSION)
     }
     if my_auth.get('api_key', None) != None:
       headers['Authorization'] = 'Basic {}'.format(base64.b64encode(my_auth['api_key'] + ':'))
@@ -679,7 +680,7 @@ class APIResource(CleverObject):
   @classmethod
   def class_url(cls):
     cls_name = cls.class_name()
-    return "/v1.1/%ss" % cls_name
+    return "/%s/%ss" % (API_VERSION, cls_name)
 
   def instance_url(self):
     id = self.get('id')
@@ -774,8 +775,20 @@ class District(ListableAPIResource):
   pass
 
 
+class DistrictAdmin(ListableAPIResource):
+  @classmethod
+  def class_url(cls):
+    return "/%s/district_admins" % API_VERSION
+
+
 class School(ListableAPIResource):
   pass
+
+
+class SchoolAdmin(ListableAPIResource):
+  @classmethod
+  def class_url(cls):
+    return "/%s/school_admins" % API_VERSION
 
 
 class Section(ListableAPIResource):
