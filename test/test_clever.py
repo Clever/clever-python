@@ -2,6 +2,8 @@
 import os
 import sys
 import unittest
+import urllib2
+import urlfetch
 import httmock
 import itertools
 
@@ -140,6 +142,33 @@ class FunctionalTests(CleverTestCase):
   def test_empty_list_on_no_data(self):
     district = clever.District.all(where=json.dumps({'name': 'asdf'}))
     self.assertEqual(district, [])
+
+class TransportDependentMixin:
+
+  def test_pagination_urllib2(self):
+    teachers = clever.Teacher.all()
+    clever.ListableAPIResource.ITER_LIMIT = 40
+    self.assertTrue(len(teachers) > clever.ListableAPIResource.ITER_LIMIT,
+                    msg='Invalid test - did not cross pagination threshold')
+
+  def test_pagination_urllib2_with_params(self):
+    teachers = clever.Teacher.all(where='{"name.first": {"$gte": "A"}}')
+    clever.ListableAPIResource.ITER_LIMIT = 40
+    self.assertTrue(len(teachers) > clever.ListableAPIResource.ITER_LIMIT,
+                    msg='Invalid test - did not cross pagination threshold')
+
+
+class Urllib2Test(CleverTestCase, TransportDependentMixin):
+  def setUp(self):
+    clever.urllib2 = urllib2
+    clever._httplib = 'urllib2'
+
+class UrlfetchTest(CleverTestCase, TransportDependentMixin):
+  def setUp(self):
+    clever.urlfetch = urlfetch
+    clever._httplib = 'urlfetch'
+
+
 
 class AuthenticationErrorTest(CleverTestCase):
 

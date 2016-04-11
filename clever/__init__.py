@@ -146,7 +146,7 @@ class TooManyRequestsError(CleverError):
 
 def convert_to_clever_object(klass, resp, auth):
   # TODO: to support includes we'll have to infer klass from resp['uri']
-  if isinstance(resp, dict) and resp.get('data', None):
+  if isinstance(resp, dict) and 'data' in resp:
     if isinstance(resp['data'], list):
       return [convert_to_clever_object(klass, i, auth) for i in resp['data']]
     elif isinstance(resp['data'], dict):
@@ -415,7 +415,8 @@ class APIRequestor(object):
   def urlfetch_request(self, meth, abs_url, headers, params):
     args = {}
     if meth == 'get':
-      abs_url = '%s?%s' % (abs_url, self.urlencode(params))
+      if params:
+        abs_url = '%s?%s' % (abs_url, self.urlencode(params))
     elif meth in ['post', 'patch']:
       args['payload'] = self.jsonencode(params)
       headers['Content-Type'] = 'application/json'
@@ -458,7 +459,8 @@ class APIRequestor(object):
   def urllib2_request(self, meth, abs_url, headers, params):
     args = {}
     if meth == 'get':
-      abs_url = '%s?%s' % (abs_url, self.urlencode(params))
+      if params:
+        abs_url = '%s?%s' % (abs_url, self.urlencode(params))
       req = urllib2.Request(abs_url, None, headers)
     elif meth in ['post', 'patch']:
       body = self.jsonencode(params)
