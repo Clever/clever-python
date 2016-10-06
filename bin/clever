@@ -2,8 +2,6 @@
 import logging
 import optparse
 import os
-import re
-import subprocess
 import sys
 import base64
 
@@ -29,13 +27,13 @@ class APIResourceClient(object):
     self.log_request(method, url, params, dict_params)
     res, auth = clever.APIRequestor().request_raw(method, url, dict_params)
     self.log_result(res['body'], res['code'])
-    return res['body'], res['code']
+
+    return res['code']
 
   def log_request(self, method, url, ordered_params, dict_params):
     if method.lower() == 'get':
-      requestor = clever.APIRequestor()
       if dict_params:
-        url = '%s?%s' % (url, clever.APIRequestor().encode(dict_params))
+        url = '%s?%s' % (url, clever.APIRequestor().urlencode(dict_params))
       ordered_params = []
     elif not ordered_params:
       ordered_params = '  -X %s' % (method.upper(), )
@@ -77,27 +75,27 @@ class APIResourceClient(object):
 
   def retrieve(self, params):
     url = self.instance_url()
-    self.logged_curl('get', url, [])
+    return self.logged_curl('get', url, [])
 
 class ListableAPIResourceClient(APIResourceClient):
   def all(self, params):
     url = self.class_url()
-    self.logged_curl('get', url, params)
+    return self.logged_curl('get', url, params)
 
 class CreateableAPIResourceClient(APIResourceClient):
   def create(self, params):
     url = self.class_url()
-    self.logged_curl('post', url, params)
+    return self.logged_curl('post', url, params)
 
 class UpdateableAPIResourceClient(APIResourceClient):
   def update(self, params):
     url = self.instance_url()
-    self.logged_curl('patch', url, params)
+    return self.logged_curl('patch', url, params)
 
 class DeletableAPIResourceClient(APIResourceClient):
   def delete(self, params):
     url = self.instance_url()
-    self.logged_curl('delete', url, params)
+    return self.logged_curl('delete', url, params)
 
 # API objects
 class DistrictClient(ListableAPIResourceClient):
@@ -223,7 +221,9 @@ event
     parser.error('Invalid method %s of %s' % (method_name, klass_name))
     return 1
 
-  return method(params)
+  http_code = method(params)
+  # Return 0 only on success.
+  return 0 if http_code == 200 else 1
 
 if __name__ == '__main__':
   sys.exit(main())
