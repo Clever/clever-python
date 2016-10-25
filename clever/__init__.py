@@ -206,7 +206,7 @@ class APIRequestor(object):
     Internal: encode a dict for url representation
     If we ever need fancy encoding of embedded objects do it here
     """
-    return urllib.urlencode(d)
+    return six.moves.urllib.parse.urlencode(d)
 
   @classmethod
   def jsonencode(cls, d):
@@ -292,7 +292,7 @@ class APIRequestor(object):
   def interpret_response(self, http_res):
     rbody, rcode= http_res['body'], http_res['code']
     try:
-      resp = json.loads(rbody) if rcode != 429 else {'error': 'Too Many Requests'}
+      resp = json.loads(rbody.decode()) if rcode != 429 else {'error': 'Too Many Requests'}
     except Exception:
       raise APIError("Invalid response body from API: %s (HTTP response code was %d)" %
                      (rbody, rcode), rbody, rcode)
@@ -676,7 +676,7 @@ class APIResource(CleverObject):
     if cls == APIResource:
       raise NotImplementedError(
           'APIResource is an abstract class.  You should perform actions on its subclasses (Charge, Customer, etc.)')
-    return "%s" % urllib.quote_plus(cls.__name__.lower())
+    return "%s" % six.moves.urllib.parse.quote_plus(cls.__name__.lower())
 
   @classmethod
   def class_url(cls):
@@ -690,7 +690,7 @@ class APIResource(CleverObject):
           'Could not determine which URL to request: %s instance has invalid ID: %r' % (type(self).__name__, id), 'id')
     id = APIRequestor._utf8(id)
     base = self.class_url()
-    extn = urllib.quote_plus(id)
+    extn = six.moves.urllib.parse.quote_plus(id)
     return "%s/%s" % (base, extn)
 
 # Classes of API operations
