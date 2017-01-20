@@ -86,7 +86,7 @@ The library comes with a basic command-line interface:
     $ clever districts all
     Running the equivalent of:
     --
-    curl https://api.clever.com/v1.1/districts -H "Authorization: Basic DEMO_TOKEN"
+    curl https://api.clever.com/v1.1/districts -H "Authorization: Bearer DEMO_TOKEN"
     --
     Starting new HTTPS connection (1): api.clever.com
     API request to https://api.clever.com/v1.1/districts returned (response code, response body)     of (200, '{"data":[{"data":{"name":"Demo District","id":"4fd43cc56d11340000000005"},"uri":"/v1.1/districts/4fd43cc56d11340000000005"}],"links":[{"rel":"self","uri":"/v1.1/districts"}]}')

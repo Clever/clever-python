@@ -46,7 +46,7 @@ class APIResourceClient(object):
     else:
       term = ''
     api_token = clever.get_token()
-    curl = ['curl %s%s -H "Authorization: Basic %s"%s' %
+    curl = ['curl %s%s -H "Authorization: Bearer %s"%s' %
             (clever.api_base, url, api_token, term)]
     if isinstance(ordered_params, list):
       for i, (k, v) in enumerate(ordered_params):
