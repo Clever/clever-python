@@ -37,6 +37,7 @@ Get started by importing the `clever` module and setting your authentication met
 
 The `clever` module exposes classes corresponding to resources:
 
+* Contact
 * District
 * DistrictAdmin
 * School

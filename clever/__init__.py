@@ -719,7 +719,7 @@ class ListableAPIResource(APIResource):
 
     requestor = APIRequestor(auth)
     url = cls.class_url()
-    params['limit'] = cls.ITER_LIMIT    
+    params['limit'] = cls.ITER_LIMIT
 
     while url:
       response, auth = requestor.request('get', url, params)
@@ -728,7 +728,7 @@ class ListableAPIResource(APIResource):
         break
       for datum in convert_to_clever_object(cls, response, auth):
         yield datum
-      
+
       url = get_link(response, 'prev' if 'ending_before' in params else 'next')
       # params already included in url from get_link
       params = {}
@@ -770,6 +770,10 @@ class DeletableAPIResource(APIResource):
     return self
 
 # API objects
+
+
+class Contact(ListableAPIResource):
+  pass
 
 
 class District(ListableAPIResource):
