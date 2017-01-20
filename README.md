@@ -31,8 +31,6 @@ Get started by importing the `clever` module and setting your authentication met
 ```python
     import clever
     clever.set_token('YOUR_OAUTH_TOKEN')
-    # or if you're using API key auth
-    # clever.set_api_key('YOUR_API_KEY')
 ```
 
 The `clever` module exposes classes corresponding to resources:
@@ -84,11 +82,11 @@ The `retrieve` class method takes in a Clever ID and returns a specific resource
 The library comes with a basic command-line interface:
 
 ```bash
-    $ export CLEVER_API_KEY=DEMO_KEY
+    $ export CLEVER_API_TOKEN=DEMO_TOKEN
     $ clever districts all
     Running the equivalent of:
     --
-    curl https://api.clever.com/v1.1/districts -H "Authorization: Basic REVNT19LRVk="
+    curl https://api.clever.com/v1.1/districts -H "Authorization: Basic DEMO_TOKEN"
     --
     Starting new HTTPS connection (1): api.clever.com
     API request to https://api.clever.com/v1.1/districts returned (response code, response body)     of (200, '{"data":[{"data":{"name":"Demo District","id":"4fd43cc56d11340000000005"},"uri":"/v1.1/districts/4fd43cc56d11340000000005"}],"links":[{"rel":"self","uri":"/v1.1/districts"}]}')
