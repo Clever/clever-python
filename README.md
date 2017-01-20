@@ -111,3 +111,7 @@ Questions, feature requests, or feedback of any kind is always welcome! We're av
 ### Testing
 
     python -m unittest discover test
+
+## Publishing
+
+Update VERSION and CHANGELOG.md and run `publish.sh` to publish a new version of the library.
