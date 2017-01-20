@@ -22,46 +22,6 @@ def functional_test(auth):
       clever.api_base = os.environ.get('CLEVER_API_BASE', 'https://api.clever.com')
       if auth.get("token", None):
         clever.set_token(auth["token"])
-      elif auth.get("api_key", None):
-        clever.set_api_key(auth["api_key"])
-
-    def test_dns_failure(self):
-      api_base = clever.api_base
-      try:
-        clever.api_base = 'https://my-invalid-domain.ireallywontresolve/v1'
-        self.assertRaises(clever.APIConnectionError, clever.District.all)
-      finally:
-        clever.api_base = api_base
-
-    def test_list_accessors(self):
-      district = clever.District.all()[0]
-      self.assertEqual(district['name'], district.name)
-
-    def test_starting_after(self):
-      allevents = clever.Event.all()
-      second_to_last_id = allevents[len(allevents)-2]['id']
-      events = clever.Event.iter(starting_after=second_to_last_id)
-      count = len(list(events))    
-      self.assertTrue(count==1)
-
-    def test_ending_before(self):
-      allevents = clever.Event.all()
-      second_id = allevents[1]['id']
-      events = clever.Event.iter(ending_before=second_id)
-      count = len(list(events))    
-      self.assertTrue(count==1)
-
-    def test_unicode(self):
-      # Make sure unicode requests can be sent
-      self.assertRaises(clever.APIError, clever.District.retrieve, id=u'☃')
-
-    def test_none_values(self):
-      district = clever.District.all(sort=None)[0]
-      self.assertTrue(district.id)
-
-    def test_missing_id(self):
-      district = clever.District()
-      self.assertRaises(clever.InvalidRequestError, district.refresh)
   return FunctionalTests
 
 
@@ -92,17 +52,17 @@ class FunctionalTests(CleverTestCase):
       self.assertTrue(district.id)
 
   def test_starting_after(self):
-    allevents = clever.Event.all()
-    second_to_last_id = allevents[len(allevents)-2]['id']
-    events = clever.Event.iter(starting_after=second_to_last_id)
-    count = len(list(events))    
+    allstudents = clever.Student.all()
+    second_to_last_id = allstudents[len(allstudents)-2]['id']
+    students = clever.Student.iter(starting_after=second_to_last_id)
+    count = len(list(students))
     self.assertTrue(count==1)
 
   def test_ending_before(self):
-    allevents = clever.Event.all()
-    second_id = allevents[1]['id']
-    events = clever.Event.iter(ending_before=second_id)
-    count = len(list(events))    
+    allstudents = clever.Student.all()
+    second_id = allstudents[1]['id']
+    students = clever.Student.iter(ending_before=second_id)
+    count = len(list(students))
     self.assertTrue(count==1)
 
   def test_iter_count(self):
@@ -188,11 +148,9 @@ class TooManyRequestsErrorTest(CleverTestCase):
 if __name__ == '__main__':
   suite = unittest.TestSuite()
   for TestClass in [
-          functional_test({"api_key": "DEMO_KEY"}),
           functional_test({"token": "DEMO_TOKEN"}),
           AuthenticationErrorTest,
           InvalidRequestErrorTest,
           TooManyRequestsErrorTest]:
     suite.addTest(unittest.TestLoader().loadTestsFromTestCase(TestClass))
   unittest.TextTestRunner(verbosity=2).run(suite)
-
