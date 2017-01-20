@@ -30,7 +30,7 @@ class CleverTestCase(unittest.TestCase):
   def setUp(self):
     super(CleverTestCase, self).setUp()
     clever.api_base = os.environ.get('CLEVER_API_BASE', 'https://api.clever.com')
-    clever.set_api_key('DEMO_KEY')
+    clever.set_token('DEMO_TOKEN')
 
 
 class FunctionalTests(CleverTestCase):
@@ -104,16 +104,16 @@ class FunctionalTests(CleverTestCase):
 class AuthenticationErrorTest(CleverTestCase):
 
   def test_invalid_credentials(self):
-    key = clever.get_api_key()
+    token = clever.get_token()
     try:
-      clever.set_api_key('invalid')
+      clever.set_token('invalid')
       clever.District.all()
     except clever.AuthenticationError, e:
       self.assertEqual(401, e.http_status)
       self.assertTrue(isinstance(e.http_body, str))
       self.assertTrue(isinstance(e.json_body, dict))
     finally:
-      clever.set_api_key(key)
+      clever.set_token(token)
 
 
 class InvalidRequestErrorTest(CleverTestCase):

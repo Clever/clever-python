@@ -10,7 +10,7 @@ from clever import importer
 class CleverTestCase(unittest.TestCase):
   def setUp(self):
     super(CleverTestCase, self).setUp()
-    clever.set_api_key('DEMO_KEY')
+    clever.set_token('DEMO_TOKEN')
 
 class CertPinning(CleverTestCase):
   def test_prod_api(self):
