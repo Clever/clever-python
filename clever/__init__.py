@@ -100,16 +100,6 @@ def get_token():
   global global_auth
   return global_auth.get('token', None)
 
-
-def set_api_key(api_key):
-  global global_auth
-  global_auth = {'api_key': api_key}
-
-
-def get_api_key():
-  global global_auth
-  return global_auth.get('api_key', None)
-
 # Exceptions
 
 
@@ -244,9 +234,9 @@ class APIRequestor(object):
     my_auth = self._auth or global_auth
     if my_auth is None:
       raise AuthenticationError(
-          'No authentication method provided. (HINT: "clever.api_key = <API-KEY>" is deprecated. Set your API key using "clever.set_api_key(<API-KEY>)" or "clever.set_token(<OAUTH-TOKEN>)". You can generate API keys from the Clever web interface.  See https://clever.com/developers/docs for details, or email support@clever.com if you have any questions.')
-    if my_auth.get('token') is None and my_auth.get('api_key') is None:
-      raise AuthenticationError('Must provide either api_key or token auth. {}'.format(my_auth))
+          'No authentication method provided. (HINT: "clever.api_key = <API-KEY>" is deprecated. Set your API token using "clever.set_token(<OAUTH-TOKEN>)". You can generate API tokens from the Clever web interface.  See https://clever.com/developers/docs for details, or email support@clever.com if you have any questions.')
+    if my_auth.get('token') is None:
+      raise AuthenticationError('Must provide api token auth. {}'.format(my_auth))
 
     abs_url = self.api_url(url)
     params = params.copy()
