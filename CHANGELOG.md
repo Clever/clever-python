@@ -1,3 +1,7 @@
+## 2.3.0 (2017-01-19)
+ * Added bindings for Contact resource. [#41](https://github.com/Clever/clever-python/pull/41)
+ * Updated CLI [#43](https://github.com/Clever/clever-python/pull/43)
+
 ## 2.2.0 (2016-02-03)
  * Added bindings for DistrictAdmin and SchoolAdmin resources. [#37](https://github.com/Clever/clever-python/pull/37)
 
