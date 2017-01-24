@@ -115,3 +115,16 @@ Questions, feature requests, or feedback of any kind is always welcome! We're av
 ## Publishing
 
 Update VERSION and CHANGELOG.md and run `publish.sh` to publish a new version of the library.
+
+In order to publish to PyPI you will need a `.pypirc` file in your `$HOME` directory with the following contents:
+```
+[distutils]
+index-servers =
+    pypi
+
+[pypi]
+username: ****
+password: ****
+```
+
+The username and password are in 1Password for Teams under `PyPI`.
