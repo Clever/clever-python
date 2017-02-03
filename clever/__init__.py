@@ -51,7 +51,7 @@ if not _httplib:
     pass
   else:
     if major == 0 and (minor < 8 or (minor == 8 and patch < 8)):
-      print('Warning: the Clever library requires that your Python "requests" library has a version no older than 0.8.8, but your "requests" library has version %s. Clever will fall back to an alternate HTTP library, so everything should work, though we recommend upgrading your "requests" library. If you have any questions, please contact tech-support@clever.com. (HINT: running "pip install -U requests" should upgrade your requests library to the latest version.)' % (
+      print('Warning: the Clever library requires that your Python "requests" library has a version no older than 0.8.8, but your "requests" library has version %s. Clever will fall back to an alternate HTTP library, so everything should work, though we recommend upgrading your "requests" library. (HINT: running "pip install -U requests" should upgrade your requests library to the latest version.)' % (
           version, ), file=sys.stderr)
       _httplib = None
 
@@ -72,7 +72,7 @@ if not _httplib:
 
 if not _httplib:
   raise ImportError(
-      "Clever requires one of pycurl, Google App Engine's urlfetch, or urllib2.  If you are on a platform where none of these libraries are available, please let us know at tech-support@clever.com.")
+      "Clever requires one of pycurl, Google App Engine's urlfetch, or urllib2.")
 
 from .version import VERSION
 from . import importer
@@ -234,7 +234,7 @@ class APIRequestor(object):
     my_auth = self._auth or global_auth
     if my_auth is None:
       raise AuthenticationError(
-          'No authentication method provided. (HINT: "clever.api_key = <API-KEY>" is deprecated. Set your API token using "clever.set_token(<OAUTH-TOKEN>)". You can generate API tokens from the Clever web interface.  See https://clever.com/developers/docs for details, or email tech-support@clever.com if you have any questions.')
+          'No authentication method provided. (HINT: "clever.api_key = <API-KEY>" is deprecated. Set your API token using "clever.set_token(<OAUTH-TOKEN>)". You can generate API tokens from the Clever web interface.  See https://clever.com/developers/docs for details.')
     if my_auth.get('token') is None:
       raise AuthenticationError('Must provide api token auth. {}'.format(my_auth))
 
@@ -393,10 +393,10 @@ class APIRequestor(object):
     if e[0] in [pycurl.E_COULDNT_CONNECT,
                 pycurl.E_COULDNT_RESOLVE_HOST,
                 pycurl.E_OPERATION_TIMEOUTED]:
-      msg = "Could not connect to Clever (%s).  Please check your internet connection and try again.  If this problem persists, you should check Clever's service status at http://status.clever.com, or let us know at tech-support@clever.com." % (
+      msg = "Could not connect to Clever (%s).  Please check your internet connection and try again.  If this problem persists, you should check Clever's service status at http://status.clever.com." % (
           api_base, )
     elif e[0] == pycurl.E_SSL_CACERT or e[0] == pycurl.E_SSL_PEER_CERTIFICATE:
-      msg = "Could not verify Clever's SSL certificate.  Please make sure that your network is not intercepting certificates.  (Try going to %s in your browser.)  If this problem persists, let us know at tech-support@clever.com." % (
+      msg = "Could not verify Clever's SSL certificate.  Please make sure that your network is not intercepting certificates.  (Try going to %s in your browser)." % (
           api_base, )
     else:
       msg = "Unexpected error communicating with Clever.  If this problem persists, let us know at tech-support@clever.com."
