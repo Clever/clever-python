@@ -1,3 +1,6 @@
+## 2.3.1 (2017-02-06)
+ * Changed support email address
+
 ## 2.3.0 (2017-01-19)
  * Added bindings for Contact resource. [#41](https://github.com/Clever/clever-python/pull/41)
  * Updated CLI [#43](https://github.com/Clever/clever-python/pull/43)
