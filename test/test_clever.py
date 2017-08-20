@@ -85,7 +85,7 @@ class FunctionalTests(CleverTestCase):
     self.assertRaises(clever.APIError, clever.District.retrieve, id=u'☃')
 
   def test_none_values(self):
-    district = clever.District.all(sort=None)[0]
+    district = clever.District.all(count=None)[0]
     self.assertTrue(district.id)
 
   def test_missing_id(self):
