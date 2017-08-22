@@ -32,6 +32,9 @@ class CleverTestCase(unittest.TestCase):
     clever.api_base = os.environ.get('CLEVER_API_BASE', 'https://api.clever.com')
     clever.set_token('DEMO_TOKEN')
 
+#generates httmock responses for test_unicode_receive
+def unicode_content(url, request):
+  return {'status_code': 200, 'content': '{"data": {"name": "Oh haiô"}}'}
 
 class FunctionalTests(CleverTestCase):
 
@@ -80,12 +83,17 @@ class FunctionalTests(CleverTestCase):
     self.assertRaises(clever.CleverError, lambda: clever.District.all(limit=10))
     self.assertRaises(clever.CleverError, lambda: clever.District.all(page=2, limit=10))
 
-  def test_unicode(self):
-    # Make sure unicode requests can be sent
+  def test_unicode_send(self):
+    # Make sure unicode requests can be sent. 404 error is a clever.APIError
     self.assertRaises(clever.APIError, clever.District.retrieve, id=u'☃')
 
+  def test_unicode_receive(self):
+    with HTTMock(unicode_content):
+      # Make sure unicode responses can be received.
+      self.assertEqual(u'Oh haiô', clever.District.retrieve('something').name)
+
   def test_none_values(self):
-    district = clever.District.all(sort=None)[0]
+    district = clever.District.all(count=None)[0]
     self.assertTrue(district.id)
 
   def test_missing_id(self):

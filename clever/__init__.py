@@ -282,7 +282,7 @@ class APIRequestor(object):
   def interpret_response(self, http_res):
     rbody, rcode= http_res['body'], http_res['code']
     try:
-      resp = json.loads(rbody.decode()) if rcode != 429 else {'error': 'Too Many Requests'}
+      resp = json.loads(rbody.decode('utf-8')) if rcode != 429 else {'error': 'Too Many Requests'}
     except Exception:
       raise APIError("Invalid response body from API: %s (HTTP response code was %d)" %
                      (rbody, rcode), rbody, rcode)
