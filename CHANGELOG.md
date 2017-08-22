@@ -1,3 +1,6 @@
+## 2.3.2 (2017-08-22)
+ * Support unicode characters in API response
+
 ## 2.3.1 (2017-02-06)
  * Changed support email address
 
