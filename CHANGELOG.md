@@ -1,3 +1,6 @@
+## 2.4.0 (2017-09-18)
+ * Use API v1.2
+
 ## 2.3.2 (2017-08-22)
  * Support unicode characters in API response
 
