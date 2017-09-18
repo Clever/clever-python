@@ -82,7 +82,7 @@ logger = logging.getLogger('clever')
 
 # Use certs chain bundle including in the package for SSL verification
 CLEVER_CERTS = pkg_resources.resource_filename(__name__, 'data/clever.com_ca_bundle.crt')
-API_VERSION = "v1.1"
+API_VERSION = "v1.2"
 
 # Configuration variables
 
