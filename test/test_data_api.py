@@ -17,16 +17,16 @@ import os
 import sys
 import unittest
 
-import swagger_client
-from swagger_client.rest import ApiException
-from swagger_client.apis.data_api import DataApi
+import clever
+from clever.rest import ApiException
+from clever.apis.data_api import DataApi
 
 
 class TestDataApi(unittest.TestCase):
     """ DataApi unit test stubs """
 
     def setUp(self):
-        self.api = swagger_client.apis.data_api.DataApi()
+        self.api = clever.apis.data_api.DataApi()
 
     def tearDown(self):
         pass

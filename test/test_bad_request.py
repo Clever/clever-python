@@ -17,9 +17,9 @@ import os
 import sys
 import unittest
 
-import swagger_client
-from swagger_client.rest import ApiException
-from swagger_client.models.bad_request import BadRequest
+import clever
+from clever.rest import ApiException
+from clever.models.bad_request import BadRequest
 
 
 class TestBadRequest(unittest.TestCase):
@@ -36,7 +36,7 @@ class TestBadRequest(unittest.TestCase):
         Test BadRequest
         """
         # FIXME: construct object with mandatory attributes with example values
-        #model = swagger_client.models.bad_request.BadRequest()
+        #model = clever.models.bad_request.BadRequest()
         pass
 
 

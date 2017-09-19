@@ -17,9 +17,9 @@ import os
 import sys
 import unittest
 
-import swagger_client
-from swagger_client.rest import ApiException
-from swagger_client.models.district_status_response import DistrictStatusResponse
+import clever
+from clever.rest import ApiException
+from clever.models.district_status_response import DistrictStatusResponse
 
 
 class TestDistrictStatusResponse(unittest.TestCase):
@@ -36,7 +36,7 @@ class TestDistrictStatusResponse(unittest.TestCase):
         Test DistrictStatusResponse
         """
         # FIXME: construct object with mandatory attributes with example values
-        #model = swagger_client.models.district_status_response.DistrictStatusResponse()
+        #model = clever.models.district_status_response.DistrictStatusResponse()
         pass
 
 

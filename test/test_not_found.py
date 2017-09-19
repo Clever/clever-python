@@ -17,9 +17,9 @@ import os
 import sys
 import unittest
 
-import swagger_client
-from swagger_client.rest import ApiException
-from swagger_client.models.not_found import NotFound
+import clever
+from clever.rest import ApiException
+from clever.models.not_found import NotFound
 
 
 class TestNotFound(unittest.TestCase):
@@ -36,7 +36,7 @@ class TestNotFound(unittest.TestCase):
         Test NotFound
         """
         # FIXME: construct object with mandatory attributes with example values
-        #model = swagger_client.models.not_found.NotFound()
+        #model = clever.models.not_found.NotFound()
         pass
 
 

@@ -17,9 +17,9 @@ import os
 import sys
 import unittest
 
-import swagger_client
-from swagger_client.rest import ApiException
-from swagger_client.models.grade_levels_response import GradeLevelsResponse
+import clever
+from clever.rest import ApiException
+from clever.models.grade_levels_response import GradeLevelsResponse
 
 
 class TestGradeLevelsResponse(unittest.TestCase):
@@ -36,7 +36,7 @@ class TestGradeLevelsResponse(unittest.TestCase):
         Test GradeLevelsResponse
         """
         # FIXME: construct object with mandatory attributes with example values
-        #model = swagger_client.models.grade_levels_response.GradeLevelsResponse()
+        #model = clever.models.grade_levels_response.GradeLevelsResponse()
         pass
 
 

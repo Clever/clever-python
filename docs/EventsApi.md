@@ -1,4 +1,4 @@
-# swagger_client.EventsApi
+# clever.EventsApi
 
 All URIs are relative to *https://api.clever.com/v1.2*
 
@@ -24,15 +24,15 @@ Returns the specific event
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import clever
+from clever.rest import ApiException
 from pprint import pprint
 
 # Configure OAuth2 access token for authorization: oauth
-swagger_client.configuration.access_token = 'YOUR_ACCESS_TOKEN'
+clever.configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
 # create an instance of the API class
-api_instance = swagger_client.EventsApi()
+api_instance = clever.EventsApi()
 id = 'id_example' # str | 
 
 try: 
@@ -74,15 +74,15 @@ Returns a list of events
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import clever
+from clever.rest import ApiException
 from pprint import pprint
 
 # Configure OAuth2 access token for authorization: oauth
-swagger_client.configuration.access_token = 'YOUR_ACCESS_TOKEN'
+clever.configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
 # create an instance of the API class
-api_instance = swagger_client.EventsApi()
+api_instance = clever.EventsApi()
 limit = 56 # int |  (optional)
 starting_after = 'starting_after_example' # str |  (optional)
 ending_before = 'ending_before_example' # str |  (optional)
@@ -128,15 +128,15 @@ Returns a list of events for a school
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import clever
+from clever.rest import ApiException
 from pprint import pprint
 
 # Configure OAuth2 access token for authorization: oauth
-swagger_client.configuration.access_token = 'YOUR_ACCESS_TOKEN'
+clever.configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
 # create an instance of the API class
-api_instance = swagger_client.EventsApi()
+api_instance = clever.EventsApi()
 id = 'id_example' # str | 
 limit = 56 # int |  (optional)
 starting_after = 'starting_after_example' # str |  (optional)
@@ -184,15 +184,15 @@ Returns a list of events for a school admin
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import clever
+from clever.rest import ApiException
 from pprint import pprint
 
 # Configure OAuth2 access token for authorization: oauth
-swagger_client.configuration.access_token = 'YOUR_ACCESS_TOKEN'
+clever.configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
 # create an instance of the API class
-api_instance = swagger_client.EventsApi()
+api_instance = clever.EventsApi()
 id = 'id_example' # str | 
 limit = 56 # int |  (optional)
 starting_after = 'starting_after_example' # str |  (optional)
@@ -240,15 +240,15 @@ Returns a list of events for a section
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import clever
+from clever.rest import ApiException
 from pprint import pprint
 
 # Configure OAuth2 access token for authorization: oauth
-swagger_client.configuration.access_token = 'YOUR_ACCESS_TOKEN'
+clever.configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
 # create an instance of the API class
-api_instance = swagger_client.EventsApi()
+api_instance = clever.EventsApi()
 id = 'id_example' # str | 
 limit = 56 # int |  (optional)
 starting_after = 'starting_after_example' # str |  (optional)
@@ -296,15 +296,15 @@ Returns a list of events for a student
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import clever
+from clever.rest import ApiException
 from pprint import pprint
 
 # Configure OAuth2 access token for authorization: oauth
-swagger_client.configuration.access_token = 'YOUR_ACCESS_TOKEN'
+clever.configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
 # create an instance of the API class
-api_instance = swagger_client.EventsApi()
+api_instance = clever.EventsApi()
 id = 'id_example' # str | 
 limit = 56 # int |  (optional)
 starting_after = 'starting_after_example' # str |  (optional)
@@ -352,15 +352,15 @@ Returns a list of events for a teacher
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import clever
+from clever.rest import ApiException
 from pprint import pprint
 
 # Configure OAuth2 access token for authorization: oauth
-swagger_client.configuration.access_token = 'YOUR_ACCESS_TOKEN'
+clever.configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
 # create an instance of the API class
-api_instance = swagger_client.EventsApi()
+api_instance = clever.EventsApi()
 id = 'id_example' # str | 
 limit = 56 # int |  (optional)
 starting_after = 'starting_after_example' # str |  (optional)

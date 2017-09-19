@@ -1,4 +1,4 @@
-# swagger_client.DataApi
+# clever.DataApi
 
 All URIs are relative to *https://api.clever.com/v1.2*
 
@@ -56,15 +56,15 @@ Returns a specific student contact
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import clever
+from clever.rest import ApiException
 from pprint import pprint
 
 # Configure OAuth2 access token for authorization: oauth
-swagger_client.configuration.access_token = 'YOUR_ACCESS_TOKEN'
+clever.configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
 # create an instance of the API class
-api_instance = swagger_client.DataApi()
+api_instance = clever.DataApi()
 id = 'id_example' # str | 
 
 try: 
@@ -106,15 +106,15 @@ Returns a list of student contacts
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import clever
+from clever.rest import ApiException
 from pprint import pprint
 
 # Configure OAuth2 access token for authorization: oauth
-swagger_client.configuration.access_token = 'YOUR_ACCESS_TOKEN'
+clever.configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
 # create an instance of the API class
-api_instance = swagger_client.DataApi()
+api_instance = clever.DataApi()
 limit = 56 # int |  (optional)
 starting_after = 'starting_after_example' # str |  (optional)
 ending_before = 'ending_before_example' # str |  (optional)
@@ -160,15 +160,15 @@ Returns the contacts for a student
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import clever
+from clever.rest import ApiException
 from pprint import pprint
 
 # Configure OAuth2 access token for authorization: oauth
-swagger_client.configuration.access_token = 'YOUR_ACCESS_TOKEN'
+clever.configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
 # create an instance of the API class
-api_instance = swagger_client.DataApi()
+api_instance = clever.DataApi()
 id = 'id_example' # str | 
 limit = 56 # int |  (optional)
 
@@ -212,15 +212,15 @@ Returns a specific district
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import clever
+from clever.rest import ApiException
 from pprint import pprint
 
 # Configure OAuth2 access token for authorization: oauth
-swagger_client.configuration.access_token = 'YOUR_ACCESS_TOKEN'
+clever.configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
 # create an instance of the API class
-api_instance = swagger_client.DataApi()
+api_instance = clever.DataApi()
 id = 'id_example' # str | 
 
 try: 
@@ -262,15 +262,15 @@ Returns a specific district admin
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import clever
+from clever.rest import ApiException
 from pprint import pprint
 
 # Configure OAuth2 access token for authorization: oauth
-swagger_client.configuration.access_token = 'YOUR_ACCESS_TOKEN'
+clever.configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
 # create an instance of the API class
-api_instance = swagger_client.DataApi()
+api_instance = clever.DataApi()
 id = 'id_example' # str | 
 
 try: 
@@ -312,15 +312,15 @@ Returns a list of district admins
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import clever
+from clever.rest import ApiException
 from pprint import pprint
 
 # Configure OAuth2 access token for authorization: oauth
-swagger_client.configuration.access_token = 'YOUR_ACCESS_TOKEN'
+clever.configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
 # create an instance of the API class
-api_instance = swagger_client.DataApi()
+api_instance = clever.DataApi()
 starting_after = 'starting_after_example' # str |  (optional)
 ending_before = 'ending_before_example' # str |  (optional)
 
@@ -364,15 +364,15 @@ Returns the district for a school
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import clever
+from clever.rest import ApiException
 from pprint import pprint
 
 # Configure OAuth2 access token for authorization: oauth
-swagger_client.configuration.access_token = 'YOUR_ACCESS_TOKEN'
+clever.configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
 # create an instance of the API class
-api_instance = swagger_client.DataApi()
+api_instance = clever.DataApi()
 id = 'id_example' # str | 
 
 try: 
@@ -414,15 +414,15 @@ Returns the district for a section
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import clever
+from clever.rest import ApiException
 from pprint import pprint
 
 # Configure OAuth2 access token for authorization: oauth
-swagger_client.configuration.access_token = 'YOUR_ACCESS_TOKEN'
+clever.configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
 # create an instance of the API class
-api_instance = swagger_client.DataApi()
+api_instance = clever.DataApi()
 id = 'id_example' # str | 
 
 try: 
@@ -464,15 +464,15 @@ Returns the district for a student
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import clever
+from clever.rest import ApiException
 from pprint import pprint
 
 # Configure OAuth2 access token for authorization: oauth
-swagger_client.configuration.access_token = 'YOUR_ACCESS_TOKEN'
+clever.configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
 # create an instance of the API class
-api_instance = swagger_client.DataApi()
+api_instance = clever.DataApi()
 id = 'id_example' # str | 
 
 try: 
@@ -514,15 +514,15 @@ Returns the district for a student contact
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import clever
+from clever.rest import ApiException
 from pprint import pprint
 
 # Configure OAuth2 access token for authorization: oauth
-swagger_client.configuration.access_token = 'YOUR_ACCESS_TOKEN'
+clever.configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
 # create an instance of the API class
-api_instance = swagger_client.DataApi()
+api_instance = clever.DataApi()
 id = 'id_example' # str | 
 
 try: 
@@ -564,15 +564,15 @@ Returns the district for a teacher
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import clever
+from clever.rest import ApiException
 from pprint import pprint
 
 # Configure OAuth2 access token for authorization: oauth
-swagger_client.configuration.access_token = 'YOUR_ACCESS_TOKEN'
+clever.configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
 # create an instance of the API class
-api_instance = swagger_client.DataApi()
+api_instance = clever.DataApi()
 id = 'id_example' # str | 
 
 try: 
@@ -614,15 +614,15 @@ Returns the status of the district
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import clever
+from clever.rest import ApiException
 from pprint import pprint
 
 # Configure OAuth2 access token for authorization: oauth
-swagger_client.configuration.access_token = 'YOUR_ACCESS_TOKEN'
+clever.configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
 # create an instance of the API class
-api_instance = swagger_client.DataApi()
+api_instance = clever.DataApi()
 id = 'id_example' # str | 
 
 try: 
@@ -664,15 +664,15 @@ Returns a list of districts
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import clever
+from clever.rest import ApiException
 from pprint import pprint
 
 # Configure OAuth2 access token for authorization: oauth
-swagger_client.configuration.access_token = 'YOUR_ACCESS_TOKEN'
+clever.configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
 # create an instance of the API class
-api_instance = swagger_client.DataApi()
+api_instance = clever.DataApi()
 
 try: 
     api_response = api_instance.get_districts()
@@ -710,15 +710,15 @@ Returns the grade levels for sections a teacher teaches
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import clever
+from clever.rest import ApiException
 from pprint import pprint
 
 # Configure OAuth2 access token for authorization: oauth
-swagger_client.configuration.access_token = 'YOUR_ACCESS_TOKEN'
+clever.configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
 # create an instance of the API class
-api_instance = swagger_client.DataApi()
+api_instance = clever.DataApi()
 id = 'id_example' # str | 
 
 try: 
@@ -760,15 +760,15 @@ Returns a specific school
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import clever
+from clever.rest import ApiException
 from pprint import pprint
 
 # Configure OAuth2 access token for authorization: oauth
-swagger_client.configuration.access_token = 'YOUR_ACCESS_TOKEN'
+clever.configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
 # create an instance of the API class
-api_instance = swagger_client.DataApi()
+api_instance = clever.DataApi()
 id = 'id_example' # str | 
 
 try: 
@@ -810,15 +810,15 @@ Returns a specific school admin
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import clever
+from clever.rest import ApiException
 from pprint import pprint
 
 # Configure OAuth2 access token for authorization: oauth
-swagger_client.configuration.access_token = 'YOUR_ACCESS_TOKEN'
+clever.configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
 # create an instance of the API class
-api_instance = swagger_client.DataApi()
+api_instance = clever.DataApi()
 id = 'id_example' # str | 
 
 try: 
@@ -860,15 +860,15 @@ Returns a list of school admins
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import clever
+from clever.rest import ApiException
 from pprint import pprint
 
 # Configure OAuth2 access token for authorization: oauth
-swagger_client.configuration.access_token = 'YOUR_ACCESS_TOKEN'
+clever.configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
 # create an instance of the API class
-api_instance = swagger_client.DataApi()
+api_instance = clever.DataApi()
 limit = 56 # int |  (optional)
 starting_after = 'starting_after_example' # str |  (optional)
 ending_before = 'ending_before_example' # str |  (optional)
@@ -914,15 +914,15 @@ Returns the school for a section
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import clever
+from clever.rest import ApiException
 from pprint import pprint
 
 # Configure OAuth2 access token for authorization: oauth
-swagger_client.configuration.access_token = 'YOUR_ACCESS_TOKEN'
+clever.configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
 # create an instance of the API class
-api_instance = swagger_client.DataApi()
+api_instance = clever.DataApi()
 id = 'id_example' # str | 
 
 try: 
@@ -964,15 +964,15 @@ Returns the primary school for a student
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import clever
+from clever.rest import ApiException
 from pprint import pprint
 
 # Configure OAuth2 access token for authorization: oauth
-swagger_client.configuration.access_token = 'YOUR_ACCESS_TOKEN'
+clever.configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
 # create an instance of the API class
-api_instance = swagger_client.DataApi()
+api_instance = clever.DataApi()
 id = 'id_example' # str | 
 
 try: 
@@ -1014,15 +1014,15 @@ Retrieves school info for a teacher.
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import clever
+from clever.rest import ApiException
 from pprint import pprint
 
 # Configure OAuth2 access token for authorization: oauth
-swagger_client.configuration.access_token = 'YOUR_ACCESS_TOKEN'
+clever.configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
 # create an instance of the API class
-api_instance = swagger_client.DataApi()
+api_instance = clever.DataApi()
 id = 'id_example' # str | 
 
 try: 
@@ -1064,15 +1064,15 @@ Returns a list of schools
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import clever
+from clever.rest import ApiException
 from pprint import pprint
 
 # Configure OAuth2 access token for authorization: oauth
-swagger_client.configuration.access_token = 'YOUR_ACCESS_TOKEN'
+clever.configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
 # create an instance of the API class
-api_instance = swagger_client.DataApi()
+api_instance = clever.DataApi()
 limit = 56 # int |  (optional)
 starting_after = 'starting_after_example' # str |  (optional)
 ending_before = 'ending_before_example' # str |  (optional)
@@ -1118,15 +1118,15 @@ Returns the schools for a school admin
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import clever
+from clever.rest import ApiException
 from pprint import pprint
 
 # Configure OAuth2 access token for authorization: oauth
-swagger_client.configuration.access_token = 'YOUR_ACCESS_TOKEN'
+clever.configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
 # create an instance of the API class
-api_instance = swagger_client.DataApi()
+api_instance = clever.DataApi()
 id = 'id_example' # str | 
 limit = 56 # int |  (optional)
 starting_after = 'starting_after_example' # str |  (optional)
@@ -1174,15 +1174,15 @@ Returns a specific section
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import clever
+from clever.rest import ApiException
 from pprint import pprint
 
 # Configure OAuth2 access token for authorization: oauth
-swagger_client.configuration.access_token = 'YOUR_ACCESS_TOKEN'
+clever.configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
 # create an instance of the API class
-api_instance = swagger_client.DataApi()
+api_instance = clever.DataApi()
 id = 'id_example' # str | 
 
 try: 
@@ -1224,15 +1224,15 @@ Returns a list of sections
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import clever
+from clever.rest import ApiException
 from pprint import pprint
 
 # Configure OAuth2 access token for authorization: oauth
-swagger_client.configuration.access_token = 'YOUR_ACCESS_TOKEN'
+clever.configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
 # create an instance of the API class
-api_instance = swagger_client.DataApi()
+api_instance = clever.DataApi()
 limit = 56 # int |  (optional)
 starting_after = 'starting_after_example' # str |  (optional)
 ending_before = 'ending_before_example' # str |  (optional)
@@ -1278,15 +1278,15 @@ Returns the sections for a school
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import clever
+from clever.rest import ApiException
 from pprint import pprint
 
 # Configure OAuth2 access token for authorization: oauth
-swagger_client.configuration.access_token = 'YOUR_ACCESS_TOKEN'
+clever.configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
 # create an instance of the API class
-api_instance = swagger_client.DataApi()
+api_instance = clever.DataApi()
 id = 'id_example' # str | 
 limit = 56 # int |  (optional)
 starting_after = 'starting_after_example' # str |  (optional)
@@ -1334,15 +1334,15 @@ Returns the sections for a student
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import clever
+from clever.rest import ApiException
 from pprint import pprint
 
 # Configure OAuth2 access token for authorization: oauth
-swagger_client.configuration.access_token = 'YOUR_ACCESS_TOKEN'
+clever.configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
 # create an instance of the API class
-api_instance = swagger_client.DataApi()
+api_instance = clever.DataApi()
 id = 'id_example' # str | 
 limit = 56 # int |  (optional)
 starting_after = 'starting_after_example' # str |  (optional)
@@ -1390,15 +1390,15 @@ Returns the sections for a teacher
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import clever
+from clever.rest import ApiException
 from pprint import pprint
 
 # Configure OAuth2 access token for authorization: oauth
-swagger_client.configuration.access_token = 'YOUR_ACCESS_TOKEN'
+clever.configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
 # create an instance of the API class
-api_instance = swagger_client.DataApi()
+api_instance = clever.DataApi()
 id = 'id_example' # str | 
 limit = 56 # int |  (optional)
 starting_after = 'starting_after_example' # str |  (optional)
@@ -1446,15 +1446,15 @@ Returns a specific student
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import clever
+from clever.rest import ApiException
 from pprint import pprint
 
 # Configure OAuth2 access token for authorization: oauth
-swagger_client.configuration.access_token = 'YOUR_ACCESS_TOKEN'
+clever.configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
 # create an instance of the API class
-api_instance = swagger_client.DataApi()
+api_instance = clever.DataApi()
 id = 'id_example' # str | 
 
 try: 
@@ -1496,15 +1496,15 @@ Returns the student for a student contact
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import clever
+from clever.rest import ApiException
 from pprint import pprint
 
 # Configure OAuth2 access token for authorization: oauth
-swagger_client.configuration.access_token = 'YOUR_ACCESS_TOKEN'
+clever.configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
 # create an instance of the API class
-api_instance = swagger_client.DataApi()
+api_instance = clever.DataApi()
 id = 'id_example' # str | 
 
 try: 
@@ -1546,15 +1546,15 @@ Returns a list of students
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import clever
+from clever.rest import ApiException
 from pprint import pprint
 
 # Configure OAuth2 access token for authorization: oauth
-swagger_client.configuration.access_token = 'YOUR_ACCESS_TOKEN'
+clever.configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
 # create an instance of the API class
-api_instance = swagger_client.DataApi()
+api_instance = clever.DataApi()
 limit = 56 # int |  (optional)
 starting_after = 'starting_after_example' # str |  (optional)
 ending_before = 'ending_before_example' # str |  (optional)
@@ -1600,15 +1600,15 @@ Returns the students for a school
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import clever
+from clever.rest import ApiException
 from pprint import pprint
 
 # Configure OAuth2 access token for authorization: oauth
-swagger_client.configuration.access_token = 'YOUR_ACCESS_TOKEN'
+clever.configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
 # create an instance of the API class
-api_instance = swagger_client.DataApi()
+api_instance = clever.DataApi()
 id = 'id_example' # str | 
 limit = 56 # int |  (optional)
 starting_after = 'starting_after_example' # str |  (optional)
@@ -1656,15 +1656,15 @@ Returns the students for a section
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import clever
+from clever.rest import ApiException
 from pprint import pprint
 
 # Configure OAuth2 access token for authorization: oauth
-swagger_client.configuration.access_token = 'YOUR_ACCESS_TOKEN'
+clever.configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
 # create an instance of the API class
-api_instance = swagger_client.DataApi()
+api_instance = clever.DataApi()
 id = 'id_example' # str | 
 limit = 56 # int |  (optional)
 starting_after = 'starting_after_example' # str |  (optional)
@@ -1712,15 +1712,15 @@ Returns the students for a teacher
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import clever
+from clever.rest import ApiException
 from pprint import pprint
 
 # Configure OAuth2 access token for authorization: oauth
-swagger_client.configuration.access_token = 'YOUR_ACCESS_TOKEN'
+clever.configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
 # create an instance of the API class
-api_instance = swagger_client.DataApi()
+api_instance = clever.DataApi()
 id = 'id_example' # str | 
 limit = 56 # int |  (optional)
 starting_after = 'starting_after_example' # str |  (optional)
@@ -1768,15 +1768,15 @@ Returns a specific teacher
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import clever
+from clever.rest import ApiException
 from pprint import pprint
 
 # Configure OAuth2 access token for authorization: oauth
-swagger_client.configuration.access_token = 'YOUR_ACCESS_TOKEN'
+clever.configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
 # create an instance of the API class
-api_instance = swagger_client.DataApi()
+api_instance = clever.DataApi()
 id = 'id_example' # str | 
 
 try: 
@@ -1818,15 +1818,15 @@ Returns the primary teacher for a section
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import clever
+from clever.rest import ApiException
 from pprint import pprint
 
 # Configure OAuth2 access token for authorization: oauth
-swagger_client.configuration.access_token = 'YOUR_ACCESS_TOKEN'
+clever.configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
 # create an instance of the API class
-api_instance = swagger_client.DataApi()
+api_instance = clever.DataApi()
 id = 'id_example' # str | 
 
 try: 
@@ -1868,15 +1868,15 @@ Returns a list of teachers
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import clever
+from clever.rest import ApiException
 from pprint import pprint
 
 # Configure OAuth2 access token for authorization: oauth
-swagger_client.configuration.access_token = 'YOUR_ACCESS_TOKEN'
+clever.configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
 # create an instance of the API class
-api_instance = swagger_client.DataApi()
+api_instance = clever.DataApi()
 limit = 56 # int |  (optional)
 starting_after = 'starting_after_example' # str |  (optional)
 ending_before = 'ending_before_example' # str |  (optional)
@@ -1922,15 +1922,15 @@ Returns the teachers for a school
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import clever
+from clever.rest import ApiException
 from pprint import pprint
 
 # Configure OAuth2 access token for authorization: oauth
-swagger_client.configuration.access_token = 'YOUR_ACCESS_TOKEN'
+clever.configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
 # create an instance of the API class
-api_instance = swagger_client.DataApi()
+api_instance = clever.DataApi()
 id = 'id_example' # str | 
 limit = 56 # int |  (optional)
 starting_after = 'starting_after_example' # str |  (optional)
@@ -1978,15 +1978,15 @@ Returns the teachers for a section
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import clever
+from clever.rest import ApiException
 from pprint import pprint
 
 # Configure OAuth2 access token for authorization: oauth
-swagger_client.configuration.access_token = 'YOUR_ACCESS_TOKEN'
+clever.configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
 # create an instance of the API class
-api_instance = swagger_client.DataApi()
+api_instance = clever.DataApi()
 id = 'id_example' # str | 
 limit = 56 # int |  (optional)
 starting_after = 'starting_after_example' # str |  (optional)
@@ -2034,15 +2034,15 @@ Returns the teachers for a student
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import clever
+from clever.rest import ApiException
 from pprint import pprint
 
 # Configure OAuth2 access token for authorization: oauth
-swagger_client.configuration.access_token = 'YOUR_ACCESS_TOKEN'
+clever.configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
 # create an instance of the API class
-api_instance = swagger_client.DataApi()
+api_instance = clever.DataApi()
 id = 'id_example' # str | 
 limit = 56 # int |  (optional)
 starting_after = 'starting_after_example' # str |  (optional)

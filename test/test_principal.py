@@ -17,9 +17,9 @@ import os
 import sys
 import unittest
 
-import swagger_client
-from swagger_client.rest import ApiException
-from swagger_client.models.principal import Principal
+import clever
+from clever.rest import ApiException
+from clever.models.principal import Principal
 
 
 class TestPrincipal(unittest.TestCase):
@@ -36,7 +36,7 @@ class TestPrincipal(unittest.TestCase):
         Test Principal
         """
         # FIXME: construct object with mandatory attributes with example values
-        #model = swagger_client.models.principal.Principal()
+        #model = clever.models.principal.Principal()
         pass
 
 

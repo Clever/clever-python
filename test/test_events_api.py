@@ -17,16 +17,16 @@ import os
 import sys
 import unittest
 
-import swagger_client
-from swagger_client.rest import ApiException
-from swagger_client.apis.events_api import EventsApi
+import clever
+from clever.rest import ApiException
+from clever.apis.events_api import EventsApi
 
 
 class TestEventsApi(unittest.TestCase):
     """ EventsApi unit test stubs """
 
     def setUp(self):
-        self.api = swagger_client.apis.events_api.EventsApi()
+        self.api = clever.apis.events_api.EventsApi()
 
     def tearDown(self):
         pass

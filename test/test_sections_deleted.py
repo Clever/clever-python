@@ -17,9 +17,9 @@ import os
 import sys
 import unittest
 
-import swagger_client
-from swagger_client.rest import ApiException
-from swagger_client.models.sections_deleted import SectionsDeleted
+import clever
+from clever.rest import ApiException
+from clever.models.sections_deleted import SectionsDeleted
 
 
 class TestSectionsDeleted(unittest.TestCase):
@@ -36,7 +36,7 @@ class TestSectionsDeleted(unittest.TestCase):
         Test SectionsDeleted
         """
         # FIXME: construct object with mandatory attributes with example values
-        #model = swagger_client.models.sections_deleted.SectionsDeleted()
+        #model = clever.models.sections_deleted.SectionsDeleted()
         pass
 
 

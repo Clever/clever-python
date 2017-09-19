@@ -17,9 +17,9 @@ import os
 import sys
 import unittest
 
-import swagger_client
-from swagger_client.rest import ApiException
-from swagger_client.models.students_updated import StudentsUpdated
+import clever
+from clever.rest import ApiException
+from clever.models.students_updated import StudentsUpdated
 
 
 class TestStudentsUpdated(unittest.TestCase):
@@ -36,7 +36,7 @@ class TestStudentsUpdated(unittest.TestCase):
         Test StudentsUpdated
         """
         # FIXME: construct object with mandatory attributes with example values
-        #model = swagger_client.models.students_updated.StudentsUpdated()
+        #model = clever.models.students_updated.StudentsUpdated()
         pass
 
 

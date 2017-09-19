@@ -17,9 +17,9 @@ import os
 import sys
 import unittest
 
-import swagger_client
-from swagger_client.rest import ApiException
-from swagger_client.models.credentials import Credentials
+import clever
+from clever.rest import ApiException
+from clever.models.credentials import Credentials
 
 
 class TestCredentials(unittest.TestCase):
@@ -36,7 +36,7 @@ class TestCredentials(unittest.TestCase):
         Test Credentials
         """
         # FIXME: construct object with mandatory attributes with example values
-        #model = swagger_client.models.credentials.Credentials()
+        #model = clever.models.credentials.Credentials()
         pass
 
 

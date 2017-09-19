@@ -17,9 +17,9 @@ import os
 import sys
 import unittest
 
-import swagger_client
-from swagger_client.rest import ApiException
-from swagger_client.models.internal_error import InternalError
+import clever
+from clever.rest import ApiException
+from clever.models.internal_error import InternalError
 
 
 class TestInternalError(unittest.TestCase):
@@ -36,7 +36,7 @@ class TestInternalError(unittest.TestCase):
         Test InternalError
         """
         # FIXME: construct object with mandatory attributes with example values
-        #model = swagger_client.models.internal_error.InternalError()
+        #model = clever.models.internal_error.InternalError()
         pass
 
 
