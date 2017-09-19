@@ -261,6 +261,10 @@ class ApiClient(object):
                 return {k: self.__deserialize(v, sub_kls)
                         for k, v in iteritems(data)}
 
+            if klass == 'Event':
+                klass = eval('models.'+''.join(data['type'].title().split('.')))
+                return self.__deserialize(data,klass)
+
             # convert str to class
             if klass in self.NATIVE_TYPES_MAPPING:
                 klass = self.NATIVE_TYPES_MAPPING[klass]
