@@ -5,3 +5,9 @@ rm -rf swagger_client|| true
 # Rename references of swagger client to Clever
 git grep -l 'swagger_client' -- './*' ':(exclude)override/override.sh' | xargs sed -i "" 's/swagger_client/clever/g'
 git grep -l 'swagger-client' -- './*' ':(exclude)override/override.sh' | xargs sed -i "" 's/swagger-client/clever-python/g'
+
+# Copy override files for events
+cp override/api_client.py clever/
+cp override/*_created.py clever/models/
+cp override/*_updated.py clever/models/
+cp override/*_deleted.py clever/models/
