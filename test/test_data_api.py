@@ -16,26 +16,53 @@ from __future__ import absolute_import
 import os
 import sys
 import unittest
+import urllib3
 
 import clever
 from clever.rest import ApiException
 from clever.apis.data_api import DataApi
 
+class MockPoolManager(object):
+    def __init__(self, tc):
+        self._tc = tc
+        self._reqs = []
+
+    def expect_request(self, *args, **kwargs):
+        self._reqs.append((args, kwargs))
+
+    def request(self, *args, **kwargs):
+        return urllib3.HTTPResponse(status=200, body='{"data": {"name": "Oh haiô"}}')
 
 class TestDataApi(unittest.TestCase):
     """ DataApi unit test stubs """
 
     def setUp(self):
         self.api = clever.apis.data_api.DataApi()
+        clever.configuration.access_token = 'DEMO_TOKEN'
 
     def tearDown(self):
         pass
+
+    def test_unicode_send(self):
+        # Make sure unicode requests can be sent. 404 error is an ApiException
+        self.assertRaises(ApiException, self.api.get_district, u'☃')
+
+    def test_unicode_receive(self):
+        mock_pool = MockPoolManager(self)
+        real_pool = self.api.api_client.rest_client.pool_manager
+        self.api.api_client.rest_client.pool_manager = mock_pool
+
+        mock_pool.expect_request('GET', 'https://api.clever.com/v1.2/districts/something')
+        # Make sure unicode responses can be received.
+        self.assertEqual(u'Oh haiô', self.api.get_district('something').data.name)
+        self.api.api_client.rest_client.pool_manager = real_pool
+
 
     def test_get_contact(self):
         """
         Test case for get_contact
 
-        
+
         """
         pass
 
