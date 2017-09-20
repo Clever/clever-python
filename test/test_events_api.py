@@ -27,6 +27,7 @@ class TestEventsApi(unittest.TestCase):
 
     def setUp(self):
         self.api = clever.apis.events_api.EventsApi()
+        clever.configuration.access_token = 'DEMO_EVENTS_TOKEN'
 
     def tearDown(self):
         pass
@@ -43,15 +44,21 @@ class TestEventsApi(unittest.TestCase):
         """
         Test case for get_events
 
-        
+
         """
-        pass
+
+        # Check event class is properly set
+        response = self.api.get_events(limit=1)
+        event = response.data[0]
+        event_class = type(event.data).__name__
+        self.assertTrue(event_class != 'Event')
+        self.assertTrue(event_class.endswith('Created') or event_class.endswith('Updated') or event_class.endswith('Deleted'))
 
     def test_get_events_for_school(self):
         """
         Test case for get_events_for_school
 
-        
+
         """
         pass
 
