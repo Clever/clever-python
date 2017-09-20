@@ -6,6 +6,16 @@ rm -rf swagger_client|| true
 git grep -l 'swagger_client' -- './*' ':(exclude)override/override.sh' | xargs sed -i "" 's/swagger_client/clever/g'
 git grep -l 'swagger-client' -- './*' ':(exclude)override/override.sh' | xargs sed -i "" 's/swagger-client/clever-python/g'
 
+# Update the README
+mv README.md docs/README.md
+sed -i "" 's/## Documentation for API Endpoints/<EOD>\'$'\n## Documentation for API Endpoints/g' docs/README.md
+sed -i "" '/## Requirements./,/<EOD>/d' docs/README.md
+sed -i "" '/## Author/d' docs/README.md
+sed -i "" 's/docs\///g' docs/README.md
+git grep -l '../README.md' -- './docs/*' | xargs sed -i "" 's/..\/README.md/README.md/g'
+cp override/README.md README.md
+
+
 # Copy override files for events
 cp override/api_client.py clever/
 cp override/*_created.py clever/models/
