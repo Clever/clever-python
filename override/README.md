@@ -44,7 +44,7 @@ from pprint import pprint
 
 # Note: This is hard coded for demo purposes only. Keep your access tokens secret!
 # https://dev.clever.com/docs/security#section-security-best-practices
-clever.configuration.access_token = 'DEMO_TOKEN'
+clever.configuration.access_token = 'TEST_TOKEN'
 # create an instance of the API class
 api_instance = clever.DataApi()
 

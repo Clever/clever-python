@@ -38,7 +38,7 @@ class TestDataApi(unittest.TestCase):
 
     def setUp(self):
         self.api = clever.apis.data_api.DataApi()
-        clever.configuration.access_token = 'DEMO_TOKEN'
+        clever.configuration.access_token = 'TEST_TOKEN'
 
     def tearDown(self):
         pass
