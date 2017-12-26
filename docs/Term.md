@@ -4,6 +4,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **end_date** | **str** |  | [optional] 
+**id** | **str** |  | [optional] 
 **name** | **str** |  | [optional] 
 **start_date** | **str** |  | [optional] 
 

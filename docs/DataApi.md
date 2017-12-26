@@ -1,23 +1,28 @@
 # clever.DataApi
 
-All URIs are relative to *https://api.clever.com/v1.2*
+All URIs are relative to *https://api.clever.com/v2.0*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**get_contact**](DataApi.md#get_contact) | **GET** /contacts/{id} | 
 [**get_contacts**](DataApi.md#get_contacts) | **GET** /contacts | 
 [**get_contacts_for_student**](DataApi.md#get_contacts_for_student) | **GET** /students/{id}/contacts | 
+[**get_course**](DataApi.md#get_course) | **GET** /courses/{id} | 
+[**get_course_for_section**](DataApi.md#get_course_for_section) | **GET** /sections/{id}/course | 
+[**get_courses**](DataApi.md#get_courses) | **GET** /courses | 
 [**get_district**](DataApi.md#get_district) | **GET** /districts/{id} | 
 [**get_district_admin**](DataApi.md#get_district_admin) | **GET** /district_admins/{id} | 
 [**get_district_admins**](DataApi.md#get_district_admins) | **GET** /district_admins | 
+[**get_district_for_contact**](DataApi.md#get_district_for_contact) | **GET** /contacts/{id}/district | 
+[**get_district_for_course**](DataApi.md#get_district_for_course) | **GET** /courses/{id}/district | 
+[**get_district_for_district_admin**](DataApi.md#get_district_for_district_admin) | **GET** /district_admins/{id}/district | 
 [**get_district_for_school**](DataApi.md#get_district_for_school) | **GET** /schools/{id}/district | 
+[**get_district_for_school_admin**](DataApi.md#get_district_for_school_admin) | **GET** /school_admins/{id}/district | 
 [**get_district_for_section**](DataApi.md#get_district_for_section) | **GET** /sections/{id}/district | 
 [**get_district_for_student**](DataApi.md#get_district_for_student) | **GET** /students/{id}/district | 
-[**get_district_for_student_contact**](DataApi.md#get_district_for_student_contact) | **GET** /contacts/{id}/district | 
 [**get_district_for_teacher**](DataApi.md#get_district_for_teacher) | **GET** /teachers/{id}/district | 
-[**get_district_status**](DataApi.md#get_district_status) | **GET** /districts/{id}/status | 
+[**get_district_for_term**](DataApi.md#get_district_for_term) | **GET** /terms/{id}/district | 
 [**get_districts**](DataApi.md#get_districts) | **GET** /districts | 
-[**get_grade_levels_for_teacher**](DataApi.md#get_grade_levels_for_teacher) | **GET** /teachers/{id}/grade_levels | 
 [**get_school**](DataApi.md#get_school) | **GET** /schools/{id} | 
 [**get_school_admin**](DataApi.md#get_school_admin) | **GET** /school_admins/{id} | 
 [**get_school_admins**](DataApi.md#get_school_admins) | **GET** /school_admins | 
@@ -26,14 +31,18 @@ Method | HTTP request | Description
 [**get_school_for_teacher**](DataApi.md#get_school_for_teacher) | **GET** /teachers/{id}/school | 
 [**get_schools**](DataApi.md#get_schools) | **GET** /schools | 
 [**get_schools_for_school_admin**](DataApi.md#get_schools_for_school_admin) | **GET** /school_admins/{id}/schools | 
+[**get_schools_for_student**](DataApi.md#get_schools_for_student) | **GET** /students/{id}/schools | 
+[**get_schools_for_teacher**](DataApi.md#get_schools_for_teacher) | **GET** /teachers/{id}/schools | 
 [**get_section**](DataApi.md#get_section) | **GET** /sections/{id} | 
 [**get_sections**](DataApi.md#get_sections) | **GET** /sections | 
+[**get_sections_for_course**](DataApi.md#get_sections_for_course) | **GET** /courses/{id}/sections | 
 [**get_sections_for_school**](DataApi.md#get_sections_for_school) | **GET** /schools/{id}/sections | 
 [**get_sections_for_student**](DataApi.md#get_sections_for_student) | **GET** /students/{id}/sections | 
 [**get_sections_for_teacher**](DataApi.md#get_sections_for_teacher) | **GET** /teachers/{id}/sections | 
+[**get_sections_for_term**](DataApi.md#get_sections_for_term) | **GET** /terms/{id}/sections | 
 [**get_student**](DataApi.md#get_student) | **GET** /students/{id} | 
-[**get_student_for_contact**](DataApi.md#get_student_for_contact) | **GET** /contacts/{id}/student | 
 [**get_students**](DataApi.md#get_students) | **GET** /students | 
+[**get_students_for_contact**](DataApi.md#get_students_for_contact) | **GET** /contacts/{id}/students | 
 [**get_students_for_school**](DataApi.md#get_students_for_school) | **GET** /schools/{id}/students | 
 [**get_students_for_section**](DataApi.md#get_students_for_section) | **GET** /sections/{id}/students | 
 [**get_students_for_teacher**](DataApi.md#get_students_for_teacher) | **GET** /teachers/{id}/students | 
@@ -43,10 +52,13 @@ Method | HTTP request | Description
 [**get_teachers_for_school**](DataApi.md#get_teachers_for_school) | **GET** /schools/{id}/teachers | 
 [**get_teachers_for_section**](DataApi.md#get_teachers_for_section) | **GET** /sections/{id}/teachers | 
 [**get_teachers_for_student**](DataApi.md#get_teachers_for_student) | **GET** /students/{id}/teachers | 
+[**get_term**](DataApi.md#get_term) | **GET** /terms/{id} | 
+[**get_term_for_section**](DataApi.md#get_term_for_section) | **GET** /sections/{id}/term | 
+[**get_terms**](DataApi.md#get_terms) | **GET** /terms | 
 
 
 # **get_contact**
-> StudentContactResponse get_contact(id)
+> ContactResponse get_contact(id)
 
 
 
@@ -61,10 +73,11 @@ from clever.rest import ApiException
 from pprint import pprint
 
 # Configure OAuth2 access token for authorization: oauth
-clever.configuration.access_token = 'YOUR_ACCESS_TOKEN'
+configuration = clever.Configuration()
+configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
 # create an instance of the API class
-api_instance = clever.DataApi()
+api_instance = clever.DataApi(clever.ApiClient(configuration))
 id = 'id_example' # str | 
 
 try: 
@@ -82,7 +95,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**StudentContactResponse**](StudentContactResponse.md)
+[**ContactResponse**](ContactResponse.md)
 
 ### Authorization
 
@@ -96,7 +109,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **get_contacts**
-> StudentContactsResponse get_contacts(limit=limit, starting_after=starting_after, ending_before=ending_before)
+> ContactsResponse get_contacts(limit=limit, starting_after=starting_after, ending_before=ending_before)
 
 
 
@@ -111,10 +124,11 @@ from clever.rest import ApiException
 from pprint import pprint
 
 # Configure OAuth2 access token for authorization: oauth
-clever.configuration.access_token = 'YOUR_ACCESS_TOKEN'
+configuration = clever.Configuration()
+configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
 # create an instance of the API class
-api_instance = clever.DataApi()
+api_instance = clever.DataApi(clever.ApiClient(configuration))
 limit = 56 # int |  (optional)
 starting_after = 'starting_after_example' # str |  (optional)
 ending_before = 'ending_before_example' # str |  (optional)
@@ -136,7 +150,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**StudentContactsResponse**](StudentContactsResponse.md)
+[**ContactsResponse**](ContactsResponse.md)
 
 ### Authorization
 
@@ -150,7 +164,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **get_contacts_for_student**
-> StudentContactsForStudentResponse get_contacts_for_student(id, limit=limit)
+> ContactsResponse get_contacts_for_student(id, limit=limit, starting_after=starting_after, ending_before=ending_before)
 
 
 
@@ -165,15 +179,18 @@ from clever.rest import ApiException
 from pprint import pprint
 
 # Configure OAuth2 access token for authorization: oauth
-clever.configuration.access_token = 'YOUR_ACCESS_TOKEN'
+configuration = clever.Configuration()
+configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
 # create an instance of the API class
-api_instance = clever.DataApi()
+api_instance = clever.DataApi(clever.ApiClient(configuration))
 id = 'id_example' # str | 
 limit = 56 # int |  (optional)
+starting_after = 'starting_after_example' # str |  (optional)
+ending_before = 'ending_before_example' # str |  (optional)
 
 try: 
-    api_response = api_instance.get_contacts_for_student(id, limit=limit)
+    api_response = api_instance.get_contacts_for_student(id, limit=limit, starting_after=starting_after, ending_before=ending_before)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling DataApi->get_contacts_for_student: %s\n" % e)
@@ -185,10 +202,169 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **str**|  | 
  **limit** | **int**|  | [optional] 
+ **starting_after** | **str**|  | [optional] 
+ **ending_before** | **str**|  | [optional] 
 
 ### Return type
 
-[**StudentContactsForStudentResponse**](StudentContactsForStudentResponse.md)
+[**ContactsResponse**](ContactsResponse.md)
+
+### Authorization
+
+[oauth](README.md#oauth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
+
+# **get_course**
+> CourseResponse get_course(id)
+
+
+
+Returns a specific course
+
+### Example 
+```python
+from __future__ import print_function
+import time
+import clever
+from clever.rest import ApiException
+from pprint import pprint
+
+# Configure OAuth2 access token for authorization: oauth
+configuration = clever.Configuration()
+configuration.access_token = 'YOUR_ACCESS_TOKEN'
+
+# create an instance of the API class
+api_instance = clever.DataApi(clever.ApiClient(configuration))
+id = 'id_example' # str | 
+
+try: 
+    api_response = api_instance.get_course(id)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling DataApi->get_course: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **str**|  | 
+
+### Return type
+
+[**CourseResponse**](CourseResponse.md)
+
+### Authorization
+
+[oauth](README.md#oauth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
+
+# **get_course_for_section**
+> CourseResponse get_course_for_section(id)
+
+
+
+Returns the course for a section
+
+### Example 
+```python
+from __future__ import print_function
+import time
+import clever
+from clever.rest import ApiException
+from pprint import pprint
+
+# Configure OAuth2 access token for authorization: oauth
+configuration = clever.Configuration()
+configuration.access_token = 'YOUR_ACCESS_TOKEN'
+
+# create an instance of the API class
+api_instance = clever.DataApi(clever.ApiClient(configuration))
+id = 'id_example' # str | 
+
+try: 
+    api_response = api_instance.get_course_for_section(id)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling DataApi->get_course_for_section: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **str**|  | 
+
+### Return type
+
+[**CourseResponse**](CourseResponse.md)
+
+### Authorization
+
+[oauth](README.md#oauth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
+
+# **get_courses**
+> CoursesResponse get_courses(limit=limit, starting_after=starting_after, ending_before=ending_before)
+
+
+
+Returns a list of courses
+
+### Example 
+```python
+from __future__ import print_function
+import time
+import clever
+from clever.rest import ApiException
+from pprint import pprint
+
+# Configure OAuth2 access token for authorization: oauth
+configuration = clever.Configuration()
+configuration.access_token = 'YOUR_ACCESS_TOKEN'
+
+# create an instance of the API class
+api_instance = clever.DataApi(clever.ApiClient(configuration))
+limit = 56 # int |  (optional)
+starting_after = 'starting_after_example' # str |  (optional)
+ending_before = 'ending_before_example' # str |  (optional)
+
+try: 
+    api_response = api_instance.get_courses(limit=limit, starting_after=starting_after, ending_before=ending_before)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling DataApi->get_courses: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **limit** | **int**|  | [optional] 
+ **starting_after** | **str**|  | [optional] 
+ **ending_before** | **str**|  | [optional] 
+
+### Return type
+
+[**CoursesResponse**](CoursesResponse.md)
 
 ### Authorization
 
@@ -217,10 +393,11 @@ from clever.rest import ApiException
 from pprint import pprint
 
 # Configure OAuth2 access token for authorization: oauth
-clever.configuration.access_token = 'YOUR_ACCESS_TOKEN'
+configuration = clever.Configuration()
+configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
 # create an instance of the API class
-api_instance = clever.DataApi()
+api_instance = clever.DataApi(clever.ApiClient(configuration))
 id = 'id_example' # str | 
 
 try: 
@@ -267,10 +444,11 @@ from clever.rest import ApiException
 from pprint import pprint
 
 # Configure OAuth2 access token for authorization: oauth
-clever.configuration.access_token = 'YOUR_ACCESS_TOKEN'
+configuration = clever.Configuration()
+configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
 # create an instance of the API class
-api_instance = clever.DataApi()
+api_instance = clever.DataApi(clever.ApiClient(configuration))
 id = 'id_example' # str | 
 
 try: 
@@ -302,7 +480,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **get_district_admins**
-> DistrictAdminsResponse get_district_admins(starting_after=starting_after, ending_before=ending_before)
+> DistrictAdminsResponse get_district_admins(limit=limit, starting_after=starting_after, ending_before=ending_before)
 
 
 
@@ -317,15 +495,17 @@ from clever.rest import ApiException
 from pprint import pprint
 
 # Configure OAuth2 access token for authorization: oauth
-clever.configuration.access_token = 'YOUR_ACCESS_TOKEN'
+configuration = clever.Configuration()
+configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
 # create an instance of the API class
-api_instance = clever.DataApi()
+api_instance = clever.DataApi(clever.ApiClient(configuration))
+limit = 56 # int |  (optional)
 starting_after = 'starting_after_example' # str |  (optional)
 ending_before = 'ending_before_example' # str |  (optional)
 
 try: 
-    api_response = api_instance.get_district_admins(starting_after=starting_after, ending_before=ending_before)
+    api_response = api_instance.get_district_admins(limit=limit, starting_after=starting_after, ending_before=ending_before)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling DataApi->get_district_admins: %s\n" % e)
@@ -335,12 +515,166 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **limit** | **int**|  | [optional] 
  **starting_after** | **str**|  | [optional] 
  **ending_before** | **str**|  | [optional] 
 
 ### Return type
 
 [**DistrictAdminsResponse**](DistrictAdminsResponse.md)
+
+### Authorization
+
+[oauth](README.md#oauth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
+
+# **get_district_for_contact**
+> DistrictResponse get_district_for_contact(id)
+
+
+
+Returns the district for a student contact
+
+### Example 
+```python
+from __future__ import print_function
+import time
+import clever
+from clever.rest import ApiException
+from pprint import pprint
+
+# Configure OAuth2 access token for authorization: oauth
+configuration = clever.Configuration()
+configuration.access_token = 'YOUR_ACCESS_TOKEN'
+
+# create an instance of the API class
+api_instance = clever.DataApi(clever.ApiClient(configuration))
+id = 'id_example' # str | 
+
+try: 
+    api_response = api_instance.get_district_for_contact(id)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling DataApi->get_district_for_contact: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **str**|  | 
+
+### Return type
+
+[**DistrictResponse**](DistrictResponse.md)
+
+### Authorization
+
+[oauth](README.md#oauth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
+
+# **get_district_for_course**
+> DistrictResponse get_district_for_course(id)
+
+
+
+Returns the district for a course
+
+### Example 
+```python
+from __future__ import print_function
+import time
+import clever
+from clever.rest import ApiException
+from pprint import pprint
+
+# Configure OAuth2 access token for authorization: oauth
+configuration = clever.Configuration()
+configuration.access_token = 'YOUR_ACCESS_TOKEN'
+
+# create an instance of the API class
+api_instance = clever.DataApi(clever.ApiClient(configuration))
+id = 'id_example' # str | 
+
+try: 
+    api_response = api_instance.get_district_for_course(id)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling DataApi->get_district_for_course: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **str**|  | 
+
+### Return type
+
+[**DistrictResponse**](DistrictResponse.md)
+
+### Authorization
+
+[oauth](README.md#oauth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
+
+# **get_district_for_district_admin**
+> DistrictResponse get_district_for_district_admin(id)
+
+
+
+Returns the district for a district admin
+
+### Example 
+```python
+from __future__ import print_function
+import time
+import clever
+from clever.rest import ApiException
+from pprint import pprint
+
+# Configure OAuth2 access token for authorization: oauth
+configuration = clever.Configuration()
+configuration.access_token = 'YOUR_ACCESS_TOKEN'
+
+# create an instance of the API class
+api_instance = clever.DataApi(clever.ApiClient(configuration))
+id = 'id_example' # str | 
+
+try: 
+    api_response = api_instance.get_district_for_district_admin(id)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling DataApi->get_district_for_district_admin: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **str**|  | 
+
+### Return type
+
+[**DistrictResponse**](DistrictResponse.md)
 
 ### Authorization
 
@@ -369,10 +703,11 @@ from clever.rest import ApiException
 from pprint import pprint
 
 # Configure OAuth2 access token for authorization: oauth
-clever.configuration.access_token = 'YOUR_ACCESS_TOKEN'
+configuration = clever.Configuration()
+configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
 # create an instance of the API class
-api_instance = clever.DataApi()
+api_instance = clever.DataApi(clever.ApiClient(configuration))
 id = 'id_example' # str | 
 
 try: 
@@ -380,6 +715,57 @@ try:
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling DataApi->get_district_for_school: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **str**|  | 
+
+### Return type
+
+[**DistrictResponse**](DistrictResponse.md)
+
+### Authorization
+
+[oauth](README.md#oauth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
+
+# **get_district_for_school_admin**
+> DistrictResponse get_district_for_school_admin(id)
+
+
+
+Returns the district for a school admin
+
+### Example 
+```python
+from __future__ import print_function
+import time
+import clever
+from clever.rest import ApiException
+from pprint import pprint
+
+# Configure OAuth2 access token for authorization: oauth
+configuration = clever.Configuration()
+configuration.access_token = 'YOUR_ACCESS_TOKEN'
+
+# create an instance of the API class
+api_instance = clever.DataApi(clever.ApiClient(configuration))
+id = 'id_example' # str | 
+
+try: 
+    api_response = api_instance.get_district_for_school_admin(id)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling DataApi->get_district_for_school_admin: %s\n" % e)
 ```
 
 ### Parameters
@@ -419,10 +805,11 @@ from clever.rest import ApiException
 from pprint import pprint
 
 # Configure OAuth2 access token for authorization: oauth
-clever.configuration.access_token = 'YOUR_ACCESS_TOKEN'
+configuration = clever.Configuration()
+configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
 # create an instance of the API class
-api_instance = clever.DataApi()
+api_instance = clever.DataApi(clever.ApiClient(configuration))
 id = 'id_example' # str | 
 
 try: 
@@ -469,10 +856,11 @@ from clever.rest import ApiException
 from pprint import pprint
 
 # Configure OAuth2 access token for authorization: oauth
-clever.configuration.access_token = 'YOUR_ACCESS_TOKEN'
+configuration = clever.Configuration()
+configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
 # create an instance of the API class
-api_instance = clever.DataApi()
+api_instance = clever.DataApi(clever.ApiClient(configuration))
 id = 'id_example' # str | 
 
 try: 
@@ -480,56 +868,6 @@ try:
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling DataApi->get_district_for_student: %s\n" % e)
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **str**|  | 
-
-### Return type
-
-[**DistrictResponse**](DistrictResponse.md)
-
-### Authorization
-
-[oauth](README.md#oauth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
-
-# **get_district_for_student_contact**
-> DistrictResponse get_district_for_student_contact(id)
-
-
-
-Returns the district for a student contact
-
-### Example 
-```python
-from __future__ import print_function
-import time
-import clever
-from clever.rest import ApiException
-from pprint import pprint
-
-# Configure OAuth2 access token for authorization: oauth
-clever.configuration.access_token = 'YOUR_ACCESS_TOKEN'
-
-# create an instance of the API class
-api_instance = clever.DataApi()
-id = 'id_example' # str | 
-
-try: 
-    api_response = api_instance.get_district_for_student_contact(id)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling DataApi->get_district_for_student_contact: %s\n" % e)
 ```
 
 ### Parameters
@@ -569,10 +907,11 @@ from clever.rest import ApiException
 from pprint import pprint
 
 # Configure OAuth2 access token for authorization: oauth
-clever.configuration.access_token = 'YOUR_ACCESS_TOKEN'
+configuration = clever.Configuration()
+configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
 # create an instance of the API class
-api_instance = clever.DataApi()
+api_instance = clever.DataApi(clever.ApiClient(configuration))
 id = 'id_example' # str | 
 
 try: 
@@ -603,12 +942,12 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
-# **get_district_status**
-> DistrictStatusResponses get_district_status(id)
+# **get_district_for_term**
+> DistrictResponse get_district_for_term(id)
 
 
 
-Returns the status of the district
+Returns the district for a term
 
 ### Example 
 ```python
@@ -619,17 +958,18 @@ from clever.rest import ApiException
 from pprint import pprint
 
 # Configure OAuth2 access token for authorization: oauth
-clever.configuration.access_token = 'YOUR_ACCESS_TOKEN'
+configuration = clever.Configuration()
+configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
 # create an instance of the API class
-api_instance = clever.DataApi()
+api_instance = clever.DataApi(clever.ApiClient(configuration))
 id = 'id_example' # str | 
 
 try: 
-    api_response = api_instance.get_district_status(id)
+    api_response = api_instance.get_district_for_term(id)
     pprint(api_response)
 except ApiException as e:
-    print("Exception when calling DataApi->get_district_status: %s\n" % e)
+    print("Exception when calling DataApi->get_district_for_term: %s\n" % e)
 ```
 
 ### Parameters
@@ -640,7 +980,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DistrictStatusResponses**](DistrictStatusResponses.md)
+[**DistrictResponse**](DistrictResponse.md)
 
 ### Authorization
 
@@ -669,10 +1009,11 @@ from clever.rest import ApiException
 from pprint import pprint
 
 # Configure OAuth2 access token for authorization: oauth
-clever.configuration.access_token = 'YOUR_ACCESS_TOKEN'
+configuration = clever.Configuration()
+configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
 # create an instance of the API class
-api_instance = clever.DataApi()
+api_instance = clever.DataApi(clever.ApiClient(configuration))
 
 try: 
     api_response = api_instance.get_districts()
@@ -687,56 +1028,6 @@ This endpoint does not need any parameter.
 ### Return type
 
 [**DistrictsResponse**](DistrictsResponse.md)
-
-### Authorization
-
-[oauth](README.md#oauth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
-
-# **get_grade_levels_for_teacher**
-> GradeLevelsResponse get_grade_levels_for_teacher(id)
-
-
-
-Returns the grade levels for sections a teacher teaches
-
-### Example 
-```python
-from __future__ import print_function
-import time
-import clever
-from clever.rest import ApiException
-from pprint import pprint
-
-# Configure OAuth2 access token for authorization: oauth
-clever.configuration.access_token = 'YOUR_ACCESS_TOKEN'
-
-# create an instance of the API class
-api_instance = clever.DataApi()
-id = 'id_example' # str | 
-
-try: 
-    api_response = api_instance.get_grade_levels_for_teacher(id)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling DataApi->get_grade_levels_for_teacher: %s\n" % e)
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **str**|  | 
-
-### Return type
-
-[**GradeLevelsResponse**](GradeLevelsResponse.md)
 
 ### Authorization
 
@@ -765,10 +1056,11 @@ from clever.rest import ApiException
 from pprint import pprint
 
 # Configure OAuth2 access token for authorization: oauth
-clever.configuration.access_token = 'YOUR_ACCESS_TOKEN'
+configuration = clever.Configuration()
+configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
 # create an instance of the API class
-api_instance = clever.DataApi()
+api_instance = clever.DataApi(clever.ApiClient(configuration))
 id = 'id_example' # str | 
 
 try: 
@@ -815,10 +1107,11 @@ from clever.rest import ApiException
 from pprint import pprint
 
 # Configure OAuth2 access token for authorization: oauth
-clever.configuration.access_token = 'YOUR_ACCESS_TOKEN'
+configuration = clever.Configuration()
+configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
 # create an instance of the API class
-api_instance = clever.DataApi()
+api_instance = clever.DataApi(clever.ApiClient(configuration))
 id = 'id_example' # str | 
 
 try: 
@@ -865,10 +1158,11 @@ from clever.rest import ApiException
 from pprint import pprint
 
 # Configure OAuth2 access token for authorization: oauth
-clever.configuration.access_token = 'YOUR_ACCESS_TOKEN'
+configuration = clever.Configuration()
+configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
 # create an instance of the API class
-api_instance = clever.DataApi()
+api_instance = clever.DataApi(clever.ApiClient(configuration))
 limit = 56 # int |  (optional)
 starting_after = 'starting_after_example' # str |  (optional)
 ending_before = 'ending_before_example' # str |  (optional)
@@ -919,10 +1213,11 @@ from clever.rest import ApiException
 from pprint import pprint
 
 # Configure OAuth2 access token for authorization: oauth
-clever.configuration.access_token = 'YOUR_ACCESS_TOKEN'
+configuration = clever.Configuration()
+configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
 # create an instance of the API class
-api_instance = clever.DataApi()
+api_instance = clever.DataApi(clever.ApiClient(configuration))
 id = 'id_example' # str | 
 
 try: 
@@ -969,10 +1264,11 @@ from clever.rest import ApiException
 from pprint import pprint
 
 # Configure OAuth2 access token for authorization: oauth
-clever.configuration.access_token = 'YOUR_ACCESS_TOKEN'
+configuration = clever.Configuration()
+configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
 # create an instance of the API class
-api_instance = clever.DataApi()
+api_instance = clever.DataApi(clever.ApiClient(configuration))
 id = 'id_example' # str | 
 
 try: 
@@ -1019,10 +1315,11 @@ from clever.rest import ApiException
 from pprint import pprint
 
 # Configure OAuth2 access token for authorization: oauth
-clever.configuration.access_token = 'YOUR_ACCESS_TOKEN'
+configuration = clever.Configuration()
+configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
 # create an instance of the API class
-api_instance = clever.DataApi()
+api_instance = clever.DataApi(clever.ApiClient(configuration))
 id = 'id_example' # str | 
 
 try: 
@@ -1069,10 +1366,11 @@ from clever.rest import ApiException
 from pprint import pprint
 
 # Configure OAuth2 access token for authorization: oauth
-clever.configuration.access_token = 'YOUR_ACCESS_TOKEN'
+configuration = clever.Configuration()
+configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
 # create an instance of the API class
-api_instance = clever.DataApi()
+api_instance = clever.DataApi(clever.ApiClient(configuration))
 limit = 56 # int |  (optional)
 starting_after = 'starting_after_example' # str |  (optional)
 ending_before = 'ending_before_example' # str |  (optional)
@@ -1123,10 +1421,11 @@ from clever.rest import ApiException
 from pprint import pprint
 
 # Configure OAuth2 access token for authorization: oauth
-clever.configuration.access_token = 'YOUR_ACCESS_TOKEN'
+configuration = clever.Configuration()
+configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
 # create an instance of the API class
-api_instance = clever.DataApi()
+api_instance = clever.DataApi(clever.ApiClient(configuration))
 id = 'id_example' # str | 
 limit = 56 # int |  (optional)
 starting_after = 'starting_after_example' # str |  (optional)
@@ -1137,6 +1436,120 @@ try:
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling DataApi->get_schools_for_school_admin: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **str**|  | 
+ **limit** | **int**|  | [optional] 
+ **starting_after** | **str**|  | [optional] 
+ **ending_before** | **str**|  | [optional] 
+
+### Return type
+
+[**SchoolsResponse**](SchoolsResponse.md)
+
+### Authorization
+
+[oauth](README.md#oauth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
+
+# **get_schools_for_student**
+> SchoolsResponse get_schools_for_student(id, limit=limit, starting_after=starting_after, ending_before=ending_before)
+
+
+
+Returns the schools for a student
+
+### Example 
+```python
+from __future__ import print_function
+import time
+import clever
+from clever.rest import ApiException
+from pprint import pprint
+
+# Configure OAuth2 access token for authorization: oauth
+configuration = clever.Configuration()
+configuration.access_token = 'YOUR_ACCESS_TOKEN'
+
+# create an instance of the API class
+api_instance = clever.DataApi(clever.ApiClient(configuration))
+id = 'id_example' # str | 
+limit = 56 # int |  (optional)
+starting_after = 'starting_after_example' # str |  (optional)
+ending_before = 'ending_before_example' # str |  (optional)
+
+try: 
+    api_response = api_instance.get_schools_for_student(id, limit=limit, starting_after=starting_after, ending_before=ending_before)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling DataApi->get_schools_for_student: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **str**|  | 
+ **limit** | **int**|  | [optional] 
+ **starting_after** | **str**|  | [optional] 
+ **ending_before** | **str**|  | [optional] 
+
+### Return type
+
+[**SchoolsResponse**](SchoolsResponse.md)
+
+### Authorization
+
+[oauth](README.md#oauth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
+
+# **get_schools_for_teacher**
+> SchoolsResponse get_schools_for_teacher(id, limit=limit, starting_after=starting_after, ending_before=ending_before)
+
+
+
+Returns the schools for a teacher
+
+### Example 
+```python
+from __future__ import print_function
+import time
+import clever
+from clever.rest import ApiException
+from pprint import pprint
+
+# Configure OAuth2 access token for authorization: oauth
+configuration = clever.Configuration()
+configuration.access_token = 'YOUR_ACCESS_TOKEN'
+
+# create an instance of the API class
+api_instance = clever.DataApi(clever.ApiClient(configuration))
+id = 'id_example' # str | 
+limit = 56 # int |  (optional)
+starting_after = 'starting_after_example' # str |  (optional)
+ending_before = 'ending_before_example' # str |  (optional)
+
+try: 
+    api_response = api_instance.get_schools_for_teacher(id, limit=limit, starting_after=starting_after, ending_before=ending_before)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling DataApi->get_schools_for_teacher: %s\n" % e)
 ```
 
 ### Parameters
@@ -1179,10 +1592,11 @@ from clever.rest import ApiException
 from pprint import pprint
 
 # Configure OAuth2 access token for authorization: oauth
-clever.configuration.access_token = 'YOUR_ACCESS_TOKEN'
+configuration = clever.Configuration()
+configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
 # create an instance of the API class
-api_instance = clever.DataApi()
+api_instance = clever.DataApi(clever.ApiClient(configuration))
 id = 'id_example' # str | 
 
 try: 
@@ -1229,10 +1643,11 @@ from clever.rest import ApiException
 from pprint import pprint
 
 # Configure OAuth2 access token for authorization: oauth
-clever.configuration.access_token = 'YOUR_ACCESS_TOKEN'
+configuration = clever.Configuration()
+configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
 # create an instance of the API class
-api_instance = clever.DataApi()
+api_instance = clever.DataApi(clever.ApiClient(configuration))
 limit = 56 # int |  (optional)
 starting_after = 'starting_after_example' # str |  (optional)
 ending_before = 'ending_before_example' # str |  (optional)
@@ -1248,6 +1663,63 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **limit** | **int**|  | [optional] 
+ **starting_after** | **str**|  | [optional] 
+ **ending_before** | **str**|  | [optional] 
+
+### Return type
+
+[**SectionsResponse**](SectionsResponse.md)
+
+### Authorization
+
+[oauth](README.md#oauth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
+
+# **get_sections_for_course**
+> SectionsResponse get_sections_for_course(id, limit=limit, starting_after=starting_after, ending_before=ending_before)
+
+
+
+Returns the sections for a Courses
+
+### Example 
+```python
+from __future__ import print_function
+import time
+import clever
+from clever.rest import ApiException
+from pprint import pprint
+
+# Configure OAuth2 access token for authorization: oauth
+configuration = clever.Configuration()
+configuration.access_token = 'YOUR_ACCESS_TOKEN'
+
+# create an instance of the API class
+api_instance = clever.DataApi(clever.ApiClient(configuration))
+id = 'id_example' # str | 
+limit = 56 # int |  (optional)
+starting_after = 'starting_after_example' # str |  (optional)
+ending_before = 'ending_before_example' # str |  (optional)
+
+try: 
+    api_response = api_instance.get_sections_for_course(id, limit=limit, starting_after=starting_after, ending_before=ending_before)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling DataApi->get_sections_for_course: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **str**|  | 
  **limit** | **int**|  | [optional] 
  **starting_after** | **str**|  | [optional] 
  **ending_before** | **str**|  | [optional] 
@@ -1283,10 +1755,11 @@ from clever.rest import ApiException
 from pprint import pprint
 
 # Configure OAuth2 access token for authorization: oauth
-clever.configuration.access_token = 'YOUR_ACCESS_TOKEN'
+configuration = clever.Configuration()
+configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
 # create an instance of the API class
-api_instance = clever.DataApi()
+api_instance = clever.DataApi(clever.ApiClient(configuration))
 id = 'id_example' # str | 
 limit = 56 # int |  (optional)
 starting_after = 'starting_after_example' # str |  (optional)
@@ -1339,10 +1812,11 @@ from clever.rest import ApiException
 from pprint import pprint
 
 # Configure OAuth2 access token for authorization: oauth
-clever.configuration.access_token = 'YOUR_ACCESS_TOKEN'
+configuration = clever.Configuration()
+configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
 # create an instance of the API class
-api_instance = clever.DataApi()
+api_instance = clever.DataApi(clever.ApiClient(configuration))
 id = 'id_example' # str | 
 limit = 56 # int |  (optional)
 starting_after = 'starting_after_example' # str |  (optional)
@@ -1395,10 +1869,11 @@ from clever.rest import ApiException
 from pprint import pprint
 
 # Configure OAuth2 access token for authorization: oauth
-clever.configuration.access_token = 'YOUR_ACCESS_TOKEN'
+configuration = clever.Configuration()
+configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
 # create an instance of the API class
-api_instance = clever.DataApi()
+api_instance = clever.DataApi(clever.ApiClient(configuration))
 id = 'id_example' # str | 
 limit = 56 # int |  (optional)
 starting_after = 'starting_after_example' # str |  (optional)
@@ -1409,6 +1884,63 @@ try:
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling DataApi->get_sections_for_teacher: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **str**|  | 
+ **limit** | **int**|  | [optional] 
+ **starting_after** | **str**|  | [optional] 
+ **ending_before** | **str**|  | [optional] 
+
+### Return type
+
+[**SectionsResponse**](SectionsResponse.md)
+
+### Authorization
+
+[oauth](README.md#oauth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
+
+# **get_sections_for_term**
+> SectionsResponse get_sections_for_term(id, limit=limit, starting_after=starting_after, ending_before=ending_before)
+
+
+
+Returns the sections for a term
+
+### Example 
+```python
+from __future__ import print_function
+import time
+import clever
+from clever.rest import ApiException
+from pprint import pprint
+
+# Configure OAuth2 access token for authorization: oauth
+configuration = clever.Configuration()
+configuration.access_token = 'YOUR_ACCESS_TOKEN'
+
+# create an instance of the API class
+api_instance = clever.DataApi(clever.ApiClient(configuration))
+id = 'id_example' # str | 
+limit = 56 # int |  (optional)
+starting_after = 'starting_after_example' # str |  (optional)
+ending_before = 'ending_before_example' # str |  (optional)
+
+try: 
+    api_response = api_instance.get_sections_for_term(id, limit=limit, starting_after=starting_after, ending_before=ending_before)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling DataApi->get_sections_for_term: %s\n" % e)
 ```
 
 ### Parameters
@@ -1451,10 +1983,11 @@ from clever.rest import ApiException
 from pprint import pprint
 
 # Configure OAuth2 access token for authorization: oauth
-clever.configuration.access_token = 'YOUR_ACCESS_TOKEN'
+configuration = clever.Configuration()
+configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
 # create an instance of the API class
-api_instance = clever.DataApi()
+api_instance = clever.DataApi(clever.ApiClient(configuration))
 id = 'id_example' # str | 
 
 try: 
@@ -1462,56 +1995,6 @@ try:
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling DataApi->get_student: %s\n" % e)
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **str**|  | 
-
-### Return type
-
-[**StudentResponse**](StudentResponse.md)
-
-### Authorization
-
-[oauth](README.md#oauth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
-
-# **get_student_for_contact**
-> StudentResponse get_student_for_contact(id)
-
-
-
-Returns the student for a student contact
-
-### Example 
-```python
-from __future__ import print_function
-import time
-import clever
-from clever.rest import ApiException
-from pprint import pprint
-
-# Configure OAuth2 access token for authorization: oauth
-clever.configuration.access_token = 'YOUR_ACCESS_TOKEN'
-
-# create an instance of the API class
-api_instance = clever.DataApi()
-id = 'id_example' # str | 
-
-try: 
-    api_response = api_instance.get_student_for_contact(id)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling DataApi->get_student_for_contact: %s\n" % e)
 ```
 
 ### Parameters
@@ -1551,10 +2034,11 @@ from clever.rest import ApiException
 from pprint import pprint
 
 # Configure OAuth2 access token for authorization: oauth
-clever.configuration.access_token = 'YOUR_ACCESS_TOKEN'
+configuration = clever.Configuration()
+configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
 # create an instance of the API class
-api_instance = clever.DataApi()
+api_instance = clever.DataApi(clever.ApiClient(configuration))
 limit = 56 # int |  (optional)
 starting_after = 'starting_after_example' # str |  (optional)
 ending_before = 'ending_before_example' # str |  (optional)
@@ -1570,6 +2054,63 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **limit** | **int**|  | [optional] 
+ **starting_after** | **str**|  | [optional] 
+ **ending_before** | **str**|  | [optional] 
+
+### Return type
+
+[**StudentsResponse**](StudentsResponse.md)
+
+### Authorization
+
+[oauth](README.md#oauth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
+
+# **get_students_for_contact**
+> StudentsResponse get_students_for_contact(id, limit=limit, starting_after=starting_after, ending_before=ending_before)
+
+
+
+Returns the students for a student contact
+
+### Example 
+```python
+from __future__ import print_function
+import time
+import clever
+from clever.rest import ApiException
+from pprint import pprint
+
+# Configure OAuth2 access token for authorization: oauth
+configuration = clever.Configuration()
+configuration.access_token = 'YOUR_ACCESS_TOKEN'
+
+# create an instance of the API class
+api_instance = clever.DataApi(clever.ApiClient(configuration))
+id = 'id_example' # str | 
+limit = 56 # int |  (optional)
+starting_after = 'starting_after_example' # str |  (optional)
+ending_before = 'ending_before_example' # str |  (optional)
+
+try: 
+    api_response = api_instance.get_students_for_contact(id, limit=limit, starting_after=starting_after, ending_before=ending_before)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling DataApi->get_students_for_contact: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **str**|  | 
  **limit** | **int**|  | [optional] 
  **starting_after** | **str**|  | [optional] 
  **ending_before** | **str**|  | [optional] 
@@ -1605,10 +2146,11 @@ from clever.rest import ApiException
 from pprint import pprint
 
 # Configure OAuth2 access token for authorization: oauth
-clever.configuration.access_token = 'YOUR_ACCESS_TOKEN'
+configuration = clever.Configuration()
+configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
 # create an instance of the API class
-api_instance = clever.DataApi()
+api_instance = clever.DataApi(clever.ApiClient(configuration))
 id = 'id_example' # str | 
 limit = 56 # int |  (optional)
 starting_after = 'starting_after_example' # str |  (optional)
@@ -1661,10 +2203,11 @@ from clever.rest import ApiException
 from pprint import pprint
 
 # Configure OAuth2 access token for authorization: oauth
-clever.configuration.access_token = 'YOUR_ACCESS_TOKEN'
+configuration = clever.Configuration()
+configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
 # create an instance of the API class
-api_instance = clever.DataApi()
+api_instance = clever.DataApi(clever.ApiClient(configuration))
 id = 'id_example' # str | 
 limit = 56 # int |  (optional)
 starting_after = 'starting_after_example' # str |  (optional)
@@ -1717,10 +2260,11 @@ from clever.rest import ApiException
 from pprint import pprint
 
 # Configure OAuth2 access token for authorization: oauth
-clever.configuration.access_token = 'YOUR_ACCESS_TOKEN'
+configuration = clever.Configuration()
+configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
 # create an instance of the API class
-api_instance = clever.DataApi()
+api_instance = clever.DataApi(clever.ApiClient(configuration))
 id = 'id_example' # str | 
 limit = 56 # int |  (optional)
 starting_after = 'starting_after_example' # str |  (optional)
@@ -1773,10 +2317,11 @@ from clever.rest import ApiException
 from pprint import pprint
 
 # Configure OAuth2 access token for authorization: oauth
-clever.configuration.access_token = 'YOUR_ACCESS_TOKEN'
+configuration = clever.Configuration()
+configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
 # create an instance of the API class
-api_instance = clever.DataApi()
+api_instance = clever.DataApi(clever.ApiClient(configuration))
 id = 'id_example' # str | 
 
 try: 
@@ -1823,10 +2368,11 @@ from clever.rest import ApiException
 from pprint import pprint
 
 # Configure OAuth2 access token for authorization: oauth
-clever.configuration.access_token = 'YOUR_ACCESS_TOKEN'
+configuration = clever.Configuration()
+configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
 # create an instance of the API class
-api_instance = clever.DataApi()
+api_instance = clever.DataApi(clever.ApiClient(configuration))
 id = 'id_example' # str | 
 
 try: 
@@ -1873,10 +2419,11 @@ from clever.rest import ApiException
 from pprint import pprint
 
 # Configure OAuth2 access token for authorization: oauth
-clever.configuration.access_token = 'YOUR_ACCESS_TOKEN'
+configuration = clever.Configuration()
+configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
 # create an instance of the API class
-api_instance = clever.DataApi()
+api_instance = clever.DataApi(clever.ApiClient(configuration))
 limit = 56 # int |  (optional)
 starting_after = 'starting_after_example' # str |  (optional)
 ending_before = 'ending_before_example' # str |  (optional)
@@ -1927,10 +2474,11 @@ from clever.rest import ApiException
 from pprint import pprint
 
 # Configure OAuth2 access token for authorization: oauth
-clever.configuration.access_token = 'YOUR_ACCESS_TOKEN'
+configuration = clever.Configuration()
+configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
 # create an instance of the API class
-api_instance = clever.DataApi()
+api_instance = clever.DataApi(clever.ApiClient(configuration))
 id = 'id_example' # str | 
 limit = 56 # int |  (optional)
 starting_after = 'starting_after_example' # str |  (optional)
@@ -1983,10 +2531,11 @@ from clever.rest import ApiException
 from pprint import pprint
 
 # Configure OAuth2 access token for authorization: oauth
-clever.configuration.access_token = 'YOUR_ACCESS_TOKEN'
+configuration = clever.Configuration()
+configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
 # create an instance of the API class
-api_instance = clever.DataApi()
+api_instance = clever.DataApi(clever.ApiClient(configuration))
 id = 'id_example' # str | 
 limit = 56 # int |  (optional)
 starting_after = 'starting_after_example' # str |  (optional)
@@ -2039,10 +2588,11 @@ from clever.rest import ApiException
 from pprint import pprint
 
 # Configure OAuth2 access token for authorization: oauth
-clever.configuration.access_token = 'YOUR_ACCESS_TOKEN'
+configuration = clever.Configuration()
+configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
 # create an instance of the API class
-api_instance = clever.DataApi()
+api_instance = clever.DataApi(clever.ApiClient(configuration))
 id = 'id_example' # str | 
 limit = 56 # int |  (optional)
 starting_after = 'starting_after_example' # str |  (optional)
@@ -2067,6 +2617,163 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**TeachersResponse**](TeachersResponse.md)
+
+### Authorization
+
+[oauth](README.md#oauth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
+
+# **get_term**
+> TermResponse get_term(id)
+
+
+
+Returns a specific term
+
+### Example 
+```python
+from __future__ import print_function
+import time
+import clever
+from clever.rest import ApiException
+from pprint import pprint
+
+# Configure OAuth2 access token for authorization: oauth
+configuration = clever.Configuration()
+configuration.access_token = 'YOUR_ACCESS_TOKEN'
+
+# create an instance of the API class
+api_instance = clever.DataApi(clever.ApiClient(configuration))
+id = 'id_example' # str | 
+
+try: 
+    api_response = api_instance.get_term(id)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling DataApi->get_term: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **str**|  | 
+
+### Return type
+
+[**TermResponse**](TermResponse.md)
+
+### Authorization
+
+[oauth](README.md#oauth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
+
+# **get_term_for_section**
+> TermResponse get_term_for_section(id)
+
+
+
+Returns the term for a section
+
+### Example 
+```python
+from __future__ import print_function
+import time
+import clever
+from clever.rest import ApiException
+from pprint import pprint
+
+# Configure OAuth2 access token for authorization: oauth
+configuration = clever.Configuration()
+configuration.access_token = 'YOUR_ACCESS_TOKEN'
+
+# create an instance of the API class
+api_instance = clever.DataApi(clever.ApiClient(configuration))
+id = 'id_example' # str | 
+
+try: 
+    api_response = api_instance.get_term_for_section(id)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling DataApi->get_term_for_section: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **str**|  | 
+
+### Return type
+
+[**TermResponse**](TermResponse.md)
+
+### Authorization
+
+[oauth](README.md#oauth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
+
+# **get_terms**
+> TermsResponse get_terms(limit=limit, starting_after=starting_after, ending_before=ending_before)
+
+
+
+Returns a list of terms
+
+### Example 
+```python
+from __future__ import print_function
+import time
+import clever
+from clever.rest import ApiException
+from pprint import pprint
+
+# Configure OAuth2 access token for authorization: oauth
+configuration = clever.Configuration()
+configuration.access_token = 'YOUR_ACCESS_TOKEN'
+
+# create an instance of the API class
+api_instance = clever.DataApi(clever.ApiClient(configuration))
+limit = 56 # int |  (optional)
+starting_after = 'starting_after_example' # str |  (optional)
+ending_before = 'ending_before_example' # str |  (optional)
+
+try: 
+    api_response = api_instance.get_terms(limit=limit, starting_after=starting_after, ending_before=ending_before)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling DataApi->get_terms: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **limit** | **int**|  | [optional] 
+ **starting_after** | **str**|  | [optional] 
+ **ending_before** | **str**|  | [optional] 
+
+### Return type
+
+[**TermsResponse**](TermsResponse.md)
 
 ### Authorization
 

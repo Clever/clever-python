@@ -1,16 +1,11 @@
 # clever.EventsApi
 
-All URIs are relative to *https://api.clever.com/v1.2*
+All URIs are relative to *https://api.clever.com/v2.0*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**get_event**](EventsApi.md#get_event) | **GET** /events/{id} | 
 [**get_events**](EventsApi.md#get_events) | **GET** /events | 
-[**get_events_for_school**](EventsApi.md#get_events_for_school) | **GET** /schools/{id}/events | 
-[**get_events_for_school_admin**](EventsApi.md#get_events_for_school_admin) | **GET** /school_admins/{id}/events | 
-[**get_events_for_section**](EventsApi.md#get_events_for_section) | **GET** /sections/{id}/events | 
-[**get_events_for_student**](EventsApi.md#get_events_for_student) | **GET** /students/{id}/events | 
-[**get_events_for_teacher**](EventsApi.md#get_events_for_teacher) | **GET** /teachers/{id}/events | 
 
 
 # **get_event**
@@ -29,10 +24,11 @@ from clever.rest import ApiException
 from pprint import pprint
 
 # Configure OAuth2 access token for authorization: oauth
-clever.configuration.access_token = 'YOUR_ACCESS_TOKEN'
+configuration = clever.Configuration()
+configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
 # create an instance of the API class
-api_instance = clever.EventsApi()
+api_instance = clever.EventsApi(clever.ApiClient(configuration))
 id = 'id_example' # str | 
 
 try: 
@@ -64,7 +60,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **get_events**
-> EventsResponse get_events(limit=limit, starting_after=starting_after, ending_before=ending_before)
+> EventsResponse get_events(limit=limit, starting_after=starting_after, ending_before=ending_before, school=school, record_type=record_type)
 
 
 
@@ -79,16 +75,19 @@ from clever.rest import ApiException
 from pprint import pprint
 
 # Configure OAuth2 access token for authorization: oauth
-clever.configuration.access_token = 'YOUR_ACCESS_TOKEN'
+configuration = clever.Configuration()
+configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
 # create an instance of the API class
-api_instance = clever.EventsApi()
+api_instance = clever.EventsApi(clever.ApiClient(configuration))
 limit = 56 # int |  (optional)
 starting_after = 'starting_after_example' # str |  (optional)
 ending_before = 'ending_before_example' # str |  (optional)
+school = 'school_example' # str |  (optional)
+record_type = ['record_type_example'] # list[str] |  (optional)
 
 try: 
-    api_response = api_instance.get_events(limit=limit, starting_after=starting_after, ending_before=ending_before)
+    api_response = api_instance.get_events(limit=limit, starting_after=starting_after, ending_before=ending_before, school=school, record_type=record_type)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling EventsApi->get_events: %s\n" % e)
@@ -101,286 +100,8 @@ Name | Type | Description  | Notes
  **limit** | **int**|  | [optional] 
  **starting_after** | **str**|  | [optional] 
  **ending_before** | **str**|  | [optional] 
-
-### Return type
-
-[**EventsResponse**](EventsResponse.md)
-
-### Authorization
-
-[oauth](README.md#oauth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
-
-# **get_events_for_school**
-> EventsResponse get_events_for_school(id, limit=limit, starting_after=starting_after, ending_before=ending_before)
-
-
-
-Returns a list of events for a school
-
-### Example 
-```python
-from __future__ import print_function
-import time
-import clever
-from clever.rest import ApiException
-from pprint import pprint
-
-# Configure OAuth2 access token for authorization: oauth
-clever.configuration.access_token = 'YOUR_ACCESS_TOKEN'
-
-# create an instance of the API class
-api_instance = clever.EventsApi()
-id = 'id_example' # str | 
-limit = 56 # int |  (optional)
-starting_after = 'starting_after_example' # str |  (optional)
-ending_before = 'ending_before_example' # str |  (optional)
-
-try: 
-    api_response = api_instance.get_events_for_school(id, limit=limit, starting_after=starting_after, ending_before=ending_before)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling EventsApi->get_events_for_school: %s\n" % e)
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **str**|  | 
- **limit** | **int**|  | [optional] 
- **starting_after** | **str**|  | [optional] 
- **ending_before** | **str**|  | [optional] 
-
-### Return type
-
-[**EventsResponse**](EventsResponse.md)
-
-### Authorization
-
-[oauth](README.md#oauth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
-
-# **get_events_for_school_admin**
-> EventsResponse get_events_for_school_admin(id, limit=limit, starting_after=starting_after, ending_before=ending_before)
-
-
-
-Returns a list of events for a school admin
-
-### Example 
-```python
-from __future__ import print_function
-import time
-import clever
-from clever.rest import ApiException
-from pprint import pprint
-
-# Configure OAuth2 access token for authorization: oauth
-clever.configuration.access_token = 'YOUR_ACCESS_TOKEN'
-
-# create an instance of the API class
-api_instance = clever.EventsApi()
-id = 'id_example' # str | 
-limit = 56 # int |  (optional)
-starting_after = 'starting_after_example' # str |  (optional)
-ending_before = 'ending_before_example' # str |  (optional)
-
-try: 
-    api_response = api_instance.get_events_for_school_admin(id, limit=limit, starting_after=starting_after, ending_before=ending_before)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling EventsApi->get_events_for_school_admin: %s\n" % e)
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **str**|  | 
- **limit** | **int**|  | [optional] 
- **starting_after** | **str**|  | [optional] 
- **ending_before** | **str**|  | [optional] 
-
-### Return type
-
-[**EventsResponse**](EventsResponse.md)
-
-### Authorization
-
-[oauth](README.md#oauth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
-
-# **get_events_for_section**
-> EventsResponse get_events_for_section(id, limit=limit, starting_after=starting_after, ending_before=ending_before)
-
-
-
-Returns a list of events for a section
-
-### Example 
-```python
-from __future__ import print_function
-import time
-import clever
-from clever.rest import ApiException
-from pprint import pprint
-
-# Configure OAuth2 access token for authorization: oauth
-clever.configuration.access_token = 'YOUR_ACCESS_TOKEN'
-
-# create an instance of the API class
-api_instance = clever.EventsApi()
-id = 'id_example' # str | 
-limit = 56 # int |  (optional)
-starting_after = 'starting_after_example' # str |  (optional)
-ending_before = 'ending_before_example' # str |  (optional)
-
-try: 
-    api_response = api_instance.get_events_for_section(id, limit=limit, starting_after=starting_after, ending_before=ending_before)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling EventsApi->get_events_for_section: %s\n" % e)
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **str**|  | 
- **limit** | **int**|  | [optional] 
- **starting_after** | **str**|  | [optional] 
- **ending_before** | **str**|  | [optional] 
-
-### Return type
-
-[**EventsResponse**](EventsResponse.md)
-
-### Authorization
-
-[oauth](README.md#oauth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
-
-# **get_events_for_student**
-> EventsResponse get_events_for_student(id, limit=limit, starting_after=starting_after, ending_before=ending_before)
-
-
-
-Returns a list of events for a student
-
-### Example 
-```python
-from __future__ import print_function
-import time
-import clever
-from clever.rest import ApiException
-from pprint import pprint
-
-# Configure OAuth2 access token for authorization: oauth
-clever.configuration.access_token = 'YOUR_ACCESS_TOKEN'
-
-# create an instance of the API class
-api_instance = clever.EventsApi()
-id = 'id_example' # str | 
-limit = 56 # int |  (optional)
-starting_after = 'starting_after_example' # str |  (optional)
-ending_before = 'ending_before_example' # str |  (optional)
-
-try: 
-    api_response = api_instance.get_events_for_student(id, limit=limit, starting_after=starting_after, ending_before=ending_before)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling EventsApi->get_events_for_student: %s\n" % e)
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **str**|  | 
- **limit** | **int**|  | [optional] 
- **starting_after** | **str**|  | [optional] 
- **ending_before** | **str**|  | [optional] 
-
-### Return type
-
-[**EventsResponse**](EventsResponse.md)
-
-### Authorization
-
-[oauth](README.md#oauth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
-
-# **get_events_for_teacher**
-> EventsResponse get_events_for_teacher(id, limit=limit, starting_after=starting_after, ending_before=ending_before)
-
-
-
-Returns a list of events for a teacher
-
-### Example 
-```python
-from __future__ import print_function
-import time
-import clever
-from clever.rest import ApiException
-from pprint import pprint
-
-# Configure OAuth2 access token for authorization: oauth
-clever.configuration.access_token = 'YOUR_ACCESS_TOKEN'
-
-# create an instance of the API class
-api_instance = clever.EventsApi()
-id = 'id_example' # str | 
-limit = 56 # int |  (optional)
-starting_after = 'starting_after_example' # str |  (optional)
-ending_before = 'ending_before_example' # str |  (optional)
-
-try: 
-    api_response = api_instance.get_events_for_teacher(id, limit=limit, starting_after=starting_after, ending_before=ending_before)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling EventsApi->get_events_for_teacher: %s\n" % e)
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **str**|  | 
- **limit** | **int**|  | [optional] 
- **starting_after** | **str**|  | [optional] 
- **ending_before** | **str**|  | [optional] 
+ **school** | **str**|  | [optional] 
+ **record_type** | [**list[str]**](str.md)|  | [optional] 
 
 ### Return type
 

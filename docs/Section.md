@@ -3,9 +3,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**course_description** | **str** |  | [optional] 
-**course_name** | **str** |  | [optional] 
-**course_number** | **str** |  | [optional] 
+**course** | **str** |  | [optional] 
 **created** | **str** |  | [optional] 
 **district** | **str** |  | [optional] 
 **grade** | **str** |  | [optional] 
@@ -20,7 +18,7 @@ Name | Type | Description | Notes
 **subject** | **str** |  | [optional] 
 **teacher** | **str** |  | [optional] 
 **teachers** | **list[str]** |  | [optional] 
-**term** | [**Term**](Term.md) |  | [optional] 
+**term_id** | **str** |  | [optional] 
 
 [[Back to Model list]](README.md#documentation-for-models) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to README]](README.md)
 
