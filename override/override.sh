@@ -28,3 +28,5 @@ cp override/*_deleted.py clever/models/
 cp override/VERSION clever/
 cp override/version.py clever/
 cp override/importer.py clever/
+mkdir -p clever/data
+cp override/clever.com_ca_bundle.crt clever/data/
