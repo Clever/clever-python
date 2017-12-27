@@ -17,9 +17,9 @@ import os
 import sys
 import unittest
 
-import swagger_client
-from swagger_client.rest import ApiException
-from swagger_client.models.term_object import TermObject
+import clever
+from clever.rest import ApiException
+from clever.models.term_object import TermObject
 
 
 class TestTermObject(unittest.TestCase):
@@ -36,7 +36,7 @@ class TestTermObject(unittest.TestCase):
         Test TermObject
         """
         # FIXME: construct object with mandatory attributes with example values
-        #model = swagger_client.models.term_object.TermObject()
+        #model = clever.models.term_object.TermObject()
         pass
 
 
