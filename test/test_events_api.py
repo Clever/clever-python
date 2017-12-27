@@ -27,7 +27,7 @@ class TestEventsApi(unittest.TestCase):
 
     def setUp(self):
         self.api = clever.apis.events_api.EventsApi()
-        clever.configuration.access_token = 'TEST_TOKEN'
+        self.api.api_client.configuration.access_token = 'TEST_TOKEN'
 
     def tearDown(self):
         pass

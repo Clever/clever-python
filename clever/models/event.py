@@ -42,39 +42,6 @@ class Event(object):
         'type': 'type'
     }
 
-    discriminator_value_class_map = {
-        '': 'DistrictsUpdated',
-        '': 'TermsCreated',
-        '': 'DistrictsDeleted',
-        '': 'SchooladminsCreated',
-        '': 'TeachersUpdated',
-        '': 'ContactsUpdated',
-        '': 'TermsDeleted',
-        '': 'TeachersDeleted',
-        '': 'TermsUpdated',
-        '': 'ContactsDeleted',
-        '': 'DistrictsCreated',
-        '': 'DistrictadminsDeleted',
-        '': 'SectionsCreated',
-        '': 'SchooladminsDeleted',
-        '': 'CoursesCreated',
-        '': 'StudentsDeleted',
-        '': 'SchoolsCreated',
-        '': 'CoursesDeleted',
-        '': 'CoursesUpdated',
-        '': 'DistrictadminsCreated',
-        '': 'SectionsDeleted',
-        '': 'SectionsUpdated',
-        '': 'SchoolsDeleted',
-        '': 'ContactsCreated',
-        '': 'TeachersCreated',
-        '': 'SchoolsUpdated',
-        '': 'StudentsCreated',
-        '': 'SchooladminsUpdated',
-        '': 'StudentsUpdated',
-        '': 'DistrictadminsUpdated'
-    }
-
     def __init__(self, created=None, id=None, type=None):
         """
         Event - a model defined in Swagger
@@ -83,7 +50,6 @@ class Event(object):
         self._created = None
         self._id = None
         self._type = None
-        self.discriminator = 'type'
 
         if created is not None:
           self.created = created
@@ -155,16 +121,6 @@ class Event(object):
             raise ValueError("Invalid value for `type`, must not be `None`")
 
         self._type = type
-
-    def get_real_child_model(self, data):
-        """
-        Returns the real base class specified by the discriminator
-        """
-        discriminator_value = data[self.discriminator].lower()
-        if self.discriminator_value_class_map.has_key(discriminator_value):
-            return self.discriminator_value_class_map[discriminator_value]
-        else:
-            return None
 
     def to_dict(self):
         """

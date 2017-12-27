@@ -38,7 +38,7 @@ class TestDataApi(unittest.TestCase):
 
     def setUp(self):
         self.api = clever.apis.data_api.DataApi()
-        clever.configuration.access_token = 'TEST_TOKEN'
+        self.api.api_client.configuration.access_token = 'TEST_TOKEN'
 
     def tearDown(self):
         pass
@@ -52,7 +52,7 @@ class TestDataApi(unittest.TestCase):
         real_pool = self.api.api_client.rest_client.pool_manager
         self.api.api_client.rest_client.pool_manager = mock_pool
 
-        mock_pool.expect_request('GET', 'https://api.clever.com/v1.2/districts/something')
+        mock_pool.expect_request('GET', 'https://api.clever.com/v2.0/districts/something')
         # Make sure unicode responses can be received.
         self.assertEqual(u'Oh haiô', self.api.get_district('something').data.name)
         self.api.api_client.rest_client.pool_manager = real_pool
