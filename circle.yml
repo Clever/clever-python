@@ -5,7 +5,7 @@ machine:
   - docker
 test:
   override:
-  - pip install -r test/requirements.txt
-  - python setup.py develop && python setup.py test
+  - pip install -r test-requirements.txt
+  - make test
   post:
   - $HOME/ci-scripts/circleci/report-card $RC_DOCKER_USER $RC_DOCKER_PASS "$RC_DOCKER_EMAIL" $RC_GITHUB_TOKEN
