@@ -44,9 +44,13 @@ from pprint import pprint
 
 # Note: This is hard coded for demo purposes only. Keep your access tokens secret!
 # https://dev.clever.com/docs/security#section-security-best-practices
-clever.configuration.access_token = 'TEST_TOKEN'
+
+# Configure OAuth2 access token for authorization: oauth
+configuration = clever.Configuration()
+configuration.access_token = 'YOUR_ACCESS_TOKEN'
+
 # create an instance of the API class
-api_instance = clever.DataApi()
+api_instance = clever.DataApi(clever.ApiClient(configuration))
 
 try:
     api_response = api_instance.get_students()
