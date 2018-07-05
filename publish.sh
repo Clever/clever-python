@@ -17,7 +17,7 @@ fi
 read -p "Publish and tag as v$version? " -n 1 -r
 if [[ $REPLY =~ ^[Yy]$ ]]; then
   # publish to pypi
-  python setup.py sdist upload
+  python setup.py sdist upload -r https://upload.pypi.org/legacy/
 
   # create git tags
   git tag -a v$version -m "version $version"
