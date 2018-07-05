@@ -39,3 +39,19 @@ setup(
     The Clever API
     """
 )
+
+# We publish to both 'clever' and 'clever-python'
+setup(
+    name=clever,
+    version=VERSION,
+    description="Clever API",
+    author_email="",
+    url="",
+    keywords=["Swagger", "Clever API"],
+    install_requires=REQUIRES,
+    packages=find_packages(),
+    include_package_data=True,
+    long_description="""\
+    The Clever API
+    """
+)
