@@ -14,7 +14,7 @@
 from pprint import pformat
 from six import iteritems
 import re
-import event
+from . import event
 
 class CoursesDeleted(event.Event):
     """
