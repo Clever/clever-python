@@ -42,7 +42,7 @@ setup(
 
 # We publish to both 'clever' and 'clever-python'
 setup(
-    name=clever,
+    name="clever",
     version=VERSION,
     description="Clever API",
     author_email="",
