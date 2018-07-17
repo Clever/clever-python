@@ -1,3 +1,6 @@
+## 3.0.2 (2018-07-16)
+* Removes implicit relative imports which are not supported in Python 3
+
 ## 3.0.1 (2018-05-15)
 * Change students home_language 'Telegu' to 'Telugu'
 
