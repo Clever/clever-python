@@ -8,6 +8,14 @@ rm -rf swagger_client || true
 git grep -l 'swagger_client' -- './*' ':(exclude)override/override.sh' | xargs sed -i "" 's/swagger_client/clever/g'
 git grep -l 'swagger-client' -- './*' ':(exclude)override/override.sh' | xargs sed -i "" 's/swagger-client/clever-python/g'
 
+# Rename references of async to async_
+git grep -l "param async" -- './*' ':(exclude)override/override.sh' | xargs sed -i "" "s/param async/param async_/g"
+git grep -l "parameter async" -- './*' ':(exclude)override/override.sh' | xargs sed -i "" "s/parameter async/parameter async_/g"
+git grep -l "async parameter" -- './*' ':(exclude)override/override.sh' | xargs sed -i "" "s/async parameter/async_ parameter/g"
+git grep -l "async=" -- './*' ':(exclude)override/override.sh' | xargs sed -i "" "s/async=/async_=/g"
+git grep -l "async:" -- './*' ':(exclude)override/override.sh' | xargs sed -i "" "s/async:/async_:/g"
+git grep -l "('async')" -- './*' ':(exclude)override/override.sh' | xargs sed -i "" "s/('async')/('async_')/g"
+
 # Update the README
 mv README.md docs/README.md
 sed -i "" 's/## Documentation for API Endpoints/<EOD>\'$'\n## Documentation for API Endpoints/g' docs/README.md
