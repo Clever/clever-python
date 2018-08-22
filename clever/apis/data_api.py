@@ -39,18 +39,18 @@ class DataApi(object):
         """
         Returns a specific student contact
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.get_contact(id, async=True)
+        asynchronous HTTP request, please pass async_=True
+        >>> thread = api.get_contact(id, async_=True)
         >>> result = thread.get()
 
-        :param async bool
+        :param async_ bool
         :param str id: (required)
         :return: ContactResponse
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('async'):
+        if kwargs.get('async_'):
             return self.get_contact_with_http_info(id, **kwargs)
         else:
             (data) = self.get_contact_with_http_info(id, **kwargs)
@@ -60,11 +60,11 @@ class DataApi(object):
         """
         Returns a specific student contact
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.get_contact_with_http_info(id, async=True)
+        asynchronous HTTP request, please pass async_=True
+        >>> thread = api.get_contact_with_http_info(id, async_=True)
         >>> result = thread.get()
 
-        :param async bool
+        :param async_ bool
         :param str id: (required)
         :return: ContactResponse
                  If the method is called asynchronously,
@@ -72,7 +72,7 @@ class DataApi(object):
         """
 
         all_params = ['id']
-        all_params.append('async')
+        all_params.append('async_')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
         all_params.append('_request_timeout')
@@ -121,7 +121,7 @@ class DataApi(object):
                                         files=local_var_files,
                                         response_type='ContactResponse',
                                         auth_settings=auth_settings,
-                                        async=params.get('async'),
+                                        async_=params.get('async_'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
                                         _preload_content=params.get('_preload_content', True),
                                         _request_timeout=params.get('_request_timeout'),
@@ -131,11 +131,11 @@ class DataApi(object):
         """
         Returns a list of student contacts
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.get_contacts(async=True)
+        asynchronous HTTP request, please pass async_=True
+        >>> thread = api.get_contacts(async_=True)
         >>> result = thread.get()
 
-        :param async bool
+        :param async_ bool
         :param int limit:
         :param str starting_after:
         :param str ending_before:
@@ -144,7 +144,7 @@ class DataApi(object):
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('async'):
+        if kwargs.get('async_'):
             return self.get_contacts_with_http_info(**kwargs)
         else:
             (data) = self.get_contacts_with_http_info(**kwargs)
@@ -154,11 +154,11 @@ class DataApi(object):
         """
         Returns a list of student contacts
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.get_contacts_with_http_info(async=True)
+        asynchronous HTTP request, please pass async_=True
+        >>> thread = api.get_contacts_with_http_info(async_=True)
         >>> result = thread.get()
 
-        :param async bool
+        :param async_ bool
         :param int limit:
         :param str starting_after:
         :param str ending_before:
@@ -168,7 +168,7 @@ class DataApi(object):
         """
 
         all_params = ['limit', 'starting_after', 'ending_before']
-        all_params.append('async')
+        all_params.append('async_')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
         all_params.append('_request_timeout')
@@ -218,7 +218,7 @@ class DataApi(object):
                                         files=local_var_files,
                                         response_type='ContactsResponse',
                                         auth_settings=auth_settings,
-                                        async=params.get('async'),
+                                        async_=params.get('async_'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
                                         _preload_content=params.get('_preload_content', True),
                                         _request_timeout=params.get('_request_timeout'),
@@ -228,11 +228,11 @@ class DataApi(object):
         """
         Returns the contacts for a student
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.get_contacts_for_student(id, async=True)
+        asynchronous HTTP request, please pass async_=True
+        >>> thread = api.get_contacts_for_student(id, async_=True)
         >>> result = thread.get()
 
-        :param async bool
+        :param async_ bool
         :param str id: (required)
         :param int limit:
         :param str starting_after:
@@ -242,7 +242,7 @@ class DataApi(object):
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('async'):
+        if kwargs.get('async_'):
             return self.get_contacts_for_student_with_http_info(id, **kwargs)
         else:
             (data) = self.get_contacts_for_student_with_http_info(id, **kwargs)
@@ -252,11 +252,11 @@ class DataApi(object):
         """
         Returns the contacts for a student
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.get_contacts_for_student_with_http_info(id, async=True)
+        asynchronous HTTP request, please pass async_=True
+        >>> thread = api.get_contacts_for_student_with_http_info(id, async_=True)
         >>> result = thread.get()
 
-        :param async bool
+        :param async_ bool
         :param str id: (required)
         :param int limit:
         :param str starting_after:
@@ -267,7 +267,7 @@ class DataApi(object):
         """
 
         all_params = ['id', 'limit', 'starting_after', 'ending_before']
-        all_params.append('async')
+        all_params.append('async_')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
         all_params.append('_request_timeout')
@@ -322,7 +322,7 @@ class DataApi(object):
                                         files=local_var_files,
                                         response_type='ContactsResponse',
                                         auth_settings=auth_settings,
-                                        async=params.get('async'),
+                                        async_=params.get('async_'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
                                         _preload_content=params.get('_preload_content', True),
                                         _request_timeout=params.get('_request_timeout'),
@@ -332,18 +332,18 @@ class DataApi(object):
         """
         Returns a specific course
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.get_course(id, async=True)
+        asynchronous HTTP request, please pass async_=True
+        >>> thread = api.get_course(id, async_=True)
         >>> result = thread.get()
 
-        :param async bool
+        :param async_ bool
         :param str id: (required)
         :return: CourseResponse
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('async'):
+        if kwargs.get('async_'):
             return self.get_course_with_http_info(id, **kwargs)
         else:
             (data) = self.get_course_with_http_info(id, **kwargs)
@@ -353,11 +353,11 @@ class DataApi(object):
         """
         Returns a specific course
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.get_course_with_http_info(id, async=True)
+        asynchronous HTTP request, please pass async_=True
+        >>> thread = api.get_course_with_http_info(id, async_=True)
         >>> result = thread.get()
 
-        :param async bool
+        :param async_ bool
         :param str id: (required)
         :return: CourseResponse
                  If the method is called asynchronously,
@@ -365,7 +365,7 @@ class DataApi(object):
         """
 
         all_params = ['id']
-        all_params.append('async')
+        all_params.append('async_')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
         all_params.append('_request_timeout')
@@ -414,7 +414,7 @@ class DataApi(object):
                                         files=local_var_files,
                                         response_type='CourseResponse',
                                         auth_settings=auth_settings,
-                                        async=params.get('async'),
+                                        async_=params.get('async_'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
                                         _preload_content=params.get('_preload_content', True),
                                         _request_timeout=params.get('_request_timeout'),
@@ -424,18 +424,18 @@ class DataApi(object):
         """
         Returns the course for a section
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.get_course_for_section(id, async=True)
+        asynchronous HTTP request, please pass async_=True
+        >>> thread = api.get_course_for_section(id, async_=True)
         >>> result = thread.get()
 
-        :param async bool
+        :param async_ bool
         :param str id: (required)
         :return: CourseResponse
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('async'):
+        if kwargs.get('async_'):
             return self.get_course_for_section_with_http_info(id, **kwargs)
         else:
             (data) = self.get_course_for_section_with_http_info(id, **kwargs)
@@ -445,11 +445,11 @@ class DataApi(object):
         """
         Returns the course for a section
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.get_course_for_section_with_http_info(id, async=True)
+        asynchronous HTTP request, please pass async_=True
+        >>> thread = api.get_course_for_section_with_http_info(id, async_=True)
         >>> result = thread.get()
 
-        :param async bool
+        :param async_ bool
         :param str id: (required)
         :return: CourseResponse
                  If the method is called asynchronously,
@@ -457,7 +457,7 @@ class DataApi(object):
         """
 
         all_params = ['id']
-        all_params.append('async')
+        all_params.append('async_')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
         all_params.append('_request_timeout')
@@ -506,7 +506,7 @@ class DataApi(object):
                                         files=local_var_files,
                                         response_type='CourseResponse',
                                         auth_settings=auth_settings,
-                                        async=params.get('async'),
+                                        async_=params.get('async_'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
                                         _preload_content=params.get('_preload_content', True),
                                         _request_timeout=params.get('_request_timeout'),
@@ -516,11 +516,11 @@ class DataApi(object):
         """
         Returns a list of courses
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.get_courses(async=True)
+        asynchronous HTTP request, please pass async_=True
+        >>> thread = api.get_courses(async_=True)
         >>> result = thread.get()
 
-        :param async bool
+        :param async_ bool
         :param int limit:
         :param str starting_after:
         :param str ending_before:
@@ -529,7 +529,7 @@ class DataApi(object):
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('async'):
+        if kwargs.get('async_'):
             return self.get_courses_with_http_info(**kwargs)
         else:
             (data) = self.get_courses_with_http_info(**kwargs)
@@ -539,11 +539,11 @@ class DataApi(object):
         """
         Returns a list of courses
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.get_courses_with_http_info(async=True)
+        asynchronous HTTP request, please pass async_=True
+        >>> thread = api.get_courses_with_http_info(async_=True)
         >>> result = thread.get()
 
-        :param async bool
+        :param async_ bool
         :param int limit:
         :param str starting_after:
         :param str ending_before:
@@ -553,7 +553,7 @@ class DataApi(object):
         """
 
         all_params = ['limit', 'starting_after', 'ending_before']
-        all_params.append('async')
+        all_params.append('async_')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
         all_params.append('_request_timeout')
@@ -603,7 +603,7 @@ class DataApi(object):
                                         files=local_var_files,
                                         response_type='CoursesResponse',
                                         auth_settings=auth_settings,
-                                        async=params.get('async'),
+                                        async_=params.get('async_'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
                                         _preload_content=params.get('_preload_content', True),
                                         _request_timeout=params.get('_request_timeout'),
@@ -613,18 +613,18 @@ class DataApi(object):
         """
         Returns a specific district
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.get_district(id, async=True)
+        asynchronous HTTP request, please pass async_=True
+        >>> thread = api.get_district(id, async_=True)
         >>> result = thread.get()
 
-        :param async bool
+        :param async_ bool
         :param str id: (required)
         :return: DistrictResponse
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('async'):
+        if kwargs.get('async_'):
             return self.get_district_with_http_info(id, **kwargs)
         else:
             (data) = self.get_district_with_http_info(id, **kwargs)
@@ -634,11 +634,11 @@ class DataApi(object):
         """
         Returns a specific district
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.get_district_with_http_info(id, async=True)
+        asynchronous HTTP request, please pass async_=True
+        >>> thread = api.get_district_with_http_info(id, async_=True)
         >>> result = thread.get()
 
-        :param async bool
+        :param async_ bool
         :param str id: (required)
         :return: DistrictResponse
                  If the method is called asynchronously,
@@ -646,7 +646,7 @@ class DataApi(object):
         """
 
         all_params = ['id']
-        all_params.append('async')
+        all_params.append('async_')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
         all_params.append('_request_timeout')
@@ -695,7 +695,7 @@ class DataApi(object):
                                         files=local_var_files,
                                         response_type='DistrictResponse',
                                         auth_settings=auth_settings,
-                                        async=params.get('async'),
+                                        async_=params.get('async_'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
                                         _preload_content=params.get('_preload_content', True),
                                         _request_timeout=params.get('_request_timeout'),
@@ -705,18 +705,18 @@ class DataApi(object):
         """
         Returns a specific district admin
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.get_district_admin(id, async=True)
+        asynchronous HTTP request, please pass async_=True
+        >>> thread = api.get_district_admin(id, async_=True)
         >>> result = thread.get()
 
-        :param async bool
+        :param async_ bool
         :param str id: (required)
         :return: DistrictAdminResponse
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('async'):
+        if kwargs.get('async_'):
             return self.get_district_admin_with_http_info(id, **kwargs)
         else:
             (data) = self.get_district_admin_with_http_info(id, **kwargs)
@@ -726,11 +726,11 @@ class DataApi(object):
         """
         Returns a specific district admin
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.get_district_admin_with_http_info(id, async=True)
+        asynchronous HTTP request, please pass async_=True
+        >>> thread = api.get_district_admin_with_http_info(id, async_=True)
         >>> result = thread.get()
 
-        :param async bool
+        :param async_ bool
         :param str id: (required)
         :return: DistrictAdminResponse
                  If the method is called asynchronously,
@@ -738,7 +738,7 @@ class DataApi(object):
         """
 
         all_params = ['id']
-        all_params.append('async')
+        all_params.append('async_')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
         all_params.append('_request_timeout')
@@ -787,7 +787,7 @@ class DataApi(object):
                                         files=local_var_files,
                                         response_type='DistrictAdminResponse',
                                         auth_settings=auth_settings,
-                                        async=params.get('async'),
+                                        async_=params.get('async_'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
                                         _preload_content=params.get('_preload_content', True),
                                         _request_timeout=params.get('_request_timeout'),
@@ -797,11 +797,11 @@ class DataApi(object):
         """
         Returns a list of district admins
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.get_district_admins(async=True)
+        asynchronous HTTP request, please pass async_=True
+        >>> thread = api.get_district_admins(async_=True)
         >>> result = thread.get()
 
-        :param async bool
+        :param async_ bool
         :param int limit:
         :param str starting_after:
         :param str ending_before:
@@ -810,7 +810,7 @@ class DataApi(object):
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('async'):
+        if kwargs.get('async_'):
             return self.get_district_admins_with_http_info(**kwargs)
         else:
             (data) = self.get_district_admins_with_http_info(**kwargs)
@@ -820,11 +820,11 @@ class DataApi(object):
         """
         Returns a list of district admins
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.get_district_admins_with_http_info(async=True)
+        asynchronous HTTP request, please pass async_=True
+        >>> thread = api.get_district_admins_with_http_info(async_=True)
         >>> result = thread.get()
 
-        :param async bool
+        :param async_ bool
         :param int limit:
         :param str starting_after:
         :param str ending_before:
@@ -834,7 +834,7 @@ class DataApi(object):
         """
 
         all_params = ['limit', 'starting_after', 'ending_before']
-        all_params.append('async')
+        all_params.append('async_')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
         all_params.append('_request_timeout')
@@ -884,7 +884,7 @@ class DataApi(object):
                                         files=local_var_files,
                                         response_type='DistrictAdminsResponse',
                                         auth_settings=auth_settings,
-                                        async=params.get('async'),
+                                        async_=params.get('async_'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
                                         _preload_content=params.get('_preload_content', True),
                                         _request_timeout=params.get('_request_timeout'),
@@ -894,18 +894,18 @@ class DataApi(object):
         """
         Returns the district for a student contact
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.get_district_for_contact(id, async=True)
+        asynchronous HTTP request, please pass async_=True
+        >>> thread = api.get_district_for_contact(id, async_=True)
         >>> result = thread.get()
 
-        :param async bool
+        :param async_ bool
         :param str id: (required)
         :return: DistrictResponse
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('async'):
+        if kwargs.get('async_'):
             return self.get_district_for_contact_with_http_info(id, **kwargs)
         else:
             (data) = self.get_district_for_contact_with_http_info(id, **kwargs)
@@ -915,11 +915,11 @@ class DataApi(object):
         """
         Returns the district for a student contact
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.get_district_for_contact_with_http_info(id, async=True)
+        asynchronous HTTP request, please pass async_=True
+        >>> thread = api.get_district_for_contact_with_http_info(id, async_=True)
         >>> result = thread.get()
 
-        :param async bool
+        :param async_ bool
         :param str id: (required)
         :return: DistrictResponse
                  If the method is called asynchronously,
@@ -927,7 +927,7 @@ class DataApi(object):
         """
 
         all_params = ['id']
-        all_params.append('async')
+        all_params.append('async_')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
         all_params.append('_request_timeout')
@@ -976,7 +976,7 @@ class DataApi(object):
                                         files=local_var_files,
                                         response_type='DistrictResponse',
                                         auth_settings=auth_settings,
-                                        async=params.get('async'),
+                                        async_=params.get('async_'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
                                         _preload_content=params.get('_preload_content', True),
                                         _request_timeout=params.get('_request_timeout'),
@@ -986,18 +986,18 @@ class DataApi(object):
         """
         Returns the district for a course
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.get_district_for_course(id, async=True)
+        asynchronous HTTP request, please pass async_=True
+        >>> thread = api.get_district_for_course(id, async_=True)
         >>> result = thread.get()
 
-        :param async bool
+        :param async_ bool
         :param str id: (required)
         :return: DistrictResponse
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('async'):
+        if kwargs.get('async_'):
             return self.get_district_for_course_with_http_info(id, **kwargs)
         else:
             (data) = self.get_district_for_course_with_http_info(id, **kwargs)
@@ -1007,11 +1007,11 @@ class DataApi(object):
         """
         Returns the district for a course
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.get_district_for_course_with_http_info(id, async=True)
+        asynchronous HTTP request, please pass async_=True
+        >>> thread = api.get_district_for_course_with_http_info(id, async_=True)
         >>> result = thread.get()
 
-        :param async bool
+        :param async_ bool
         :param str id: (required)
         :return: DistrictResponse
                  If the method is called asynchronously,
@@ -1019,7 +1019,7 @@ class DataApi(object):
         """
 
         all_params = ['id']
-        all_params.append('async')
+        all_params.append('async_')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
         all_params.append('_request_timeout')
@@ -1068,7 +1068,7 @@ class DataApi(object):
                                         files=local_var_files,
                                         response_type='DistrictResponse',
                                         auth_settings=auth_settings,
-                                        async=params.get('async'),
+                                        async_=params.get('async_'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
                                         _preload_content=params.get('_preload_content', True),
                                         _request_timeout=params.get('_request_timeout'),
@@ -1078,18 +1078,18 @@ class DataApi(object):
         """
         Returns the district for a district admin
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.get_district_for_district_admin(id, async=True)
+        asynchronous HTTP request, please pass async_=True
+        >>> thread = api.get_district_for_district_admin(id, async_=True)
         >>> result = thread.get()
 
-        :param async bool
+        :param async_ bool
         :param str id: (required)
         :return: DistrictResponse
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('async'):
+        if kwargs.get('async_'):
             return self.get_district_for_district_admin_with_http_info(id, **kwargs)
         else:
             (data) = self.get_district_for_district_admin_with_http_info(id, **kwargs)
@@ -1099,11 +1099,11 @@ class DataApi(object):
         """
         Returns the district for a district admin
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.get_district_for_district_admin_with_http_info(id, async=True)
+        asynchronous HTTP request, please pass async_=True
+        >>> thread = api.get_district_for_district_admin_with_http_info(id, async_=True)
         >>> result = thread.get()
 
-        :param async bool
+        :param async_ bool
         :param str id: (required)
         :return: DistrictResponse
                  If the method is called asynchronously,
@@ -1111,7 +1111,7 @@ class DataApi(object):
         """
 
         all_params = ['id']
-        all_params.append('async')
+        all_params.append('async_')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
         all_params.append('_request_timeout')
@@ -1160,7 +1160,7 @@ class DataApi(object):
                                         files=local_var_files,
                                         response_type='DistrictResponse',
                                         auth_settings=auth_settings,
-                                        async=params.get('async'),
+                                        async_=params.get('async_'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
                                         _preload_content=params.get('_preload_content', True),
                                         _request_timeout=params.get('_request_timeout'),
@@ -1170,18 +1170,18 @@ class DataApi(object):
         """
         Returns the district for a school
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.get_district_for_school(id, async=True)
+        asynchronous HTTP request, please pass async_=True
+        >>> thread = api.get_district_for_school(id, async_=True)
         >>> result = thread.get()
 
-        :param async bool
+        :param async_ bool
         :param str id: (required)
         :return: DistrictResponse
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('async'):
+        if kwargs.get('async_'):
             return self.get_district_for_school_with_http_info(id, **kwargs)
         else:
             (data) = self.get_district_for_school_with_http_info(id, **kwargs)
@@ -1191,11 +1191,11 @@ class DataApi(object):
         """
         Returns the district for a school
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.get_district_for_school_with_http_info(id, async=True)
+        asynchronous HTTP request, please pass async_=True
+        >>> thread = api.get_district_for_school_with_http_info(id, async_=True)
         >>> result = thread.get()
 
-        :param async bool
+        :param async_ bool
         :param str id: (required)
         :return: DistrictResponse
                  If the method is called asynchronously,
@@ -1203,7 +1203,7 @@ class DataApi(object):
         """
 
         all_params = ['id']
-        all_params.append('async')
+        all_params.append('async_')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
         all_params.append('_request_timeout')
@@ -1252,7 +1252,7 @@ class DataApi(object):
                                         files=local_var_files,
                                         response_type='DistrictResponse',
                                         auth_settings=auth_settings,
-                                        async=params.get('async'),
+                                        async_=params.get('async_'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
                                         _preload_content=params.get('_preload_content', True),
                                         _request_timeout=params.get('_request_timeout'),
@@ -1262,18 +1262,18 @@ class DataApi(object):
         """
         Returns the district for a school admin
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.get_district_for_school_admin(id, async=True)
+        asynchronous HTTP request, please pass async_=True
+        >>> thread = api.get_district_for_school_admin(id, async_=True)
         >>> result = thread.get()
 
-        :param async bool
+        :param async_ bool
         :param str id: (required)
         :return: DistrictResponse
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('async'):
+        if kwargs.get('async_'):
             return self.get_district_for_school_admin_with_http_info(id, **kwargs)
         else:
             (data) = self.get_district_for_school_admin_with_http_info(id, **kwargs)
@@ -1283,11 +1283,11 @@ class DataApi(object):
         """
         Returns the district for a school admin
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.get_district_for_school_admin_with_http_info(id, async=True)
+        asynchronous HTTP request, please pass async_=True
+        >>> thread = api.get_district_for_school_admin_with_http_info(id, async_=True)
         >>> result = thread.get()
 
-        :param async bool
+        :param async_ bool
         :param str id: (required)
         :return: DistrictResponse
                  If the method is called asynchronously,
@@ -1295,7 +1295,7 @@ class DataApi(object):
         """
 
         all_params = ['id']
-        all_params.append('async')
+        all_params.append('async_')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
         all_params.append('_request_timeout')
@@ -1344,7 +1344,7 @@ class DataApi(object):
                                         files=local_var_files,
                                         response_type='DistrictResponse',
                                         auth_settings=auth_settings,
-                                        async=params.get('async'),
+                                        async_=params.get('async_'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
                                         _preload_content=params.get('_preload_content', True),
                                         _request_timeout=params.get('_request_timeout'),
@@ -1354,18 +1354,18 @@ class DataApi(object):
         """
         Returns the district for a section
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.get_district_for_section(id, async=True)
+        asynchronous HTTP request, please pass async_=True
+        >>> thread = api.get_district_for_section(id, async_=True)
         >>> result = thread.get()
 
-        :param async bool
+        :param async_ bool
         :param str id: (required)
         :return: DistrictResponse
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('async'):
+        if kwargs.get('async_'):
             return self.get_district_for_section_with_http_info(id, **kwargs)
         else:
             (data) = self.get_district_for_section_with_http_info(id, **kwargs)
@@ -1375,11 +1375,11 @@ class DataApi(object):
         """
         Returns the district for a section
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.get_district_for_section_with_http_info(id, async=True)
+        asynchronous HTTP request, please pass async_=True
+        >>> thread = api.get_district_for_section_with_http_info(id, async_=True)
         >>> result = thread.get()
 
-        :param async bool
+        :param async_ bool
         :param str id: (required)
         :return: DistrictResponse
                  If the method is called asynchronously,
@@ -1387,7 +1387,7 @@ class DataApi(object):
         """
 
         all_params = ['id']
-        all_params.append('async')
+        all_params.append('async_')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
         all_params.append('_request_timeout')
@@ -1436,7 +1436,7 @@ class DataApi(object):
                                         files=local_var_files,
                                         response_type='DistrictResponse',
                                         auth_settings=auth_settings,
-                                        async=params.get('async'),
+                                        async_=params.get('async_'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
                                         _preload_content=params.get('_preload_content', True),
                                         _request_timeout=params.get('_request_timeout'),
@@ -1446,18 +1446,18 @@ class DataApi(object):
         """
         Returns the district for a student
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.get_district_for_student(id, async=True)
+        asynchronous HTTP request, please pass async_=True
+        >>> thread = api.get_district_for_student(id, async_=True)
         >>> result = thread.get()
 
-        :param async bool
+        :param async_ bool
         :param str id: (required)
         :return: DistrictResponse
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('async'):
+        if kwargs.get('async_'):
             return self.get_district_for_student_with_http_info(id, **kwargs)
         else:
             (data) = self.get_district_for_student_with_http_info(id, **kwargs)
@@ -1467,11 +1467,11 @@ class DataApi(object):
         """
         Returns the district for a student
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.get_district_for_student_with_http_info(id, async=True)
+        asynchronous HTTP request, please pass async_=True
+        >>> thread = api.get_district_for_student_with_http_info(id, async_=True)
         >>> result = thread.get()
 
-        :param async bool
+        :param async_ bool
         :param str id: (required)
         :return: DistrictResponse
                  If the method is called asynchronously,
@@ -1479,7 +1479,7 @@ class DataApi(object):
         """
 
         all_params = ['id']
-        all_params.append('async')
+        all_params.append('async_')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
         all_params.append('_request_timeout')
@@ -1528,7 +1528,7 @@ class DataApi(object):
                                         files=local_var_files,
                                         response_type='DistrictResponse',
                                         auth_settings=auth_settings,
-                                        async=params.get('async'),
+                                        async_=params.get('async_'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
                                         _preload_content=params.get('_preload_content', True),
                                         _request_timeout=params.get('_request_timeout'),
@@ -1538,18 +1538,18 @@ class DataApi(object):
         """
         Returns the district for a teacher
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.get_district_for_teacher(id, async=True)
+        asynchronous HTTP request, please pass async_=True
+        >>> thread = api.get_district_for_teacher(id, async_=True)
         >>> result = thread.get()
 
-        :param async bool
+        :param async_ bool
         :param str id: (required)
         :return: DistrictResponse
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('async'):
+        if kwargs.get('async_'):
             return self.get_district_for_teacher_with_http_info(id, **kwargs)
         else:
             (data) = self.get_district_for_teacher_with_http_info(id, **kwargs)
@@ -1559,11 +1559,11 @@ class DataApi(object):
         """
         Returns the district for a teacher
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.get_district_for_teacher_with_http_info(id, async=True)
+        asynchronous HTTP request, please pass async_=True
+        >>> thread = api.get_district_for_teacher_with_http_info(id, async_=True)
         >>> result = thread.get()
 
-        :param async bool
+        :param async_ bool
         :param str id: (required)
         :return: DistrictResponse
                  If the method is called asynchronously,
@@ -1571,7 +1571,7 @@ class DataApi(object):
         """
 
         all_params = ['id']
-        all_params.append('async')
+        all_params.append('async_')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
         all_params.append('_request_timeout')
@@ -1620,7 +1620,7 @@ class DataApi(object):
                                         files=local_var_files,
                                         response_type='DistrictResponse',
                                         auth_settings=auth_settings,
-                                        async=params.get('async'),
+                                        async_=params.get('async_'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
                                         _preload_content=params.get('_preload_content', True),
                                         _request_timeout=params.get('_request_timeout'),
@@ -1630,18 +1630,18 @@ class DataApi(object):
         """
         Returns the district for a term
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.get_district_for_term(id, async=True)
+        asynchronous HTTP request, please pass async_=True
+        >>> thread = api.get_district_for_term(id, async_=True)
         >>> result = thread.get()
 
-        :param async bool
+        :param async_ bool
         :param str id: (required)
         :return: DistrictResponse
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('async'):
+        if kwargs.get('async_'):
             return self.get_district_for_term_with_http_info(id, **kwargs)
         else:
             (data) = self.get_district_for_term_with_http_info(id, **kwargs)
@@ -1651,11 +1651,11 @@ class DataApi(object):
         """
         Returns the district for a term
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.get_district_for_term_with_http_info(id, async=True)
+        asynchronous HTTP request, please pass async_=True
+        >>> thread = api.get_district_for_term_with_http_info(id, async_=True)
         >>> result = thread.get()
 
-        :param async bool
+        :param async_ bool
         :param str id: (required)
         :return: DistrictResponse
                  If the method is called asynchronously,
@@ -1663,7 +1663,7 @@ class DataApi(object):
         """
 
         all_params = ['id']
-        all_params.append('async')
+        all_params.append('async_')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
         all_params.append('_request_timeout')
@@ -1712,7 +1712,7 @@ class DataApi(object):
                                         files=local_var_files,
                                         response_type='DistrictResponse',
                                         auth_settings=auth_settings,
-                                        async=params.get('async'),
+                                        async_=params.get('async_'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
                                         _preload_content=params.get('_preload_content', True),
                                         _request_timeout=params.get('_request_timeout'),
@@ -1722,17 +1722,17 @@ class DataApi(object):
         """
         Returns a list of districts
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.get_districts(async=True)
+        asynchronous HTTP request, please pass async_=True
+        >>> thread = api.get_districts(async_=True)
         >>> result = thread.get()
 
-        :param async bool
+        :param async_ bool
         :return: DistrictsResponse
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('async'):
+        if kwargs.get('async_'):
             return self.get_districts_with_http_info(**kwargs)
         else:
             (data) = self.get_districts_with_http_info(**kwargs)
@@ -1742,18 +1742,18 @@ class DataApi(object):
         """
         Returns a list of districts
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.get_districts_with_http_info(async=True)
+        asynchronous HTTP request, please pass async_=True
+        >>> thread = api.get_districts_with_http_info(async_=True)
         >>> result = thread.get()
 
-        :param async bool
+        :param async_ bool
         :return: DistrictsResponse
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
         all_params = []
-        all_params.append('async')
+        all_params.append('async_')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
         all_params.append('_request_timeout')
@@ -1796,7 +1796,7 @@ class DataApi(object):
                                         files=local_var_files,
                                         response_type='DistrictsResponse',
                                         auth_settings=auth_settings,
-                                        async=params.get('async'),
+                                        async_=params.get('async_'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
                                         _preload_content=params.get('_preload_content', True),
                                         _request_timeout=params.get('_request_timeout'),
@@ -1806,18 +1806,18 @@ class DataApi(object):
         """
         Returns a specific school
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.get_school(id, async=True)
+        asynchronous HTTP request, please pass async_=True
+        >>> thread = api.get_school(id, async_=True)
         >>> result = thread.get()
 
-        :param async bool
+        :param async_ bool
         :param str id: (required)
         :return: SchoolResponse
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('async'):
+        if kwargs.get('async_'):
             return self.get_school_with_http_info(id, **kwargs)
         else:
             (data) = self.get_school_with_http_info(id, **kwargs)
@@ -1827,11 +1827,11 @@ class DataApi(object):
         """
         Returns a specific school
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.get_school_with_http_info(id, async=True)
+        asynchronous HTTP request, please pass async_=True
+        >>> thread = api.get_school_with_http_info(id, async_=True)
         >>> result = thread.get()
 
-        :param async bool
+        :param async_ bool
         :param str id: (required)
         :return: SchoolResponse
                  If the method is called asynchronously,
@@ -1839,7 +1839,7 @@ class DataApi(object):
         """
 
         all_params = ['id']
-        all_params.append('async')
+        all_params.append('async_')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
         all_params.append('_request_timeout')
@@ -1888,7 +1888,7 @@ class DataApi(object):
                                         files=local_var_files,
                                         response_type='SchoolResponse',
                                         auth_settings=auth_settings,
-                                        async=params.get('async'),
+                                        async_=params.get('async_'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
                                         _preload_content=params.get('_preload_content', True),
                                         _request_timeout=params.get('_request_timeout'),
@@ -1898,18 +1898,18 @@ class DataApi(object):
         """
         Returns a specific school admin
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.get_school_admin(id, async=True)
+        asynchronous HTTP request, please pass async_=True
+        >>> thread = api.get_school_admin(id, async_=True)
         >>> result = thread.get()
 
-        :param async bool
+        :param async_ bool
         :param str id: (required)
         :return: SchoolAdminResponse
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('async'):
+        if kwargs.get('async_'):
             return self.get_school_admin_with_http_info(id, **kwargs)
         else:
             (data) = self.get_school_admin_with_http_info(id, **kwargs)
@@ -1919,11 +1919,11 @@ class DataApi(object):
         """
         Returns a specific school admin
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.get_school_admin_with_http_info(id, async=True)
+        asynchronous HTTP request, please pass async_=True
+        >>> thread = api.get_school_admin_with_http_info(id, async_=True)
         >>> result = thread.get()
 
-        :param async bool
+        :param async_ bool
         :param str id: (required)
         :return: SchoolAdminResponse
                  If the method is called asynchronously,
@@ -1931,7 +1931,7 @@ class DataApi(object):
         """
 
         all_params = ['id']
-        all_params.append('async')
+        all_params.append('async_')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
         all_params.append('_request_timeout')
@@ -1980,7 +1980,7 @@ class DataApi(object):
                                         files=local_var_files,
                                         response_type='SchoolAdminResponse',
                                         auth_settings=auth_settings,
-                                        async=params.get('async'),
+                                        async_=params.get('async_'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
                                         _preload_content=params.get('_preload_content', True),
                                         _request_timeout=params.get('_request_timeout'),
@@ -1990,11 +1990,11 @@ class DataApi(object):
         """
         Returns a list of school admins
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.get_school_admins(async=True)
+        asynchronous HTTP request, please pass async_=True
+        >>> thread = api.get_school_admins(async_=True)
         >>> result = thread.get()
 
-        :param async bool
+        :param async_ bool
         :param int limit:
         :param str starting_after:
         :param str ending_before:
@@ -2003,7 +2003,7 @@ class DataApi(object):
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('async'):
+        if kwargs.get('async_'):
             return self.get_school_admins_with_http_info(**kwargs)
         else:
             (data) = self.get_school_admins_with_http_info(**kwargs)
@@ -2013,11 +2013,11 @@ class DataApi(object):
         """
         Returns a list of school admins
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.get_school_admins_with_http_info(async=True)
+        asynchronous HTTP request, please pass async_=True
+        >>> thread = api.get_school_admins_with_http_info(async_=True)
         >>> result = thread.get()
 
-        :param async bool
+        :param async_ bool
         :param int limit:
         :param str starting_after:
         :param str ending_before:
@@ -2027,7 +2027,7 @@ class DataApi(object):
         """
 
         all_params = ['limit', 'starting_after', 'ending_before']
-        all_params.append('async')
+        all_params.append('async_')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
         all_params.append('_request_timeout')
@@ -2077,7 +2077,7 @@ class DataApi(object):
                                         files=local_var_files,
                                         response_type='SchoolAdminsResponse',
                                         auth_settings=auth_settings,
-                                        async=params.get('async'),
+                                        async_=params.get('async_'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
                                         _preload_content=params.get('_preload_content', True),
                                         _request_timeout=params.get('_request_timeout'),
@@ -2087,18 +2087,18 @@ class DataApi(object):
         """
         Returns the school for a section
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.get_school_for_section(id, async=True)
+        asynchronous HTTP request, please pass async_=True
+        >>> thread = api.get_school_for_section(id, async_=True)
         >>> result = thread.get()
 
-        :param async bool
+        :param async_ bool
         :param str id: (required)
         :return: SchoolResponse
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('async'):
+        if kwargs.get('async_'):
             return self.get_school_for_section_with_http_info(id, **kwargs)
         else:
             (data) = self.get_school_for_section_with_http_info(id, **kwargs)
@@ -2108,11 +2108,11 @@ class DataApi(object):
         """
         Returns the school for a section
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.get_school_for_section_with_http_info(id, async=True)
+        asynchronous HTTP request, please pass async_=True
+        >>> thread = api.get_school_for_section_with_http_info(id, async_=True)
         >>> result = thread.get()
 
-        :param async bool
+        :param async_ bool
         :param str id: (required)
         :return: SchoolResponse
                  If the method is called asynchronously,
@@ -2120,7 +2120,7 @@ class DataApi(object):
         """
 
         all_params = ['id']
-        all_params.append('async')
+        all_params.append('async_')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
         all_params.append('_request_timeout')
@@ -2169,7 +2169,7 @@ class DataApi(object):
                                         files=local_var_files,
                                         response_type='SchoolResponse',
                                         auth_settings=auth_settings,
-                                        async=params.get('async'),
+                                        async_=params.get('async_'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
                                         _preload_content=params.get('_preload_content', True),
                                         _request_timeout=params.get('_request_timeout'),
@@ -2179,18 +2179,18 @@ class DataApi(object):
         """
         Returns the primary school for a student
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.get_school_for_student(id, async=True)
+        asynchronous HTTP request, please pass async_=True
+        >>> thread = api.get_school_for_student(id, async_=True)
         >>> result = thread.get()
 
-        :param async bool
+        :param async_ bool
         :param str id: (required)
         :return: SchoolResponse
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('async'):
+        if kwargs.get('async_'):
             return self.get_school_for_student_with_http_info(id, **kwargs)
         else:
             (data) = self.get_school_for_student_with_http_info(id, **kwargs)
@@ -2200,11 +2200,11 @@ class DataApi(object):
         """
         Returns the primary school for a student
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.get_school_for_student_with_http_info(id, async=True)
+        asynchronous HTTP request, please pass async_=True
+        >>> thread = api.get_school_for_student_with_http_info(id, async_=True)
         >>> result = thread.get()
 
-        :param async bool
+        :param async_ bool
         :param str id: (required)
         :return: SchoolResponse
                  If the method is called asynchronously,
@@ -2212,7 +2212,7 @@ class DataApi(object):
         """
 
         all_params = ['id']
-        all_params.append('async')
+        all_params.append('async_')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
         all_params.append('_request_timeout')
@@ -2261,7 +2261,7 @@ class DataApi(object):
                                         files=local_var_files,
                                         response_type='SchoolResponse',
                                         auth_settings=auth_settings,
-                                        async=params.get('async'),
+                                        async_=params.get('async_'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
                                         _preload_content=params.get('_preload_content', True),
                                         _request_timeout=params.get('_request_timeout'),
@@ -2271,18 +2271,18 @@ class DataApi(object):
         """
         Retrieves school info for a teacher.
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.get_school_for_teacher(id, async=True)
+        asynchronous HTTP request, please pass async_=True
+        >>> thread = api.get_school_for_teacher(id, async_=True)
         >>> result = thread.get()
 
-        :param async bool
+        :param async_ bool
         :param str id: (required)
         :return: SchoolResponse
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('async'):
+        if kwargs.get('async_'):
             return self.get_school_for_teacher_with_http_info(id, **kwargs)
         else:
             (data) = self.get_school_for_teacher_with_http_info(id, **kwargs)
@@ -2292,11 +2292,11 @@ class DataApi(object):
         """
         Retrieves school info for a teacher.
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.get_school_for_teacher_with_http_info(id, async=True)
+        asynchronous HTTP request, please pass async_=True
+        >>> thread = api.get_school_for_teacher_with_http_info(id, async_=True)
         >>> result = thread.get()
 
-        :param async bool
+        :param async_ bool
         :param str id: (required)
         :return: SchoolResponse
                  If the method is called asynchronously,
@@ -2304,7 +2304,7 @@ class DataApi(object):
         """
 
         all_params = ['id']
-        all_params.append('async')
+        all_params.append('async_')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
         all_params.append('_request_timeout')
@@ -2353,7 +2353,7 @@ class DataApi(object):
                                         files=local_var_files,
                                         response_type='SchoolResponse',
                                         auth_settings=auth_settings,
-                                        async=params.get('async'),
+                                        async_=params.get('async_'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
                                         _preload_content=params.get('_preload_content', True),
                                         _request_timeout=params.get('_request_timeout'),
@@ -2363,11 +2363,11 @@ class DataApi(object):
         """
         Returns a list of schools
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.get_schools(async=True)
+        asynchronous HTTP request, please pass async_=True
+        >>> thread = api.get_schools(async_=True)
         >>> result = thread.get()
 
-        :param async bool
+        :param async_ bool
         :param int limit:
         :param str starting_after:
         :param str ending_before:
@@ -2376,7 +2376,7 @@ class DataApi(object):
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('async'):
+        if kwargs.get('async_'):
             return self.get_schools_with_http_info(**kwargs)
         else:
             (data) = self.get_schools_with_http_info(**kwargs)
@@ -2386,11 +2386,11 @@ class DataApi(object):
         """
         Returns a list of schools
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.get_schools_with_http_info(async=True)
+        asynchronous HTTP request, please pass async_=True
+        >>> thread = api.get_schools_with_http_info(async_=True)
         >>> result = thread.get()
 
-        :param async bool
+        :param async_ bool
         :param int limit:
         :param str starting_after:
         :param str ending_before:
@@ -2400,7 +2400,7 @@ class DataApi(object):
         """
 
         all_params = ['limit', 'starting_after', 'ending_before']
-        all_params.append('async')
+        all_params.append('async_')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
         all_params.append('_request_timeout')
@@ -2450,7 +2450,7 @@ class DataApi(object):
                                         files=local_var_files,
                                         response_type='SchoolsResponse',
                                         auth_settings=auth_settings,
-                                        async=params.get('async'),
+                                        async_=params.get('async_'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
                                         _preload_content=params.get('_preload_content', True),
                                         _request_timeout=params.get('_request_timeout'),
@@ -2460,11 +2460,11 @@ class DataApi(object):
         """
         Returns the schools for a school admin
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.get_schools_for_school_admin(id, async=True)
+        asynchronous HTTP request, please pass async_=True
+        >>> thread = api.get_schools_for_school_admin(id, async_=True)
         >>> result = thread.get()
 
-        :param async bool
+        :param async_ bool
         :param str id: (required)
         :param int limit:
         :param str starting_after:
@@ -2474,7 +2474,7 @@ class DataApi(object):
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('async'):
+        if kwargs.get('async_'):
             return self.get_schools_for_school_admin_with_http_info(id, **kwargs)
         else:
             (data) = self.get_schools_for_school_admin_with_http_info(id, **kwargs)
@@ -2484,11 +2484,11 @@ class DataApi(object):
         """
         Returns the schools for a school admin
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.get_schools_for_school_admin_with_http_info(id, async=True)
+        asynchronous HTTP request, please pass async_=True
+        >>> thread = api.get_schools_for_school_admin_with_http_info(id, async_=True)
         >>> result = thread.get()
 
-        :param async bool
+        :param async_ bool
         :param str id: (required)
         :param int limit:
         :param str starting_after:
@@ -2499,7 +2499,7 @@ class DataApi(object):
         """
 
         all_params = ['id', 'limit', 'starting_after', 'ending_before']
-        all_params.append('async')
+        all_params.append('async_')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
         all_params.append('_request_timeout')
@@ -2554,7 +2554,7 @@ class DataApi(object):
                                         files=local_var_files,
                                         response_type='SchoolsResponse',
                                         auth_settings=auth_settings,
-                                        async=params.get('async'),
+                                        async_=params.get('async_'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
                                         _preload_content=params.get('_preload_content', True),
                                         _request_timeout=params.get('_request_timeout'),
@@ -2564,11 +2564,11 @@ class DataApi(object):
         """
         Returns the schools for a student
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.get_schools_for_student(id, async=True)
+        asynchronous HTTP request, please pass async_=True
+        >>> thread = api.get_schools_for_student(id, async_=True)
         >>> result = thread.get()
 
-        :param async bool
+        :param async_ bool
         :param str id: (required)
         :param int limit:
         :param str starting_after:
@@ -2578,7 +2578,7 @@ class DataApi(object):
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('async'):
+        if kwargs.get('async_'):
             return self.get_schools_for_student_with_http_info(id, **kwargs)
         else:
             (data) = self.get_schools_for_student_with_http_info(id, **kwargs)
@@ -2588,11 +2588,11 @@ class DataApi(object):
         """
         Returns the schools for a student
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.get_schools_for_student_with_http_info(id, async=True)
+        asynchronous HTTP request, please pass async_=True
+        >>> thread = api.get_schools_for_student_with_http_info(id, async_=True)
         >>> result = thread.get()
 
-        :param async bool
+        :param async_ bool
         :param str id: (required)
         :param int limit:
         :param str starting_after:
@@ -2603,7 +2603,7 @@ class DataApi(object):
         """
 
         all_params = ['id', 'limit', 'starting_after', 'ending_before']
-        all_params.append('async')
+        all_params.append('async_')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
         all_params.append('_request_timeout')
@@ -2658,7 +2658,7 @@ class DataApi(object):
                                         files=local_var_files,
                                         response_type='SchoolsResponse',
                                         auth_settings=auth_settings,
-                                        async=params.get('async'),
+                                        async_=params.get('async_'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
                                         _preload_content=params.get('_preload_content', True),
                                         _request_timeout=params.get('_request_timeout'),
@@ -2668,11 +2668,11 @@ class DataApi(object):
         """
         Returns the schools for a teacher
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.get_schools_for_teacher(id, async=True)
+        asynchronous HTTP request, please pass async_=True
+        >>> thread = api.get_schools_for_teacher(id, async_=True)
         >>> result = thread.get()
 
-        :param async bool
+        :param async_ bool
         :param str id: (required)
         :param int limit:
         :param str starting_after:
@@ -2682,7 +2682,7 @@ class DataApi(object):
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('async'):
+        if kwargs.get('async_'):
             return self.get_schools_for_teacher_with_http_info(id, **kwargs)
         else:
             (data) = self.get_schools_for_teacher_with_http_info(id, **kwargs)
@@ -2692,11 +2692,11 @@ class DataApi(object):
         """
         Returns the schools for a teacher
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.get_schools_for_teacher_with_http_info(id, async=True)
+        asynchronous HTTP request, please pass async_=True
+        >>> thread = api.get_schools_for_teacher_with_http_info(id, async_=True)
         >>> result = thread.get()
 
-        :param async bool
+        :param async_ bool
         :param str id: (required)
         :param int limit:
         :param str starting_after:
@@ -2707,7 +2707,7 @@ class DataApi(object):
         """
 
         all_params = ['id', 'limit', 'starting_after', 'ending_before']
-        all_params.append('async')
+        all_params.append('async_')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
         all_params.append('_request_timeout')
@@ -2762,7 +2762,7 @@ class DataApi(object):
                                         files=local_var_files,
                                         response_type='SchoolsResponse',
                                         auth_settings=auth_settings,
-                                        async=params.get('async'),
+                                        async_=params.get('async_'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
                                         _preload_content=params.get('_preload_content', True),
                                         _request_timeout=params.get('_request_timeout'),
@@ -2772,18 +2772,18 @@ class DataApi(object):
         """
         Returns a specific section
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.get_section(id, async=True)
+        asynchronous HTTP request, please pass async_=True
+        >>> thread = api.get_section(id, async_=True)
         >>> result = thread.get()
 
-        :param async bool
+        :param async_ bool
         :param str id: (required)
         :return: SectionResponse
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('async'):
+        if kwargs.get('async_'):
             return self.get_section_with_http_info(id, **kwargs)
         else:
             (data) = self.get_section_with_http_info(id, **kwargs)
@@ -2793,11 +2793,11 @@ class DataApi(object):
         """
         Returns a specific section
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.get_section_with_http_info(id, async=True)
+        asynchronous HTTP request, please pass async_=True
+        >>> thread = api.get_section_with_http_info(id, async_=True)
         >>> result = thread.get()
 
-        :param async bool
+        :param async_ bool
         :param str id: (required)
         :return: SectionResponse
                  If the method is called asynchronously,
@@ -2805,7 +2805,7 @@ class DataApi(object):
         """
 
         all_params = ['id']
-        all_params.append('async')
+        all_params.append('async_')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
         all_params.append('_request_timeout')
@@ -2854,7 +2854,7 @@ class DataApi(object):
                                         files=local_var_files,
                                         response_type='SectionResponse',
                                         auth_settings=auth_settings,
-                                        async=params.get('async'),
+                                        async_=params.get('async_'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
                                         _preload_content=params.get('_preload_content', True),
                                         _request_timeout=params.get('_request_timeout'),
@@ -2864,11 +2864,11 @@ class DataApi(object):
         """
         Returns a list of sections
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.get_sections(async=True)
+        asynchronous HTTP request, please pass async_=True
+        >>> thread = api.get_sections(async_=True)
         >>> result = thread.get()
 
-        :param async bool
+        :param async_ bool
         :param int limit:
         :param str starting_after:
         :param str ending_before:
@@ -2877,7 +2877,7 @@ class DataApi(object):
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('async'):
+        if kwargs.get('async_'):
             return self.get_sections_with_http_info(**kwargs)
         else:
             (data) = self.get_sections_with_http_info(**kwargs)
@@ -2887,11 +2887,11 @@ class DataApi(object):
         """
         Returns a list of sections
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.get_sections_with_http_info(async=True)
+        asynchronous HTTP request, please pass async_=True
+        >>> thread = api.get_sections_with_http_info(async_=True)
         >>> result = thread.get()
 
-        :param async bool
+        :param async_ bool
         :param int limit:
         :param str starting_after:
         :param str ending_before:
@@ -2901,7 +2901,7 @@ class DataApi(object):
         """
 
         all_params = ['limit', 'starting_after', 'ending_before']
-        all_params.append('async')
+        all_params.append('async_')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
         all_params.append('_request_timeout')
@@ -2951,7 +2951,7 @@ class DataApi(object):
                                         files=local_var_files,
                                         response_type='SectionsResponse',
                                         auth_settings=auth_settings,
-                                        async=params.get('async'),
+                                        async_=params.get('async_'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
                                         _preload_content=params.get('_preload_content', True),
                                         _request_timeout=params.get('_request_timeout'),
@@ -2961,11 +2961,11 @@ class DataApi(object):
         """
         Returns the sections for a Courses
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.get_sections_for_course(id, async=True)
+        asynchronous HTTP request, please pass async_=True
+        >>> thread = api.get_sections_for_course(id, async_=True)
         >>> result = thread.get()
 
-        :param async bool
+        :param async_ bool
         :param str id: (required)
         :param int limit:
         :param str starting_after:
@@ -2975,7 +2975,7 @@ class DataApi(object):
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('async'):
+        if kwargs.get('async_'):
             return self.get_sections_for_course_with_http_info(id, **kwargs)
         else:
             (data) = self.get_sections_for_course_with_http_info(id, **kwargs)
@@ -2985,11 +2985,11 @@ class DataApi(object):
         """
         Returns the sections for a Courses
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.get_sections_for_course_with_http_info(id, async=True)
+        asynchronous HTTP request, please pass async_=True
+        >>> thread = api.get_sections_for_course_with_http_info(id, async_=True)
         >>> result = thread.get()
 
-        :param async bool
+        :param async_ bool
         :param str id: (required)
         :param int limit:
         :param str starting_after:
@@ -3000,7 +3000,7 @@ class DataApi(object):
         """
 
         all_params = ['id', 'limit', 'starting_after', 'ending_before']
-        all_params.append('async')
+        all_params.append('async_')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
         all_params.append('_request_timeout')
@@ -3055,7 +3055,7 @@ class DataApi(object):
                                         files=local_var_files,
                                         response_type='SectionsResponse',
                                         auth_settings=auth_settings,
-                                        async=params.get('async'),
+                                        async_=params.get('async_'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
                                         _preload_content=params.get('_preload_content', True),
                                         _request_timeout=params.get('_request_timeout'),
@@ -3065,11 +3065,11 @@ class DataApi(object):
         """
         Returns the sections for a school
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.get_sections_for_school(id, async=True)
+        asynchronous HTTP request, please pass async_=True
+        >>> thread = api.get_sections_for_school(id, async_=True)
         >>> result = thread.get()
 
-        :param async bool
+        :param async_ bool
         :param str id: (required)
         :param int limit:
         :param str starting_after:
@@ -3079,7 +3079,7 @@ class DataApi(object):
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('async'):
+        if kwargs.get('async_'):
             return self.get_sections_for_school_with_http_info(id, **kwargs)
         else:
             (data) = self.get_sections_for_school_with_http_info(id, **kwargs)
@@ -3089,11 +3089,11 @@ class DataApi(object):
         """
         Returns the sections for a school
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.get_sections_for_school_with_http_info(id, async=True)
+        asynchronous HTTP request, please pass async_=True
+        >>> thread = api.get_sections_for_school_with_http_info(id, async_=True)
         >>> result = thread.get()
 
-        :param async bool
+        :param async_ bool
         :param str id: (required)
         :param int limit:
         :param str starting_after:
@@ -3104,7 +3104,7 @@ class DataApi(object):
         """
 
         all_params = ['id', 'limit', 'starting_after', 'ending_before']
-        all_params.append('async')
+        all_params.append('async_')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
         all_params.append('_request_timeout')
@@ -3159,7 +3159,7 @@ class DataApi(object):
                                         files=local_var_files,
                                         response_type='SectionsResponse',
                                         auth_settings=auth_settings,
-                                        async=params.get('async'),
+                                        async_=params.get('async_'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
                                         _preload_content=params.get('_preload_content', True),
                                         _request_timeout=params.get('_request_timeout'),
@@ -3169,11 +3169,11 @@ class DataApi(object):
         """
         Returns the sections for a student
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.get_sections_for_student(id, async=True)
+        asynchronous HTTP request, please pass async_=True
+        >>> thread = api.get_sections_for_student(id, async_=True)
         >>> result = thread.get()
 
-        :param async bool
+        :param async_ bool
         :param str id: (required)
         :param int limit:
         :param str starting_after:
@@ -3183,7 +3183,7 @@ class DataApi(object):
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('async'):
+        if kwargs.get('async_'):
             return self.get_sections_for_student_with_http_info(id, **kwargs)
         else:
             (data) = self.get_sections_for_student_with_http_info(id, **kwargs)
@@ -3193,11 +3193,11 @@ class DataApi(object):
         """
         Returns the sections for a student
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.get_sections_for_student_with_http_info(id, async=True)
+        asynchronous HTTP request, please pass async_=True
+        >>> thread = api.get_sections_for_student_with_http_info(id, async_=True)
         >>> result = thread.get()
 
-        :param async bool
+        :param async_ bool
         :param str id: (required)
         :param int limit:
         :param str starting_after:
@@ -3208,7 +3208,7 @@ class DataApi(object):
         """
 
         all_params = ['id', 'limit', 'starting_after', 'ending_before']
-        all_params.append('async')
+        all_params.append('async_')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
         all_params.append('_request_timeout')
@@ -3263,7 +3263,7 @@ class DataApi(object):
                                         files=local_var_files,
                                         response_type='SectionsResponse',
                                         auth_settings=auth_settings,
-                                        async=params.get('async'),
+                                        async_=params.get('async_'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
                                         _preload_content=params.get('_preload_content', True),
                                         _request_timeout=params.get('_request_timeout'),
@@ -3273,11 +3273,11 @@ class DataApi(object):
         """
         Returns the sections for a teacher
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.get_sections_for_teacher(id, async=True)
+        asynchronous HTTP request, please pass async_=True
+        >>> thread = api.get_sections_for_teacher(id, async_=True)
         >>> result = thread.get()
 
-        :param async bool
+        :param async_ bool
         :param str id: (required)
         :param int limit:
         :param str starting_after:
@@ -3287,7 +3287,7 @@ class DataApi(object):
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('async'):
+        if kwargs.get('async_'):
             return self.get_sections_for_teacher_with_http_info(id, **kwargs)
         else:
             (data) = self.get_sections_for_teacher_with_http_info(id, **kwargs)
@@ -3297,11 +3297,11 @@ class DataApi(object):
         """
         Returns the sections for a teacher
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.get_sections_for_teacher_with_http_info(id, async=True)
+        asynchronous HTTP request, please pass async_=True
+        >>> thread = api.get_sections_for_teacher_with_http_info(id, async_=True)
         >>> result = thread.get()
 
-        :param async bool
+        :param async_ bool
         :param str id: (required)
         :param int limit:
         :param str starting_after:
@@ -3312,7 +3312,7 @@ class DataApi(object):
         """
 
         all_params = ['id', 'limit', 'starting_after', 'ending_before']
-        all_params.append('async')
+        all_params.append('async_')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
         all_params.append('_request_timeout')
@@ -3367,7 +3367,7 @@ class DataApi(object):
                                         files=local_var_files,
                                         response_type='SectionsResponse',
                                         auth_settings=auth_settings,
-                                        async=params.get('async'),
+                                        async_=params.get('async_'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
                                         _preload_content=params.get('_preload_content', True),
                                         _request_timeout=params.get('_request_timeout'),
@@ -3377,11 +3377,11 @@ class DataApi(object):
         """
         Returns the sections for a term
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.get_sections_for_term(id, async=True)
+        asynchronous HTTP request, please pass async_=True
+        >>> thread = api.get_sections_for_term(id, async_=True)
         >>> result = thread.get()
 
-        :param async bool
+        :param async_ bool
         :param str id: (required)
         :param int limit:
         :param str starting_after:
@@ -3391,7 +3391,7 @@ class DataApi(object):
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('async'):
+        if kwargs.get('async_'):
             return self.get_sections_for_term_with_http_info(id, **kwargs)
         else:
             (data) = self.get_sections_for_term_with_http_info(id, **kwargs)
@@ -3401,11 +3401,11 @@ class DataApi(object):
         """
         Returns the sections for a term
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.get_sections_for_term_with_http_info(id, async=True)
+        asynchronous HTTP request, please pass async_=True
+        >>> thread = api.get_sections_for_term_with_http_info(id, async_=True)
         >>> result = thread.get()
 
-        :param async bool
+        :param async_ bool
         :param str id: (required)
         :param int limit:
         :param str starting_after:
@@ -3416,7 +3416,7 @@ class DataApi(object):
         """
 
         all_params = ['id', 'limit', 'starting_after', 'ending_before']
-        all_params.append('async')
+        all_params.append('async_')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
         all_params.append('_request_timeout')
@@ -3471,7 +3471,7 @@ class DataApi(object):
                                         files=local_var_files,
                                         response_type='SectionsResponse',
                                         auth_settings=auth_settings,
-                                        async=params.get('async'),
+                                        async_=params.get('async_'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
                                         _preload_content=params.get('_preload_content', True),
                                         _request_timeout=params.get('_request_timeout'),
@@ -3481,18 +3481,18 @@ class DataApi(object):
         """
         Returns a specific student
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.get_student(id, async=True)
+        asynchronous HTTP request, please pass async_=True
+        >>> thread = api.get_student(id, async_=True)
         >>> result = thread.get()
 
-        :param async bool
+        :param async_ bool
         :param str id: (required)
         :return: StudentResponse
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('async'):
+        if kwargs.get('async_'):
             return self.get_student_with_http_info(id, **kwargs)
         else:
             (data) = self.get_student_with_http_info(id, **kwargs)
@@ -3502,11 +3502,11 @@ class DataApi(object):
         """
         Returns a specific student
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.get_student_with_http_info(id, async=True)
+        asynchronous HTTP request, please pass async_=True
+        >>> thread = api.get_student_with_http_info(id, async_=True)
         >>> result = thread.get()
 
-        :param async bool
+        :param async_ bool
         :param str id: (required)
         :return: StudentResponse
                  If the method is called asynchronously,
@@ -3514,7 +3514,7 @@ class DataApi(object):
         """
 
         all_params = ['id']
-        all_params.append('async')
+        all_params.append('async_')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
         all_params.append('_request_timeout')
@@ -3563,7 +3563,7 @@ class DataApi(object):
                                         files=local_var_files,
                                         response_type='StudentResponse',
                                         auth_settings=auth_settings,
-                                        async=params.get('async'),
+                                        async_=params.get('async_'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
                                         _preload_content=params.get('_preload_content', True),
                                         _request_timeout=params.get('_request_timeout'),
@@ -3573,11 +3573,11 @@ class DataApi(object):
         """
         Returns a list of students
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.get_students(async=True)
+        asynchronous HTTP request, please pass async_=True
+        >>> thread = api.get_students(async_=True)
         >>> result = thread.get()
 
-        :param async bool
+        :param async_ bool
         :param int limit:
         :param str starting_after:
         :param str ending_before:
@@ -3586,7 +3586,7 @@ class DataApi(object):
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('async'):
+        if kwargs.get('async_'):
             return self.get_students_with_http_info(**kwargs)
         else:
             (data) = self.get_students_with_http_info(**kwargs)
@@ -3596,11 +3596,11 @@ class DataApi(object):
         """
         Returns a list of students
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.get_students_with_http_info(async=True)
+        asynchronous HTTP request, please pass async_=True
+        >>> thread = api.get_students_with_http_info(async_=True)
         >>> result = thread.get()
 
-        :param async bool
+        :param async_ bool
         :param int limit:
         :param str starting_after:
         :param str ending_before:
@@ -3610,7 +3610,7 @@ class DataApi(object):
         """
 
         all_params = ['limit', 'starting_after', 'ending_before']
-        all_params.append('async')
+        all_params.append('async_')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
         all_params.append('_request_timeout')
@@ -3660,7 +3660,7 @@ class DataApi(object):
                                         files=local_var_files,
                                         response_type='StudentsResponse',
                                         auth_settings=auth_settings,
-                                        async=params.get('async'),
+                                        async_=params.get('async_'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
                                         _preload_content=params.get('_preload_content', True),
                                         _request_timeout=params.get('_request_timeout'),
@@ -3670,11 +3670,11 @@ class DataApi(object):
         """
         Returns the students for a student contact
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.get_students_for_contact(id, async=True)
+        asynchronous HTTP request, please pass async_=True
+        >>> thread = api.get_students_for_contact(id, async_=True)
         >>> result = thread.get()
 
-        :param async bool
+        :param async_ bool
         :param str id: (required)
         :param int limit:
         :param str starting_after:
@@ -3684,7 +3684,7 @@ class DataApi(object):
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('async'):
+        if kwargs.get('async_'):
             return self.get_students_for_contact_with_http_info(id, **kwargs)
         else:
             (data) = self.get_students_for_contact_with_http_info(id, **kwargs)
@@ -3694,11 +3694,11 @@ class DataApi(object):
         """
         Returns the students for a student contact
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.get_students_for_contact_with_http_info(id, async=True)
+        asynchronous HTTP request, please pass async_=True
+        >>> thread = api.get_students_for_contact_with_http_info(id, async_=True)
         >>> result = thread.get()
 
-        :param async bool
+        :param async_ bool
         :param str id: (required)
         :param int limit:
         :param str starting_after:
@@ -3709,7 +3709,7 @@ class DataApi(object):
         """
 
         all_params = ['id', 'limit', 'starting_after', 'ending_before']
-        all_params.append('async')
+        all_params.append('async_')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
         all_params.append('_request_timeout')
@@ -3764,7 +3764,7 @@ class DataApi(object):
                                         files=local_var_files,
                                         response_type='StudentsResponse',
                                         auth_settings=auth_settings,
-                                        async=params.get('async'),
+                                        async_=params.get('async_'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
                                         _preload_content=params.get('_preload_content', True),
                                         _request_timeout=params.get('_request_timeout'),
@@ -3774,11 +3774,11 @@ class DataApi(object):
         """
         Returns the students for a school
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.get_students_for_school(id, async=True)
+        asynchronous HTTP request, please pass async_=True
+        >>> thread = api.get_students_for_school(id, async_=True)
         >>> result = thread.get()
 
-        :param async bool
+        :param async_ bool
         :param str id: (required)
         :param int limit:
         :param str starting_after:
@@ -3788,7 +3788,7 @@ class DataApi(object):
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('async'):
+        if kwargs.get('async_'):
             return self.get_students_for_school_with_http_info(id, **kwargs)
         else:
             (data) = self.get_students_for_school_with_http_info(id, **kwargs)
@@ -3798,11 +3798,11 @@ class DataApi(object):
         """
         Returns the students for a school
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.get_students_for_school_with_http_info(id, async=True)
+        asynchronous HTTP request, please pass async_=True
+        >>> thread = api.get_students_for_school_with_http_info(id, async_=True)
         >>> result = thread.get()
 
-        :param async bool
+        :param async_ bool
         :param str id: (required)
         :param int limit:
         :param str starting_after:
@@ -3813,7 +3813,7 @@ class DataApi(object):
         """
 
         all_params = ['id', 'limit', 'starting_after', 'ending_before']
-        all_params.append('async')
+        all_params.append('async_')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
         all_params.append('_request_timeout')
@@ -3868,7 +3868,7 @@ class DataApi(object):
                                         files=local_var_files,
                                         response_type='StudentsResponse',
                                         auth_settings=auth_settings,
-                                        async=params.get('async'),
+                                        async_=params.get('async_'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
                                         _preload_content=params.get('_preload_content', True),
                                         _request_timeout=params.get('_request_timeout'),
@@ -3878,11 +3878,11 @@ class DataApi(object):
         """
         Returns the students for a section
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.get_students_for_section(id, async=True)
+        asynchronous HTTP request, please pass async_=True
+        >>> thread = api.get_students_for_section(id, async_=True)
         >>> result = thread.get()
 
-        :param async bool
+        :param async_ bool
         :param str id: (required)
         :param int limit:
         :param str starting_after:
@@ -3892,7 +3892,7 @@ class DataApi(object):
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('async'):
+        if kwargs.get('async_'):
             return self.get_students_for_section_with_http_info(id, **kwargs)
         else:
             (data) = self.get_students_for_section_with_http_info(id, **kwargs)
@@ -3902,11 +3902,11 @@ class DataApi(object):
         """
         Returns the students for a section
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.get_students_for_section_with_http_info(id, async=True)
+        asynchronous HTTP request, please pass async_=True
+        >>> thread = api.get_students_for_section_with_http_info(id, async_=True)
         >>> result = thread.get()
 
-        :param async bool
+        :param async_ bool
         :param str id: (required)
         :param int limit:
         :param str starting_after:
@@ -3917,7 +3917,7 @@ class DataApi(object):
         """
 
         all_params = ['id', 'limit', 'starting_after', 'ending_before']
-        all_params.append('async')
+        all_params.append('async_')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
         all_params.append('_request_timeout')
@@ -3972,7 +3972,7 @@ class DataApi(object):
                                         files=local_var_files,
                                         response_type='StudentsResponse',
                                         auth_settings=auth_settings,
-                                        async=params.get('async'),
+                                        async_=params.get('async_'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
                                         _preload_content=params.get('_preload_content', True),
                                         _request_timeout=params.get('_request_timeout'),
@@ -3982,11 +3982,11 @@ class DataApi(object):
         """
         Returns the students for a teacher
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.get_students_for_teacher(id, async=True)
+        asynchronous HTTP request, please pass async_=True
+        >>> thread = api.get_students_for_teacher(id, async_=True)
         >>> result = thread.get()
 
-        :param async bool
+        :param async_ bool
         :param str id: (required)
         :param int limit:
         :param str starting_after:
@@ -3996,7 +3996,7 @@ class DataApi(object):
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('async'):
+        if kwargs.get('async_'):
             return self.get_students_for_teacher_with_http_info(id, **kwargs)
         else:
             (data) = self.get_students_for_teacher_with_http_info(id, **kwargs)
@@ -4006,11 +4006,11 @@ class DataApi(object):
         """
         Returns the students for a teacher
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.get_students_for_teacher_with_http_info(id, async=True)
+        asynchronous HTTP request, please pass async_=True
+        >>> thread = api.get_students_for_teacher_with_http_info(id, async_=True)
         >>> result = thread.get()
 
-        :param async bool
+        :param async_ bool
         :param str id: (required)
         :param int limit:
         :param str starting_after:
@@ -4021,7 +4021,7 @@ class DataApi(object):
         """
 
         all_params = ['id', 'limit', 'starting_after', 'ending_before']
-        all_params.append('async')
+        all_params.append('async_')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
         all_params.append('_request_timeout')
@@ -4076,7 +4076,7 @@ class DataApi(object):
                                         files=local_var_files,
                                         response_type='StudentsResponse',
                                         auth_settings=auth_settings,
-                                        async=params.get('async'),
+                                        async_=params.get('async_'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
                                         _preload_content=params.get('_preload_content', True),
                                         _request_timeout=params.get('_request_timeout'),
@@ -4086,18 +4086,18 @@ class DataApi(object):
         """
         Returns a specific teacher
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.get_teacher(id, async=True)
+        asynchronous HTTP request, please pass async_=True
+        >>> thread = api.get_teacher(id, async_=True)
         >>> result = thread.get()
 
-        :param async bool
+        :param async_ bool
         :param str id: (required)
         :return: TeacherResponse
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('async'):
+        if kwargs.get('async_'):
             return self.get_teacher_with_http_info(id, **kwargs)
         else:
             (data) = self.get_teacher_with_http_info(id, **kwargs)
@@ -4107,11 +4107,11 @@ class DataApi(object):
         """
         Returns a specific teacher
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.get_teacher_with_http_info(id, async=True)
+        asynchronous HTTP request, please pass async_=True
+        >>> thread = api.get_teacher_with_http_info(id, async_=True)
         >>> result = thread.get()
 
-        :param async bool
+        :param async_ bool
         :param str id: (required)
         :return: TeacherResponse
                  If the method is called asynchronously,
@@ -4119,7 +4119,7 @@ class DataApi(object):
         """
 
         all_params = ['id']
-        all_params.append('async')
+        all_params.append('async_')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
         all_params.append('_request_timeout')
@@ -4168,7 +4168,7 @@ class DataApi(object):
                                         files=local_var_files,
                                         response_type='TeacherResponse',
                                         auth_settings=auth_settings,
-                                        async=params.get('async'),
+                                        async_=params.get('async_'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
                                         _preload_content=params.get('_preload_content', True),
                                         _request_timeout=params.get('_request_timeout'),
@@ -4178,18 +4178,18 @@ class DataApi(object):
         """
         Returns the primary teacher for a section
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.get_teacher_for_section(id, async=True)
+        asynchronous HTTP request, please pass async_=True
+        >>> thread = api.get_teacher_for_section(id, async_=True)
         >>> result = thread.get()
 
-        :param async bool
+        :param async_ bool
         :param str id: (required)
         :return: TeacherResponse
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('async'):
+        if kwargs.get('async_'):
             return self.get_teacher_for_section_with_http_info(id, **kwargs)
         else:
             (data) = self.get_teacher_for_section_with_http_info(id, **kwargs)
@@ -4199,11 +4199,11 @@ class DataApi(object):
         """
         Returns the primary teacher for a section
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.get_teacher_for_section_with_http_info(id, async=True)
+        asynchronous HTTP request, please pass async_=True
+        >>> thread = api.get_teacher_for_section_with_http_info(id, async_=True)
         >>> result = thread.get()
 
-        :param async bool
+        :param async_ bool
         :param str id: (required)
         :return: TeacherResponse
                  If the method is called asynchronously,
@@ -4211,7 +4211,7 @@ class DataApi(object):
         """
 
         all_params = ['id']
-        all_params.append('async')
+        all_params.append('async_')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
         all_params.append('_request_timeout')
@@ -4260,7 +4260,7 @@ class DataApi(object):
                                         files=local_var_files,
                                         response_type='TeacherResponse',
                                         auth_settings=auth_settings,
-                                        async=params.get('async'),
+                                        async_=params.get('async_'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
                                         _preload_content=params.get('_preload_content', True),
                                         _request_timeout=params.get('_request_timeout'),
@@ -4270,11 +4270,11 @@ class DataApi(object):
         """
         Returns a list of teachers
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.get_teachers(async=True)
+        asynchronous HTTP request, please pass async_=True
+        >>> thread = api.get_teachers(async_=True)
         >>> result = thread.get()
 
-        :param async bool
+        :param async_ bool
         :param int limit:
         :param str starting_after:
         :param str ending_before:
@@ -4283,7 +4283,7 @@ class DataApi(object):
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('async'):
+        if kwargs.get('async_'):
             return self.get_teachers_with_http_info(**kwargs)
         else:
             (data) = self.get_teachers_with_http_info(**kwargs)
@@ -4293,11 +4293,11 @@ class DataApi(object):
         """
         Returns a list of teachers
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.get_teachers_with_http_info(async=True)
+        asynchronous HTTP request, please pass async_=True
+        >>> thread = api.get_teachers_with_http_info(async_=True)
         >>> result = thread.get()
 
-        :param async bool
+        :param async_ bool
         :param int limit:
         :param str starting_after:
         :param str ending_before:
@@ -4307,7 +4307,7 @@ class DataApi(object):
         """
 
         all_params = ['limit', 'starting_after', 'ending_before']
-        all_params.append('async')
+        all_params.append('async_')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
         all_params.append('_request_timeout')
@@ -4357,7 +4357,7 @@ class DataApi(object):
                                         files=local_var_files,
                                         response_type='TeachersResponse',
                                         auth_settings=auth_settings,
-                                        async=params.get('async'),
+                                        async_=params.get('async_'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
                                         _preload_content=params.get('_preload_content', True),
                                         _request_timeout=params.get('_request_timeout'),
@@ -4367,11 +4367,11 @@ class DataApi(object):
         """
         Returns the teachers for a school
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.get_teachers_for_school(id, async=True)
+        asynchronous HTTP request, please pass async_=True
+        >>> thread = api.get_teachers_for_school(id, async_=True)
         >>> result = thread.get()
 
-        :param async bool
+        :param async_ bool
         :param str id: (required)
         :param int limit:
         :param str starting_after:
@@ -4381,7 +4381,7 @@ class DataApi(object):
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('async'):
+        if kwargs.get('async_'):
             return self.get_teachers_for_school_with_http_info(id, **kwargs)
         else:
             (data) = self.get_teachers_for_school_with_http_info(id, **kwargs)
@@ -4391,11 +4391,11 @@ class DataApi(object):
         """
         Returns the teachers for a school
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.get_teachers_for_school_with_http_info(id, async=True)
+        asynchronous HTTP request, please pass async_=True
+        >>> thread = api.get_teachers_for_school_with_http_info(id, async_=True)
         >>> result = thread.get()
 
-        :param async bool
+        :param async_ bool
         :param str id: (required)
         :param int limit:
         :param str starting_after:
@@ -4406,7 +4406,7 @@ class DataApi(object):
         """
 
         all_params = ['id', 'limit', 'starting_after', 'ending_before']
-        all_params.append('async')
+        all_params.append('async_')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
         all_params.append('_request_timeout')
@@ -4461,7 +4461,7 @@ class DataApi(object):
                                         files=local_var_files,
                                         response_type='TeachersResponse',
                                         auth_settings=auth_settings,
-                                        async=params.get('async'),
+                                        async_=params.get('async_'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
                                         _preload_content=params.get('_preload_content', True),
                                         _request_timeout=params.get('_request_timeout'),
@@ -4471,11 +4471,11 @@ class DataApi(object):
         """
         Returns the teachers for a section
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.get_teachers_for_section(id, async=True)
+        asynchronous HTTP request, please pass async_=True
+        >>> thread = api.get_teachers_for_section(id, async_=True)
         >>> result = thread.get()
 
-        :param async bool
+        :param async_ bool
         :param str id: (required)
         :param int limit:
         :param str starting_after:
@@ -4485,7 +4485,7 @@ class DataApi(object):
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('async'):
+        if kwargs.get('async_'):
             return self.get_teachers_for_section_with_http_info(id, **kwargs)
         else:
             (data) = self.get_teachers_for_section_with_http_info(id, **kwargs)
@@ -4495,11 +4495,11 @@ class DataApi(object):
         """
         Returns the teachers for a section
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.get_teachers_for_section_with_http_info(id, async=True)
+        asynchronous HTTP request, please pass async_=True
+        >>> thread = api.get_teachers_for_section_with_http_info(id, async_=True)
         >>> result = thread.get()
 
-        :param async bool
+        :param async_ bool
         :param str id: (required)
         :param int limit:
         :param str starting_after:
@@ -4510,7 +4510,7 @@ class DataApi(object):
         """
 
         all_params = ['id', 'limit', 'starting_after', 'ending_before']
-        all_params.append('async')
+        all_params.append('async_')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
         all_params.append('_request_timeout')
@@ -4565,7 +4565,7 @@ class DataApi(object):
                                         files=local_var_files,
                                         response_type='TeachersResponse',
                                         auth_settings=auth_settings,
-                                        async=params.get('async'),
+                                        async_=params.get('async_'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
                                         _preload_content=params.get('_preload_content', True),
                                         _request_timeout=params.get('_request_timeout'),
@@ -4575,11 +4575,11 @@ class DataApi(object):
         """
         Returns the teachers for a student
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.get_teachers_for_student(id, async=True)
+        asynchronous HTTP request, please pass async_=True
+        >>> thread = api.get_teachers_for_student(id, async_=True)
         >>> result = thread.get()
 
-        :param async bool
+        :param async_ bool
         :param str id: (required)
         :param int limit:
         :param str starting_after:
@@ -4589,7 +4589,7 @@ class DataApi(object):
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('async'):
+        if kwargs.get('async_'):
             return self.get_teachers_for_student_with_http_info(id, **kwargs)
         else:
             (data) = self.get_teachers_for_student_with_http_info(id, **kwargs)
@@ -4599,11 +4599,11 @@ class DataApi(object):
         """
         Returns the teachers for a student
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.get_teachers_for_student_with_http_info(id, async=True)
+        asynchronous HTTP request, please pass async_=True
+        >>> thread = api.get_teachers_for_student_with_http_info(id, async_=True)
         >>> result = thread.get()
 
-        :param async bool
+        :param async_ bool
         :param str id: (required)
         :param int limit:
         :param str starting_after:
@@ -4614,7 +4614,7 @@ class DataApi(object):
         """
 
         all_params = ['id', 'limit', 'starting_after', 'ending_before']
-        all_params.append('async')
+        all_params.append('async_')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
         all_params.append('_request_timeout')
@@ -4669,7 +4669,7 @@ class DataApi(object):
                                         files=local_var_files,
                                         response_type='TeachersResponse',
                                         auth_settings=auth_settings,
-                                        async=params.get('async'),
+                                        async_=params.get('async_'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
                                         _preload_content=params.get('_preload_content', True),
                                         _request_timeout=params.get('_request_timeout'),
@@ -4679,18 +4679,18 @@ class DataApi(object):
         """
         Returns a specific term
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.get_term(id, async=True)
+        asynchronous HTTP request, please pass async_=True
+        >>> thread = api.get_term(id, async_=True)
         >>> result = thread.get()
 
-        :param async bool
+        :param async_ bool
         :param str id: (required)
         :return: TermResponse
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('async'):
+        if kwargs.get('async_'):
             return self.get_term_with_http_info(id, **kwargs)
         else:
             (data) = self.get_term_with_http_info(id, **kwargs)
@@ -4700,11 +4700,11 @@ class DataApi(object):
         """
         Returns a specific term
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.get_term_with_http_info(id, async=True)
+        asynchronous HTTP request, please pass async_=True
+        >>> thread = api.get_term_with_http_info(id, async_=True)
         >>> result = thread.get()
 
-        :param async bool
+        :param async_ bool
         :param str id: (required)
         :return: TermResponse
                  If the method is called asynchronously,
@@ -4712,7 +4712,7 @@ class DataApi(object):
         """
 
         all_params = ['id']
-        all_params.append('async')
+        all_params.append('async_')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
         all_params.append('_request_timeout')
@@ -4761,7 +4761,7 @@ class DataApi(object):
                                         files=local_var_files,
                                         response_type='TermResponse',
                                         auth_settings=auth_settings,
-                                        async=params.get('async'),
+                                        async_=params.get('async_'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
                                         _preload_content=params.get('_preload_content', True),
                                         _request_timeout=params.get('_request_timeout'),
@@ -4771,18 +4771,18 @@ class DataApi(object):
         """
         Returns the term for a section
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.get_term_for_section(id, async=True)
+        asynchronous HTTP request, please pass async_=True
+        >>> thread = api.get_term_for_section(id, async_=True)
         >>> result = thread.get()
 
-        :param async bool
+        :param async_ bool
         :param str id: (required)
         :return: TermResponse
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('async'):
+        if kwargs.get('async_'):
             return self.get_term_for_section_with_http_info(id, **kwargs)
         else:
             (data) = self.get_term_for_section_with_http_info(id, **kwargs)
@@ -4792,11 +4792,11 @@ class DataApi(object):
         """
         Returns the term for a section
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.get_term_for_section_with_http_info(id, async=True)
+        asynchronous HTTP request, please pass async_=True
+        >>> thread = api.get_term_for_section_with_http_info(id, async_=True)
         >>> result = thread.get()
 
-        :param async bool
+        :param async_ bool
         :param str id: (required)
         :return: TermResponse
                  If the method is called asynchronously,
@@ -4804,7 +4804,7 @@ class DataApi(object):
         """
 
         all_params = ['id']
-        all_params.append('async')
+        all_params.append('async_')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
         all_params.append('_request_timeout')
@@ -4853,7 +4853,7 @@ class DataApi(object):
                                         files=local_var_files,
                                         response_type='TermResponse',
                                         auth_settings=auth_settings,
-                                        async=params.get('async'),
+                                        async_=params.get('async_'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
                                         _preload_content=params.get('_preload_content', True),
                                         _request_timeout=params.get('_request_timeout'),
@@ -4863,11 +4863,11 @@ class DataApi(object):
         """
         Returns a list of terms
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.get_terms(async=True)
+        asynchronous HTTP request, please pass async_=True
+        >>> thread = api.get_terms(async_=True)
         >>> result = thread.get()
 
-        :param async bool
+        :param async_ bool
         :param int limit:
         :param str starting_after:
         :param str ending_before:
@@ -4876,7 +4876,7 @@ class DataApi(object):
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
-        if kwargs.get('async'):
+        if kwargs.get('async_'):
             return self.get_terms_with_http_info(**kwargs)
         else:
             (data) = self.get_terms_with_http_info(**kwargs)
@@ -4886,11 +4886,11 @@ class DataApi(object):
         """
         Returns a list of terms
         This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async=True
-        >>> thread = api.get_terms_with_http_info(async=True)
+        asynchronous HTTP request, please pass async_=True
+        >>> thread = api.get_terms_with_http_info(async_=True)
         >>> result = thread.get()
 
-        :param async bool
+        :param async_ bool
         :param int limit:
         :param str starting_after:
         :param str ending_before:
@@ -4900,7 +4900,7 @@ class DataApi(object):
         """
 
         all_params = ['limit', 'starting_after', 'ending_before']
-        all_params.append('async')
+        all_params.append('async_')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
         all_params.append('_request_timeout')
@@ -4950,7 +4950,7 @@ class DataApi(object):
                                         files=local_var_files,
                                         response_type='TermsResponse',
                                         auth_settings=auth_settings,
-                                        async=params.get('async'),
+                                        async_=params.get('async_'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
                                         _preload_content=params.get('_preload_content', True),
                                         _request_timeout=params.get('_request_timeout'),
