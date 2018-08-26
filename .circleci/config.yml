@@ -17,5 +17,6 @@ jobs:
         command: mkdir -p $CIRCLE_ARTIFACTS $CIRCLE_TEST_REPORTS
         name: Set up CircleCI artifacts directories
     - run: sudo pip install -r test-requirements.txt
-    - run: sudo make test
+    - run: sudo pip install -r requirements.txt
+    - run: make test
     - run: $HOME/ci-scripts/circleci/report-card $RC_DOCKER_USER $RC_DOCKER_PASS "$RC_DOCKER_EMAIL" $RC_GITHUB_TOKEN
