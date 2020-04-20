@@ -1,3 +1,6 @@
+## 2.5.0 (2020-04-20)
+ * Remove certificate pinning
+
 ## 2.4.0 (2017-09-18)
  * Use API v1.2
 
