@@ -80,8 +80,6 @@ json = importer.import_json()
 
 logger = logging.getLogger('clever')
 
-# Use certs chain bundle including in the package for SSL verification
-CLEVER_CERTS = pkg_resources.resource_filename(__name__, 'data/clever.com_ca_bundle.crt')
 API_VERSION = "v1.2"
 
 # Configuration variables
@@ -305,17 +303,8 @@ class APIRequestor(object):
 
     try:
       try:
-        # Use a CA_BUNDLE containing the following chain:
-        # - TrustedRoot
-        # - DigiCert High Assurance EV - 1
-        #
-        # This ensures that only this certificate chain is used to verify SSL certs.
-        # Certs dervived from other ca certs will be treated as invalid.
-        # eg. https://api.twitter.com and https://api.stripe.com FAIL
-        #     https://api.clever.com and https://api.github.com PASS
         result = requests.request(meth, abs_url,
-                                  headers=headers, data=data, timeout=80,
-                                  verify=CLEVER_CERTS)
+                                  headers=headers, data=data, timeout=80)
       except TypeError as e:
         raise TypeError(
             'Warning: It looks like your installed version of the "requests" library is not compatible with Clever\'s usage thereof. (HINT: The most likely cause is that your "requests" library is out of date. You can fix that by running "pip install -U requests".) The underlying error was: %s' % (e, ))
@@ -378,10 +367,6 @@ class APIRequestor(object):
     curl.setopt(pycurl.TIMEOUT, 80)
     curl.setopt(pycurl.HTTPHEADER, ['%s: %s' % (k, v) for k, v in six.iteritems(headers)])
     curl.setopt(pycurl.HEADERFUNCTION, rheader.write)
-    if verify_ssl_certs:
-      curl.setopt(pycurl.CAINFO, CLEVER_CERTS)
-    else:
-      curl.setopt(pycurl.SSL_VERIFYHOST, False)
 
     try:
       curl.perform()
@@ -419,9 +404,6 @@ class APIRequestor(object):
     args['url'] = abs_url
     args['method'] = meth
     args['headers'] = headers
-    # Google App Engine doesn't let us specify our own cert bundle.
-    # However, that's ok because the CA bundle they use recognizes
-    # api.clever.com.
     args['validate_certificate'] = verify_ssl_certs
     # GAE requests time out after 60 seconds, so make sure we leave
     # some time for the application to handle a slow Clever
