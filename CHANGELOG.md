@@ -1,3 +1,6 @@
+## 3.0.3 (2018-08-22)
+* Renames async keyword to async_ to allow Python 3.7 support
+
 ## 3.0.2 (2018-07-16)
 * Removes implicit relative imports which are not supported in Python 3
 
